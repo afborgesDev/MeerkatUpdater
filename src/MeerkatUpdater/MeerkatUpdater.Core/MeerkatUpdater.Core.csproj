@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>.\MerrkatUpdater.Core.xml</DocumentationFile>
+    <DocumentationFile>.\MeerkatUpdater.Core.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
