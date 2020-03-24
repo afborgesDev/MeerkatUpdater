@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace MeerkatUpdater.Config
+namespace MeerkatUpdater.Config.Models
 {
     /// <summary>
     /// All basic configurations for MeerkatUpdate runs and try to update

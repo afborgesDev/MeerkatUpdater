@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MeerkatUpdater.Config
+namespace MeerkatUpdater.Config.Models
 {
     /// <summary>
     /// Aggregated configurations for the update process
