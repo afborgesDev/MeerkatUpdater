@@ -80,13 +80,13 @@ namespace MeerkatUpdater.Config.Test
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Generate a yml string valid configurations")]
+        [Xunit.SkippableFactAttribute(DisplayName="Generate a valid yml string for default configurations")]
         [Xunit.TraitAttribute("FeatureTitle", "In order to make sure that the default configurations")]
-        [Xunit.TraitAttribute("Description", "Generate a yml string valid configurations")]
-        public virtual void GenerateAYmlStringValidConfigurations()
+        [Xunit.TraitAttribute("Description", "Generate a valid yml string for default configurations")]
+        public virtual void GenerateAValidYmlStringForDefaultConfigurations()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate a yml string valid configurations", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate a valid yml string for default configurations", null, ((string[])(null)));
 #line 4
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -111,13 +111,57 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("The static default method to generate the configurations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
- testRunner.When("The string result should not be empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("has a valid string result", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
  testRunner.Then("The string result should be a valid yml file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 8
   testRunner.And("the string result could serialize back into the ExecutionConfiguration class", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Generate a valid yml file for default configurations")]
+        [Xunit.TraitAttribute("FeatureTitle", "In order to make sure that the default configurations")]
+        [Xunit.TraitAttribute("Description", "Generate a valid yml file for default configurations")]
+        public virtual void GenerateAValidYmlFileForDefaultConfigurations()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate a valid yml file for default configurations", null, ((string[])(null)));
+#line 10
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 11
+ testRunner.Given("The static default method to generate the file using the path: \'meerkatupdated.ym" +
+                        "l\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 12
+  testRunner.When("has a existent file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 13
+  testRunner.Then("the file is a valid yml", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 14
+  testRunner.And("the file can be serialized back into the ExecutionConfiguration class", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
