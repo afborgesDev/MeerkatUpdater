@@ -5,7 +5,7 @@ namespace MeerkatUpdater.Config.Models
     /// <summary>
     /// Aggregated configurations for the update process
     /// </summary>
-    public class UpdateConfigurations
+    public sealed class UpdateConfigurations
     {
         /// <summary>
         /// Sets if the process will continue if the updates fail
@@ -15,6 +15,6 @@ namespace MeerkatUpdater.Config.Models
         /// <summary>
         /// Sets the types of semantic versions that will be updated
         /// </summary>
-        public IEnumerable<SemanticVersion> AllowedVersionsToUpdate { get; set; }
+        public HashSet<SemanticVersion> AllowedVersionsToUpdate { get; } = new HashSet<SemanticVersion>();
     }
 }

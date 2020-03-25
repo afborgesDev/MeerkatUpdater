@@ -4,6 +4,23 @@
         <name>MeerkatUpdater.Config</name>
     </assembly>
     <members>
+        <member name="T:MeerkatUpdater.Config.DefaultConfigYmlGenerator">
+            <summary>
+            Generate the default yml file that have the default convetions for the configurations
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Config.DefaultConfigYmlGenerator.GenerateDefaultConfigurations">
+            <summary>
+            Generate the yml string with the default configurations
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MeerkatUpdater.Config.DefaultConfigYmlGenerator.GenerateYmlFileForDefaultConfigurations(System.String)">
+            <summary>
+            Generate the yml configuration files that have the default convertions
+            </summary>
+            <param name="filePath"></param>
+        </member>
         <member name="T:MeerkatUpdater.Config.Models.ExecutionConfigurations">
             <summary>
             All basic configurations for MeerkatUpdate runs and try to update
