@@ -171,9 +171,10 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "In order to make sure that the default configurations")]
         [Xunit.TraitAttribute("Description", "Do not generate a valid yml file using a invalid path")]
         [Xunit.InlineDataAttribute("string.empty", "ArgumentNullException", new string[0])]
-        [Xunit.InlineDataAttribute("--#$!#@#", "ArgumentException", new string[0])]
-        [Xunit.InlineDataAttribute("PathWithOutSln", "ArgumentException", new string[0])]
+        [Xunit.InlineDataAttribute("--#$!#@#\\", "ArgumentException", new string[0])]
+        [Xunit.InlineDataAttribute("PathWithOutYml\\", "ArgumentException", new string[0])]
         [Xunit.InlineDataAttribute("null", "ArgumentNullException", new string[0])]
+        [Xunit.InlineDataAttribute("Path.sln", "ArgumentException", new string[0])]
         public virtual void DoNotGenerateAValidYmlFileUsingAInvalidPath(string invalidPath, string exceptionType, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;

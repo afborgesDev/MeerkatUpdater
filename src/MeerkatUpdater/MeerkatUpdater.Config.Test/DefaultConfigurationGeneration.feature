@@ -18,8 +18,9 @@ Scenario Outline: Do not generate a valid yml file using a invalid path
 	  When the static method to generate file is executed
 	  Then An exception of '<exceptionType>' is raised	  
 	Examples: 
-	| invalidPath    | exceptionType         |
-	| string.empty   | ArgumentNullException |
-	| --#$!#@#       | ArgumentException     |
-	| PathWithOutSln | ArgumentException     |
-	| null           | ArgumentNullException |
+	| invalidPath     | exceptionType         |
+	| string.empty    | ArgumentNullException |
+	| --#$!#@#\       | ArgumentException     |
+	| PathWithOutYml\ | ArgumentException     |
+	| null            | ArgumentNullException |
+	| Path.sln        | ArgumentException     |
