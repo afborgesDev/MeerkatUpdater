@@ -167,6 +167,50 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.SkippableTheoryAttribute(DisplayName="Do not generate a valid yml file using a invalid path")]
+        [Xunit.TraitAttribute("FeatureTitle", "In order to make sure that the default configurations")]
+        [Xunit.TraitAttribute("Description", "Do not generate a valid yml file using a invalid path")]
+        [Xunit.InlineDataAttribute("string.empty", "ArgumentNullException", new string[0])]
+        [Xunit.InlineDataAttribute("--#$!#@#", "ArgumentException", new string[0])]
+        [Xunit.InlineDataAttribute("PathWithOutSln", "ArgumentException", new string[0])]
+        [Xunit.InlineDataAttribute("null", "ArgumentNullException", new string[0])]
+        public virtual void DoNotGenerateAValidYmlFileUsingAInvalidPath(string invalidPath, string exceptionType, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Do not generate a valid yml file using a invalid path", null, exampleTags);
+#line 16
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 17
+ testRunner.Given(string.Format("Using the path: \'{0}\'", invalidPath), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 18
+   testRunner.When("the static method to generate file is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 19
+   testRunner.Then(string.Format("An exception of \'{0}\' is raised", exceptionType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

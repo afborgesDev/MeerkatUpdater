@@ -12,3 +12,14 @@ Scenario: Generate a valid yml file for default configurations
 	 When has a existent file
 	 Then the file is a valid yml
 	 And the file can be serialized back into the ExecutionConfiguration class
+
+Scenario Outline: Do not generate a valid yml file using a invalid path
+	Given Using the path: '<invalidPath>'
+	  When the static method to generate file is executed
+	  Then An exception of '<exceptionType>' is raised	  
+	Examples: 
+	| invalidPath    | exceptionType         |
+	| string.empty   | ArgumentNullException |
+	| --#$!#@#       | ArgumentException     |
+	| PathWithOutSln | ArgumentException     |
+	| null           | ArgumentNullException |

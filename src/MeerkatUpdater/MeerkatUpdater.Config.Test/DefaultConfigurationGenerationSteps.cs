@@ -14,7 +14,9 @@ namespace MeerkatUpdater.Config.Test
     {
         private const string DefaultConfigYmlIndentify = "DefaultConfigYmlIndentify";
         private const string FilePathIdentify = "FilePathIdentify";
-
+        private const string ActionToTriggerGenerateYmlFileIndex = "ActionToTriggerGenerateYmlFileIndex";
+        private const string stringEmptyIdentifyForParameters = "string.empty";
+        private const string nullIdentifyForParameters = "null";
         private readonly ScenarioContext scenarioContext;
 
         public DefaultConfigurationGenerationSteps(ScenarioContext scenarioContext) => this.scenarioContext = scenarioContext;
@@ -33,6 +35,15 @@ namespace MeerkatUpdater.Config.Test
             this.scenarioContext.Set(filePath, FilePathIdentify);
         }
 
+        [Given("Using the path: '(.*)'")]
+        public void GivenUsingThePath(string invalidPath)
+        {
+            if (invalidPath == stringEmptyIdentifyForParameters)
+                invalidPath = string.Empty;
+
+            this.scenarioContext.Set(invalidPath, FilePathIdentify);
+        }
+
         [When("has a valid string result")]
         public void WhenHasAValidStringResult()
         {
@@ -46,6 +57,17 @@ namespace MeerkatUpdater.Config.Test
             var filePath = GetFilePathResult();
             var fileExists = File.Exists(filePath);
             fileExists.Should().BeTrue();
+        }
+
+        [When("the static method to generate file is executed")]
+        public void WhenTheStaticMethodToGenerateFileIsExecuted()
+        {
+            var filePath = GetFilePathResult();
+            if (filePath == nullIdentifyForParameters)
+                filePath = default;
+
+            Action triggerTheGenerateMethod = () => DefaultConfigYmlGenerator.GenerateYmlFileForDefaultConfigurations(filePath);
+            this.scenarioContext.Set(triggerTheGenerateMethod, ActionToTriggerGenerateYmlFileIndex);
         }
 
         [Then("The string result should be a valid yml file")]
@@ -74,6 +96,19 @@ namespace MeerkatUpdater.Config.Test
         {
             var payloadResult = GetPayloadResultFromYmlFile();
             ValidateYmlPayloadCanBeConvertedToConfigClass(payloadResult);
+        }
+
+        [Then("An exception of '(.*)' is raised")]
+        public void ThenAnExceptionOfIsRaised(string exceptionType)
+        {
+            var actionToTriggerGenerateYmlFile = this.scenarioContext.Get<Action>(ActionToTriggerGenerateYmlFileIndex);
+
+            if (exceptionType == nameof(ArgumentException))
+                actionToTriggerGenerateYmlFile.Should().Throw<ArgumentException>();
+            else if (exceptionType == nameof(ArgumentNullException))
+                actionToTriggerGenerateYmlFile.Should().Throw<ArgumentNullException>();
+            else
+                throw new ArgumentOutOfRangeException($"exceptionType not configured on the tests method: {nameof(ThenAnExceptionOfIsRaised)}");
         }
 
         private static void ValidateYmlPayloadCanBeConvertedToConfigClass(string payloadResult)
@@ -114,8 +149,7 @@ namespace MeerkatUpdater.Config.Test
         private string GetPayloadResultFromYmlFile()
         {
             var filePath = GetFilePathResult();
-            var payloadResult = File.ReadAllText(filePath);
-            return payloadResult;
+            return File.ReadAllText(filePath);
         }
 
         private string GetFilePathResult() => this.scenarioContext.Get<string>(FilePathIdentify);

@@ -1,7 +1,8 @@
-﻿using System;
-using System.IO;
-using MeerkatUpdater.Config.Models;
+﻿using MeerkatUpdater.Config.Models;
 using Microsoft.Extensions.Logging;
+using System;
+using System.IO;
+using System.Linq;
 using YamlDotNet.Serialization;
 
 namespace MeerkatUpdater.Config
@@ -11,6 +12,9 @@ namespace MeerkatUpdater.Config
     /// </summary>
     public static class DefaultConfigYmlGenerator
     {
+        private const string DefaultSolutionPath = ".";
+        private static readonly string[] SupportedYamlExtensions = new string[2] { ".yml", ".yaml" };
+
         /// <summary>
         /// Generate the yml string with the default configurations
         /// </summary>
@@ -30,7 +34,28 @@ namespace MeerkatUpdater.Config
             if (string.IsNullOrWhiteSpace(filePath))
                 throw new ArgumentNullException(nameof(filePath));
 
+            if (!IsValidPath(filePath))
+                throw new ArgumentException($"The {filePath} need be a existent valid path with a .yml or .yaml file");
+
             File.WriteAllText(filePath, GenerateDefaultConfigurations());
+        }
+
+        private static bool IsValidPath(string filePath)
+        {
+            var path = Path.GetDirectoryName(Path.GetFullPath(filePath));
+            if (!Directory.Exists(path))
+                return false;
+
+            if (!HasSlnFileOnFilePath(filePath))
+                return false;
+
+            return true;
+        }
+
+        private static bool HasSlnFileOnFilePath(string filePath)
+        {
+            var fileExtension = Path.GetExtension(filePath);
+            return SupportedYamlExtensions.Any(x => x == fileExtension);
         }
 
         private static string BuildYmlFile(ExecutionConfigurations defaultConfigs)
@@ -40,15 +65,17 @@ namespace MeerkatUpdater.Config
         }
 
         private static ExecutionConfigurations BuildDefaultConfigs() =>
-            new ExecutionConfigurations {
+            new ExecutionConfigurations
+            {
                 LogLevel = LogLevel.Information,
-                SolutionPath = ".",
+                SolutionPath = DefaultSolutionPath,
                 NugetConfigurations = GetNugetDefaultConfigurations(),
                 UpdateConfigurations = GetUpdateConfigurations()
             };
 
         private static NugetConfigurations GetNugetDefaultConfigurations() =>
-            new NugetConfigurations {
+            new NugetConfigurations
+            {
                 MaxTimeSecondsTimeOut = (int)TimeSpan.FromSeconds(10).TotalSeconds,
             };
 
