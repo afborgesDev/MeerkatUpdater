@@ -1,4 +1,4 @@
-﻿using MeerkatUpdater.Config.Models;
+﻿using MeerkatUpdater.Config.Model;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
@@ -12,7 +12,16 @@ namespace MeerkatUpdater.Config
     /// </summary>
     public static class DefaultConfigYmlGenerator
     {
-        private const string DefaultSolutionPath = ".";
+        /// <summary>
+        /// The default value that is used to generate the yaml example file
+        /// </summary>
+        public const string DefaultSolutionPath = ".";
+
+        /// <summary>
+        /// The default value that is used to generate loglevel for the yaml example file
+        /// </summary>
+        public static readonly LogLevel DefaultLogLevel = LogLevel.Information;
+
         private static readonly string[] SupportedYamlExtensions = new string[2] { ".yml", ".yaml" };
 
         /// <summary>
@@ -67,17 +76,14 @@ namespace MeerkatUpdater.Config
         private static ExecutionConfigurations BuildDefaultConfigs() =>
             new ExecutionConfigurations
             {
-                LogLevel = LogLevel.Information,
+                LogLevel = DefaultLogLevel,
                 SolutionPath = DefaultSolutionPath,
                 NugetConfigurations = GetNugetDefaultConfigurations(),
                 UpdateConfigurations = GetUpdateConfigurations()
             };
 
         private static NugetConfigurations GetNugetDefaultConfigurations() =>
-            new NugetConfigurations
-            {
-                MaxTimeSecondsTimeOut = (int)TimeSpan.FromSeconds(10).TotalSeconds,
-            };
+            new NugetConfigurations { MaxTimeSecondsTimeOut = (int)TimeSpan.FromSeconds(10).TotalSeconds };
 
         private static UpdateConfigurations GetUpdateConfigurations()
         {

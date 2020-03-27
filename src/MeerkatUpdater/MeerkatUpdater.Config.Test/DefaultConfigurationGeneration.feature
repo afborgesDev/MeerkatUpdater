@@ -1,5 +1,4 @@
-﻿Feature: In order to make sure that the default configurations 
-can be well generated 
+﻿Feature: In order to make sure that the default configurations can be well generated 
 
 Scenario: Generate a valid yml string for default configurations
 	Given The static default method to generate the configurations

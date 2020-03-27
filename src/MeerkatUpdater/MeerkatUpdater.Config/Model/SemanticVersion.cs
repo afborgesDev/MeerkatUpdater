@@ -1,4 +1,4 @@
-﻿namespace MeerkatUpdater.Config.Models
+﻿namespace MeerkatUpdater.Config.Model
 {
     /// <summary>
     /// Suported semantic versions to update

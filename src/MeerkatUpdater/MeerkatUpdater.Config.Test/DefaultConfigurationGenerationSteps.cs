@@ -1,11 +1,9 @@
-﻿using System;
-using System.IO;
-using FluentAssertions;
-using MeerkatUpdater.Config.Models;
+﻿using FluentAssertions;
+using MeerkatUpdater.Config.Model;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using System;
+using System.IO;
 using TechTalk.SpecFlow;
-using YamlDotNet.Serialization;
 
 namespace MeerkatUpdater.Config.Test
 {
@@ -66,8 +64,8 @@ namespace MeerkatUpdater.Config.Test
             if (filePath == nullIdentifyForParameters)
                 filePath = default;
 
-            Action triggerTheGenerateMethod = () => DefaultConfigYmlGenerator.GenerateYmlFileForDefaultConfigurations(filePath);
-            this.scenarioContext.Set(triggerTheGenerateMethod, ActionToTriggerGenerateYmlFileIndex);
+            void triggerTheGenerateMethod() => DefaultConfigYmlGenerator.GenerateYmlFileForDefaultConfigurations(filePath);
+            this.scenarioContext.Set((Action)triggerTheGenerateMethod, ActionToTriggerGenerateYmlFileIndex);
         }
 
         [Then("The string result should be a valid yml file")]
@@ -113,11 +111,9 @@ namespace MeerkatUpdater.Config.Test
 
         private static void ValidateYmlPayloadCanBeConvertedToConfigClass(string payloadResult)
         {
-            const string DefaultPath = ".";
-
             TryDeserialize(payloadResult, out var executionConfigurations);
             executionConfigurations.Should().NotBeNull();
-            executionConfigurations.SolutionPath.Should().Be(DefaultPath);
+            executionConfigurations.SolutionPath.Should().Be(DefaultConfigYmlGenerator.DefaultSolutionPath);
             executionConfigurations.LogLevel.Should().Be(LogLevel.Information);
         }
 
@@ -129,21 +125,8 @@ namespace MeerkatUpdater.Config.Test
 
         private static bool TryDeserialize(string payload, out ExecutionConfigurations executionConfigurations)
         {
-            try
-            {
-                var serializerJson = new SerializerBuilder().JsonCompatible().Build();
-                var deserializerJson = new DeserializerBuilder().Build();
-
-                var dynamicYaml = deserializerJson.Deserialize<dynamic>(payload);
-                var jsonCompatibleYaml = serializerJson.Serialize(dynamicYaml);
-                executionConfigurations = JsonConvert.DeserializeObject<ExecutionConfigurations>(jsonCompatibleYaml);
-                return executionConfigurations != null;
-            }
-            catch (Exception e)
-            {
-                executionConfigurations = default;
-                return false;
-            }
+            executionConfigurations = DefaultYmlDeserializer.Deserialize<ExecutionConfigurations>(payload);
+            return executionConfigurations != null;
         }
 
         private string GetPayloadResultFromYmlFile()
