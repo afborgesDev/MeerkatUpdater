@@ -18,3 +18,12 @@ Scenario Outline: [not happy path] Invalid string payload
 	| payload      |
 	| string.empty |
 	| null         |
+
+Scenario Outline: [not happy path] Invalid json payload
+	Given That the json payload '<payload>'
+	When the expected execution for deserealization is prepared
+	Then the execution results into null
+	Examples: 
+	| payload        |
+	| invalidPayload |
+	

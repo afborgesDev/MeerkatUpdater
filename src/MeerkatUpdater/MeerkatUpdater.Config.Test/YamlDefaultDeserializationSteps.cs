@@ -26,6 +26,13 @@ namespace MeerkatUpdater.Config.Test
         [Given("That the payload '(.*)'")]
         public void GivenThatThePayload(string stringPayload) => this.scenarioContext.Set(stringPayload, DefaultPayloadYamlIdentify);
 
+        [Given("That the json payload '(.*)'")]
+        public void GivenThatTheJsonPayload(string payloadIdentify)
+        {
+            var payload = EmbededResourcesUtils.GetEmbededResource(payloadIdentify);
+            this.scenarioContext.Set(payload, DefaultPayloadYamlIdentify);
+        }
+
         [When("the default deserealization is triggered")]
         public void WhenTheDefaultDeserealizationIsTriggered()
         {
@@ -38,8 +45,8 @@ namespace MeerkatUpdater.Config.Test
         public void WhenTheExpectedExecutionForDeserealizationIsPrepared()
         {
             var defaultPayload = StringUtils.TableStringPareser(GetDefaultYamlPayloadFromScenario());
-            void DefaultDeserealization() => DefaultYmlDeserializer.Deserialize<ExecutionConfigurations>(defaultPayload);
-            this.scenarioContext.Set((Action)DefaultDeserealization, DefaulDeserealizationMethodAsActionIdentify);
+            ExecutionConfigurations DefaultDeserealization() => DefaultYmlDeserializer.Deserialize<ExecutionConfigurations>(defaultPayload);
+            this.scenarioContext.Set((Func<ExecutionConfigurations>)DefaultDeserealization, DefaulDeserealizationMethodAsActionIdentify);
         }
 
         [Then("the object result a not null ExecutionConfigClass")]
@@ -80,8 +87,16 @@ namespace MeerkatUpdater.Config.Test
         [Then("the execution results into a Exception")]
         public void ThenTheExecutionResultsIntoAException()
         {
-            var deserealizationMethod = this.scenarioContext.Get<Action>(DefaulDeserealizationMethodAsActionIdentify);
+            var deserealizationMethod = this.scenarioContext.Get<Func<ExecutionConfigurations>>(DefaulDeserealizationMethodAsActionIdentify);
             deserealizationMethod.Should().Throw<Exception>();
+        }
+
+        [Then("the execution results into null")]
+        public void ThenTheExecutionResultsIntoNull()
+        {
+            var deserealizationMethod = this.scenarioContext.Get<Func<ExecutionConfigurations>>(DefaulDeserealizationMethodAsActionIdentify);
+            var deserealizationResult = deserealizationMethod.Invoke();
+            deserealizationResult.Should().BeNull();
         }
 
         private string GetDefaultYamlPayloadFromScenario() => this.scenarioContext.Get<string>(DefaultPayloadYamlIdentify);
