@@ -10,3 +10,11 @@ Scenario: Default Deserealization generates a valid ExecutionConfigClass
 	  And the SolutionPath has the default solutionPath
 	  And the LogLevel has the default LogLevel
 
+Scenario Outline: [not happy path] Invalid string payload
+	Given That the payload '<payload>'
+	When the expected execution for deserealization is prepared
+	Then the execution results into a Exception 
+	Examples: 
+	| payload      |
+	| string.empty |
+	| null         |
