@@ -61,6 +61,7 @@ namespace MeerkatUpdater.Config.Test
         {
             var deserializedClass = GetDeserializedClassFromContext();
             deserializedClass.NugetConfigurations.Should().NotBeNull();
+            deserializedClass.NugetConfigurations.Sources.Count.Should().Be(1);
         }
 
         [Then("the UpdateConfigurations is not null")]

@@ -15,6 +15,6 @@ namespace MeerkatUpdater.Config.Model
         /// <summary>
         /// The adicional urls as sources from nuget
         /// </summary>
-        public IEnumerable<string> Sources { get; set; } = new List<string>();
+        public IList<string> Sources { get; } = new List<string>();
     }
 }

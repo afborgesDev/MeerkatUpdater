@@ -82,8 +82,12 @@ namespace MeerkatUpdater.Config
                 UpdateConfigurations = GetUpdateConfigurations()
             };
 
-        private static NugetConfigurations GetNugetDefaultConfigurations() =>
-            new NugetConfigurations { MaxTimeSecondsTimeOut = (int)TimeSpan.FromSeconds(10).TotalSeconds };
+        private static NugetConfigurations GetNugetDefaultConfigurations()
+        {
+            var nugetConfigs = new NugetConfigurations { MaxTimeSecondsTimeOut = (int)TimeSpan.FromSeconds(10).TotalSeconds };
+            nugetConfigs.Sources.Add("https://api.nuget.org/v3/index.json");
+            return nugetConfigs;
+        }
 
         private static UpdateConfigurations GetUpdateConfigurations()
         {
