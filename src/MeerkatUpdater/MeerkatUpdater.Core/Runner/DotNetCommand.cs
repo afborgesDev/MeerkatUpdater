@@ -26,8 +26,8 @@ namespace MeerkatUpdater.Core.Runner
             using var process = ExecutionProcess.CreateNewProcess(execution);
 
             process.Start();
-            var outputExecution = OutPutDotNetCommandExecution.FromStreamRead(process.StandardOutput);
-            var errorExecution = OutPutDotNetCommandExecution.FromStreamRead(process.StandardError);
+            var outputExecution = OutPutDotNetCommandExecution.FromStreamReader(process.StandardOutput);
+            var errorExecution = OutPutDotNetCommandExecution.FromStreamReader(process.StandardError);
 
             var processExited = process.WaitForExit(execution.GetTotalMilisecondsForMaximumWait());
             if (!processExited)
@@ -35,6 +35,9 @@ namespace MeerkatUpdater.Core.Runner
                 process.Kill();
                 return CreateAResultFromOutPutAndExitCode(outputExecution, errorExecution, Result.DefaultErrorExitCode);
             }
+
+            if (outputExecution.OutPutTask is null || errorExecution.OutPutTask is null)
+                throw new NullReferenceException(DefaultMessages.ValidationOnStandardOutputsDotNetCommand);
 
             Task.WaitAll(outputExecution.OutPutTask, errorExecution.OutPutTask);
             return CreateAResultFromOutPutAndExitCode(outputExecution, errorExecution, Result.DefaultSuccessExitCode);

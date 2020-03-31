@@ -77,5 +77,14 @@ namespace MeerkatUpdater.Core {
                 return ResourceManager.GetString("ValidateArgumentToWorkDotNetCommand", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not create readers for the standard Output or standard Error.
+        /// </summary>
+        internal static string ValidationOnStandardOutputsDotNetCommand {
+            get {
+                return ResourceManager.GetString("ValidationOnStandardOutputsDotNetCommand", resourceCulture);
+            }
+        }
     }
 }

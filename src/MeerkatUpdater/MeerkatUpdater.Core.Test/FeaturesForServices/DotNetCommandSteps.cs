@@ -29,8 +29,8 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices
             this.scenarioContext.Set(result, DotNetExecutionResultIdentify);
         }
 
-        [Then("the results have the exitCode '(.*)' and the errors has no items")]
-        public void ThenTheResultsHaveTheExitCodeAndTheErrorsHasNoItems(int exitCode)
+        [Then("the results have the sucessd execution and the errors has no items")]
+        public void ThenTheResultsHaveTheSucessdExecutionAndTheErrorsHasNoItems()
         {
             var result = this.scenarioContext.Get<Result>(DotNetExecutionResultIdentify);
             result.Should().NotBeNull();

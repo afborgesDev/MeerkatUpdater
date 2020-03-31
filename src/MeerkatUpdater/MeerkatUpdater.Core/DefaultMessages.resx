@@ -123,4 +123,7 @@
   <data name="ValidateArgumentToWorkDotNetCommand" xml:space="preserve">
     <value>should informe a directory to work</value>
   </data>
+  <data name="ValidationOnStandardOutputsDotNetCommand" xml:space="preserve">
+    <value>Could not create readers for the standard Output or standard Error</value>
+  </data>
 </root>

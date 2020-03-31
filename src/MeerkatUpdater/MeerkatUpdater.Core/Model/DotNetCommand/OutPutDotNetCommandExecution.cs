@@ -6,10 +6,10 @@ namespace MeerkatUpdater.Core.Model.DotNetCommand
 {
     internal sealed class OutPutDotNetCommandExecution
     {
-        internal StringBuilder OutPut { get; set; }
-        internal Task OutPutTask { get; set; }
+        internal StringBuilder? OutPut { get; set; }
+        internal Task? OutPutTask { get; set; }
 
-        internal static OutPutDotNetCommandExecution FromStreamRead(StreamReader streamReader)
+        internal static OutPutDotNetCommandExecution FromStreamReader(StreamReader streamReader)
         {
             var output = new OutPutDotNetCommandExecution() { OutPut = new StringBuilder() };
             output.OutPutTask = output.ConsumeStreamReaderAsync(streamReader);
@@ -24,9 +24,9 @@ namespace MeerkatUpdater.Core.Model.DotNetCommand
             await Task.Yield();
             string? line;
             while ((line = await reader.ReadLineAsync().ConfigureAwait(false)) != null)
-                OutPut.AppendLine(line);
+                OutPut?.AppendLine(line);
         }
 
-        internal string GetOutPutString() => OutPut.ToString();
+        internal string GetOutPutString() => OutPut?.ToString() ?? string.Empty;
     }
 }
