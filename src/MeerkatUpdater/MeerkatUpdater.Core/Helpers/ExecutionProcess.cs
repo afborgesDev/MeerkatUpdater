@@ -29,7 +29,7 @@ namespace MeerkatUpdater.Core.Helpers
         private static ProcessStartInfo CreateProcessStartInfo(string? workingDirectory, string[] args)
         {
             if (string.IsNullOrWhiteSpace(workingDirectory))
-                throw new System.ArgumentException(DefaultMessages.ValidateArgumentToWorkDotNetCommand, nameof(workingDirectory));
+                throw new ArgumentException(DefaultMessages.ValidateArgumentToWorkDotNetCommand, nameof(workingDirectory));
 
             return new ProcessStartInfo(DotNetExe.FullPathOrDefault(), string.Join(DefaultSeparatorForJoinArguments, args))
             {
