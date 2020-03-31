@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeerkatUpdater.Core", "Meer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeerkatUpdater.Config", "MeerkatUpdater.Config\MeerkatUpdater.Config.csproj", "{44DD1DE4-42F5-4A47-85CD-87ACA15EAB67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeerkatUpdater.Config.GitLab", "MeerkatUpdater.Config.GitLab\MeerkatUpdater.Config.GitLab.csproj", "{67A72D61-8320-41D9-BA96-73AB1EA20C3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeerkatUpdater.Config.GitLab", "MeerkatUpdater.Config.GitLab\MeerkatUpdater.Config.GitLab.csproj", "{67A72D61-8320-41D9-BA96-73AB1EA20C3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeerkatUpdater.Config.Test", "MeerkatUpdater.Config.Test\MeerkatUpdater.Config.Test.csproj", "{248078FB-D9EF-48CE-9EDD-71DA3E2DFDE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeerkatUpdater.Config.Test", "MeerkatUpdater.Config.Test\MeerkatUpdater.Config.Test.csproj", "{248078FB-D9EF-48CE-9EDD-71DA3E2DFDE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeerkatUpdater.Core.Test", "MeerkatUpdater.Core.Test\MeerkatUpdater.Core.Test.csproj", "{7AAD7DA1-B4DF-4FCB-A76F-9174ED17CD32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{248078FB-D9EF-48CE-9EDD-71DA3E2DFDE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{248078FB-D9EF-48CE-9EDD-71DA3E2DFDE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{248078FB-D9EF-48CE-9EDD-71DA3E2DFDE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AAD7DA1-B4DF-4FCB-A76F-9174ED17CD32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AAD7DA1-B4DF-4FCB-A76F-9174ED17CD32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AAD7DA1-B4DF-4FCB-A76F-9174ED17CD32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AAD7DA1-B4DF-4FCB-A76F-9174ED17CD32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

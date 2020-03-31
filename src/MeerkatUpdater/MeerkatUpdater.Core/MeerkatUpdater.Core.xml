@@ -4,5 +4,162 @@
         <name>MeerkatUpdater.Core</name>
     </assembly>
     <members>
+        <member name="T:MeerkatUpdater.Core.DefaultMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.ArgumentExeptionForValidationDotNetCommand">
+            <summary>
+              Looks up a localized string similar to can&apos;t use arguments with a white spaces.
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.ValidateArgumentToWorkDotNetCommand">
+            <summary>
+              Looks up a localized string similar to should informe a directory to work.
+            </summary>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Helpers.ExecutionProcess">
+            <summary>
+            Helper for create and configure process to work with dotnet command cli
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Helpers.ExecutionProcess.CreateNewProcess(MeerkatUpdater.Core.Model.DotNetCommand.Execution)">
+            <summary>
+            Create and configure a process to execute the dotnet command by cli
+            </summary>
+            <param name="execution"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Model.DotNetCommand.Execution">
+            <summary>
+            Represents the required params to execute a dotnet command
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Execution.WorkDirectory">
+            <summary>
+            The full path to dotnet command start to work
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Execution.MaximumWait">
+            <summary>
+            The maximun time to wait until abort a execution
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Execution.Arguments">
+            <summary>
+            The complete list of arguments to be forward into the dotnet command
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.Execution.FromCurrentDirrectoryAndArgument(System.String[])">
+            <summary>
+            Creates a Execution using default for maximumWait and the current directory <br/>
+            Just taking the arguments <br/>
+            This method takes the WorkDirectory directly from <see cref="M:System.IO.Directory.GetCurrentDirectory"/>
+            </summary>
+            <param name="arguments"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException">If the arguments has zero items</exception>
+            <exception cref="T:System.ArgumentException">If there's any argument that is a blank or white space</exception>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.Execution.FromDirectoryAndArguments(System.String,System.String[])">
+             <summary>
+             Creates a Execution using the default maximum wait time <see cref="F:MeerkatUpdater.Core.Model.DotNetCommand.Execution.DefaultMaximumWait"></see> <br/>
+            
+             </summary>
+             <param name="directory"></param>
+             <param name="arguments"></param>
+             <returns></returns>
+             <exception cref="T:System.ArgumentNullException">If the arguments has zero items</exception>
+             <exception cref="T:System.ArgumentException">If there's any argument that is a blank or white space</exception>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.Execution.FromDirectoryWaitTimeAndArguments(System.String,System.TimeSpan,System.String[])">
+            <summary>
+            Creates a Execution with all custom parameters
+            </summary>
+            <param name="directory"></param>
+            <param name="maximumWait"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException">If the arguments has zero items</exception>
+            <exception cref="T:System.ArgumentException">If there's any argument that is a blank or white space</exception>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.Execution.GetTotalMilisecondsForMaximumWait">
+            <summary>
+            Get in seconds the MaximumWait time converted to int
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Model.DotNetCommand.Result">
+            <summary>
+            The result of a dotnet command execution
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Model.DotNetCommand.Result.DefaultSuccessExitCode">
+            <summary>
+            Representation of the default Exit Code for a successful dotnet command execution
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Model.DotNetCommand.Result.DefaultErrorExitCode">
+            <summary>
+            Representation of the default fail exist code for a dotnet execution
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Result.Output">
+            <summary>
+            The complete standard output from the execution
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Result.Errors">
+            <summary>
+            The complete standard errors from the execution
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Result.ExitCode">
+            <summary>
+            The exit code as result from the dotnet command
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Result.IsSuccess">
+            <summary>
+            Check if the exit code is the success one
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.Result.FromStandardsTextAndExitCode(System.String,System.String,System.Int32)">
+            <summary>
+            Creates a new instance of Result by passing the outputs and the exit code
+            </summary>
+            <param name="output"></param>
+            <param name="errors"></param>
+            <param name="exitCode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.DotNetCommand">
+            <summary>
+            Run a dotnet command and returns the execution results such as <br/>
+            - Output <br/>
+            - Errors <br/>
+            - ExitCode
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.DotNetCommand.RunCommand(MeerkatUpdater.Core.Model.DotNetCommand.Execution)">
+            <summary>
+            Executes a dotnet command and takes the output and error
+            </summary>
+            <param name="execution"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
