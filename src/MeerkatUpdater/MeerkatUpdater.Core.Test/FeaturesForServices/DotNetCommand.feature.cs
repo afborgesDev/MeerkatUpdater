@@ -80,16 +80,13 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="[Happy Path] Execution for version results into a Successfull execution with no e" +
-            "rrors")]
+        [Xunit.SkippableFactAttribute(DisplayName="😊 Execution for version results into a Successfull execution with no errors")]
         [Xunit.TraitAttribute("FeatureTitle", "To test the implementation for DotNetCommand service executor")]
-        [Xunit.TraitAttribute("Description", "[Happy Path] Execution for version results into a Successfull execution with no e" +
-            "rrors")]
-        public virtual void HappyPathExecutionForVersionResultsIntoASuccessfullExecutionWithNoErrors()
+        [Xunit.TraitAttribute("Description", "😊 Execution for version results into a Successfull execution with no errors")]
+        public virtual void ExecutionForVersionResultsIntoASuccessfullExecutionWithNoErrors()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[Happy Path] Execution for version results into a Successfull execution with no e" +
-                    "rrors", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😊 Execution for version results into a Successfull execution with no errors", null, ((string[])(null)));
 #line 4
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -111,7 +108,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
- testRunner.Given("The command for get the version of the dotnet \'dotnet --version\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("The command for get the version of the dotnet \'--version\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
  testRunner.When("the DotNetCommandService is triggered", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");

@@ -34,7 +34,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices
         {
             var result = this.scenarioContext.Get<Result>(DotNetExecutionResultIdentify);
             result.Should().NotBeNull();
-            result.ExitCode.Should().Be(exitCode);
+            result.IsSuccess().Should().BeTrue();
             result.Output.Length.Should().BeGreaterThan(0);
             result.Errors.Length.Should().Be(0);
         }

@@ -10,7 +10,7 @@ namespace MeerkatUpdater.Core.Model.DotNetCommand
     /// </summary>
     public sealed class Execution
     {
-        private static readonly TimeSpan DefaultMaximumWait = TimeSpan.FromSeconds(10);
+        private static readonly TimeSpan DefaultMaximumWait = TimeSpan.FromSeconds(15);
 
         /// <summary>
         /// The full path to dotnet command start to work

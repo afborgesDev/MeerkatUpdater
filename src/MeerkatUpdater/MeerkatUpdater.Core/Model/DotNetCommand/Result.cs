@@ -31,11 +31,6 @@
         public int ExitCode { get; set; }
 
         /// <summary>
-        /// Check if the exit code is the success one
-        /// </summary>
-        public bool IsSuccess => ExitCode == DefaultSuccessExitCode;
-
-        /// <summary>
         /// Creates a new instance of Result by passing the outputs and the exit code
         /// </summary>
         /// <param name="output"></param>
@@ -44,5 +39,16 @@
         /// <returns></returns>
         public static Result FromStandardsTextAndExitCode(string? output, string? errors, int exitCode) =>
             new Result() { Output = output, Errors = errors, ExitCode = exitCode };
+
+        /// <summary>
+        /// Check if the exit code is the success one
+        /// </summary>
+        public bool IsSuccess()
+        {
+            if (ExitCode == DefaultSuccessExitCode)
+                return true;
+
+            return ExitCode != DefaultErrorExitCode && string.IsNullOrWhiteSpace(Errors) && !string.IsNullOrWhiteSpace(Output);
+        }
     }
 }

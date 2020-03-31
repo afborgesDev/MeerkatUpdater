@@ -132,11 +132,6 @@
             The exit code as result from the dotnet command
             </summary>
         </member>
-        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Result.IsSuccess">
-            <summary>
-            Check if the exit code is the success one
-            </summary>
-        </member>
         <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.Result.FromStandardsTextAndExitCode(System.String,System.String,System.Int32)">
             <summary>
             Creates a new instance of Result by passing the outputs and the exit code
@@ -145,6 +140,11 @@
             <param name="errors"></param>
             <param name="exitCode"></param>
             <returns></returns>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.Result.IsSuccess">
+            <summary>
+            Check if the exit code is the success one
+            </summary>
         </member>
         <member name="T:MeerkatUpdater.Core.Runner.DotNetCommand">
             <summary>
