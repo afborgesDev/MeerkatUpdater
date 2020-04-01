@@ -20,6 +20,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
+    - name: whereAmI
+      run: pwd
     - name: Build Configurations
       run: dotnet build $baseProjectPath/MeerkatUpdater.Config/MeerkatUpdater.Config.csproj --configuration Release
     - name: Build Core
