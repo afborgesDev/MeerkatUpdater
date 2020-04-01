@@ -10,6 +10,7 @@ namespace MeerkatUpdater.Core.Model.DotNetCommand
     /// </summary>
     public sealed class Execution
     {
+        private const double NotAllowedMaximumWait = 0;
         private static readonly TimeSpan DefaultMaximumWait = TimeSpan.FromSeconds(15);
 
         /// <summary>
@@ -97,6 +98,12 @@ namespace MeerkatUpdater.Core.Model.DotNetCommand
 
         private static void ValidateAndAddArguments(ref Execution execution, params string[] arguments)
         {
+            if (string.IsNullOrWhiteSpace(execution.WorkDirectory))
+                throw new NullReferenceException(DefaultMessages.ValidateArgumentToWorkDotNetCommand);
+
+            if (execution.MaximumWait == default || execution.MaximumWait.TotalSeconds <= NotAllowedMaximumWait)
+                throw new NullReferenceException(DefaultMessages.MaximumWaitNotEnougthDotNetCommand);
+
             ValidateArguments(arguments);
             execution.Arguments.AddRange(arguments);
         }

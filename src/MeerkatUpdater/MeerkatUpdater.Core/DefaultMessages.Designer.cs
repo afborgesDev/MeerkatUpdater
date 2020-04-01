@@ -70,6 +70,15 @@ namespace MeerkatUpdater.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Maximum Wait time should be gratan then Zero.
+        /// </summary>
+        internal static string MaximumWaitNotEnougthDotNetCommand {
+            get {
+                return ResourceManager.GetString("MaximumWaitNotEnougthDotNetCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to should informe a directory to work.
         /// </summary>
         internal static string ValidateArgumentToWorkDotNetCommand {

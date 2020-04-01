@@ -25,6 +25,11 @@
               Looks up a localized string similar to can&apos;t use arguments with a white spaces.
             </summary>
         </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.MaximumWaitNotEnougthDotNetCommand">
+            <summary>
+              Looks up a localized string similar to The Maximum Wait time should be gratan then Zero.
+            </summary>
+        </member>
         <member name="P:MeerkatUpdater.Core.DefaultMessages.ValidateArgumentToWorkDotNetCommand">
             <summary>
               Looks up a localized string similar to should informe a directory to work.

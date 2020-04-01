@@ -120,6 +120,9 @@
   <data name="ArgumentExeptionForValidationDotNetCommand" xml:space="preserve">
     <value>can't use arguments with a white spaces</value>
   </data>
+  <data name="MaximumWaitNotEnougthDotNetCommand" xml:space="preserve">
+    <value>The Maximum Wait time should be gratan then Zero</value>
+  </data>
   <data name="ValidateArgumentToWorkDotNetCommand" xml:space="preserve">
     <value>should informe a directory to work</value>
   </data>
