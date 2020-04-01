@@ -11,19 +11,13 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    steps:
+    steps:    
     - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.101
-    - name: whereAmI
-      run: pwd
-    - name: whereAmI2
-      run: ls  
+        dotnet-version: 3.1.101    
     - name: Build Configurations
       run: dotnet build $baseProjectPath/MeerkatUpdater.Config/MeerkatUpdater.Config.csproj --configuration Release
     - name: Build Core
