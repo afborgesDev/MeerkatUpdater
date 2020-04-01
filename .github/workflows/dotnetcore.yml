@@ -20,12 +20,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
-    - name: Install dependencies
-      run: dotnet restore
     - name: Build Configurations
-      run: dotnet build $baseProjectPath/MeerkatUpdater.Config --configuration Release --no-restore
+      run: dotnet build $baseProjectPath/MeerkatUpdater.Config --configuration Release
     - name: Build Core
-      run: dotnet build $baseProjectPath/MeerkatUpdater.Core --configuration Release --no-restore
+      run: dotnet build $baseProjectPath/MeerkatUpdater.Core --configuration Release
     - name: Test Configs
       run: dotnet test $baseProjectPath/MeerkatUpdater.Config.Test --no-build
     - name: Test Core
