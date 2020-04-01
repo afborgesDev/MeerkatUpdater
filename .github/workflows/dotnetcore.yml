@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  baseProjectPath: ../../src/MeerkatUpdater/
+
 jobs:
   build:
 
@@ -19,9 +22,11 @@ jobs:
         dotnet-version: 3.1.101
     - name: Install dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v1.1
+    - name: Build Configurations
+      run: dotnet build $baseProjectPath/MeerkatUpdater.Config --configuration Release --no-restore
+    - name: Build Core
+      run: dotnet build $baseProjectPath/MeerkatUpdater.Core --configuration Release --no-restore
+    - name: Test Configs
+      run: dotnet test $baseProjectPath/MeerkatUpdater.Config.Test --no-build
+    - name: Test Core
+      run: dotnet test $baseProjectPath/MeerkatUpdater.Core.Test --no-build      

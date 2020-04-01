@@ -30,6 +30,11 @@
               Looks up a localized string similar to should informe a directory to work.
             </summary>
         </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.ValidationOnStandardOutputsDotNetCommand">
+            <summary>
+              Looks up a localized string similar to Could not create readers for the standard Output or standard Error.
+            </summary>
+        </member>
         <member name="T:MeerkatUpdater.Core.Helpers.ExecutionProcess">
             <summary>
             Helper for create and configure process to work with dotnet command cli

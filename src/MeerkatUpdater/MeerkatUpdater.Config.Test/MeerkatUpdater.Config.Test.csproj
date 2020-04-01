@@ -32,4 +32,10 @@
   <ItemGroup>
     <ProjectReference Include="..\MeerkatUpdater.Config\MeerkatUpdater.Config.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="specflow.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

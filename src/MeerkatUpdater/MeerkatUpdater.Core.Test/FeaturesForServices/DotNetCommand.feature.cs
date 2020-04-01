@@ -114,7 +114,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("the DotNetCommandService is triggered", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
- testRunner.Then("the results have the exitCode \'1\' and the errors has no items", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the results have the sucessd execution and the errors has no items", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
