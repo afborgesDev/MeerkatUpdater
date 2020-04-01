@@ -21,10 +21,10 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Build Configurations
-      run: dotnet build $baseProjectPath/MeerkatUpdater.Config --configuration Release
+      run: dotnet build $baseProjectPathMeerkatUpdater.Config --configuration Release
     - name: Build Core
-      run: dotnet build $baseProjectPath/MeerkatUpdater.Core --configuration Release
+      run: dotnet build $baseProjectPathMeerkatUpdater.Core --configuration Release
     - name: Test Configs
-      run: dotnet test $baseProjectPath/MeerkatUpdater.Config.Test --no-build
+      run: dotnet test $baseProjectPathMeerkatUpdater.Config.Test --no-build
     - name: Test Core
-      run: dotnet test $baseProjectPath/MeerkatUpdater.Core.Test --no-build      
+      run: dotnet test $baseProjectPathMeerkatUpdater.Core.Test --no-build      
