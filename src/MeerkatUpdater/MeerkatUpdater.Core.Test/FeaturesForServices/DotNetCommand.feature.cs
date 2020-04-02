@@ -120,13 +120,13 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="😟 Execution for a invalid command fails and returns with errors")]
+        [Xunit.SkippableFactAttribute(DisplayName="😊 New execution from Directory and arguments should return a valid object")]
         [Xunit.TraitAttribute("FeatureTitle", "To test the implementation for DotNetCommand service executor")]
-        [Xunit.TraitAttribute("Description", "😟 Execution for a invalid command fails and returns with errors")]
-        public virtual void ExecutionForAInvalidCommandFailsAndReturnsWithErrors()
+        [Xunit.TraitAttribute("Description", "😊 New execution from Directory and arguments should return a valid object")]
+        public virtual void NewExecutionFromDirectoryAndArgumentsShouldReturnAValidObject()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 Execution for a invalid command fails and returns with errors", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😊 New execution from Directory and arguments should return a valid object", null, ((string[])(null)));
 #line 9
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -148,25 +148,26 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 10
-  testRunner.Given("The command \'somethingWrong\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+  testRunner.Given("The directory: \'.\' and the arguments \'--version\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 11
-  testRunner.When("the DotNetCommandService is triggered", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.When("The FromDirectoryAndArguments is picked to use", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 12
-  testRunner.Then("the results have no success and has errors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.Then("The result of the execution is a valid Execution object with directory: \'.\' and a" +
+                        "rguments: \'--version\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="😟 Execution without correct params should fail")]
+        [Xunit.SkippableFactAttribute(DisplayName="😊 TimeOut exceed when execute a command should return not succeeded result")]
         [Xunit.TraitAttribute("FeatureTitle", "To test the implementation for DotNetCommand service executor")]
-        [Xunit.TraitAttribute("Description", "😟 Execution without correct params should fail")]
-        public virtual void ExecutionWithoutCorrectParamsShouldFail()
+        [Xunit.TraitAttribute("Description", "😊 TimeOut exceed when execute a command should return not succeeded result")]
+        public virtual void TimeOutExceedWhenExecuteACommandShouldReturnNotSucceededResult()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 Execution without correct params should fail", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😊 TimeOut exceed when execute a command should return not succeeded result", null, ((string[])(null)));
 #line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -188,25 +189,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 15
-  testRunner.Given("The null reference for Execution parameter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+  testRunner.Given("The mileSecond timeout: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 16
-  testRunner.When("The DotNetCommandService uses this reference", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+   testRunner.When("the DotNetCommandService is triggered", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 17
-  testRunner.Then("The execution trigger an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.Then("The result should not be successfull", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="😟 Execution with no workdir should fail")]
+        [Xunit.SkippableFactAttribute(DisplayName="😟 Create a new process should have the execution param as required")]
         [Xunit.TraitAttribute("FeatureTitle", "To test the implementation for DotNetCommand service executor")]
-        [Xunit.TraitAttribute("Description", "😟 Execution with no workdir should fail")]
-        public virtual void ExecutionWithNoWorkdirShouldFail()
+        [Xunit.TraitAttribute("Description", "😟 Create a new process should have the execution param as required")]
+        public virtual void CreateANewProcessShouldHaveTheExecutionParamAsRequired()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 Execution with no workdir should fail", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 Create a new process should have the execution param as required", null, ((string[])(null)));
 #line 19
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -228,12 +229,172 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 20
- testRunner.Given("The Execution with a blank workdir parameter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+  testRunner.Given("The null value for execution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 21
-  testRunner.When("The DotNetCommandService uses this reference", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+   testRunner.When("The Method is select", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 22
+   testRunner.Then("The execution trigger an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="😟 Wrapper for outputs should fail when the stream are null")]
+        [Xunit.TraitAttribute("FeatureTitle", "To test the implementation for DotNetCommand service executor")]
+        [Xunit.TraitAttribute("Description", "😟 Wrapper for outputs should fail when the stream are null")]
+        public virtual void WrapperForOutputsShouldFailWhenTheStreamAreNull()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 Wrapper for outputs should fail when the stream are null", null, ((string[])(null)));
+#line 24
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 25
+  testRunner.Given("The null value for execution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 26
+   testRunner.When("The FromStreamReader method is select", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 27
+   testRunner.Then("The execution trigger an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="😟 Execution for a invalid command fails and returns with errors")]
+        [Xunit.TraitAttribute("FeatureTitle", "To test the implementation for DotNetCommand service executor")]
+        [Xunit.TraitAttribute("Description", "😟 Execution for a invalid command fails and returns with errors")]
+        public virtual void ExecutionForAInvalidCommandFailsAndReturnsWithErrors()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 Execution for a invalid command fails and returns with errors", null, ((string[])(null)));
+#line 29
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 30
+  testRunner.Given("The command \'somethingWrong\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 31
+  testRunner.When("the DotNetCommandService is triggered", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 32
+  testRunner.Then("the results have no success and has errors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="😟 Execution without correct params should fail")]
+        [Xunit.TraitAttribute("FeatureTitle", "To test the implementation for DotNetCommand service executor")]
+        [Xunit.TraitAttribute("Description", "😟 Execution without correct params should fail")]
+        public virtual void ExecutionWithoutCorrectParamsShouldFail()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 Execution without correct params should fail", null, ((string[])(null)));
+#line 34
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 35
+  testRunner.Given("The null reference for Execution parameter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 36
+  testRunner.When("The DotNetCommandService uses this reference", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 37
+  testRunner.Then("The execution trigger an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="😟 Execution with no workdir should fail")]
+        [Xunit.TraitAttribute("FeatureTitle", "To test the implementation for DotNetCommand service executor")]
+        [Xunit.TraitAttribute("Description", "😟 Execution with no workdir should fail")]
+        public virtual void ExecutionWithNoWorkdirShouldFail()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 Execution with no workdir should fail", null, ((string[])(null)));
+#line 39
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 40
+ testRunner.Given("The Execution with a blank workdir parameter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 41
+  testRunner.When("The DotNetCommandService uses this reference", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 42
   testRunner.Then("The execution trigger an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -251,7 +412,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             string[] tagsOfScenario = exampleTags;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 Execution initialization methods should return a new instance", null, exampleTags);
-#line 24
+#line 44
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -279,13 +440,13 @@ this.ScenarioInitialize(scenarioInfo);
                             string.Format("{0}", command),
                             string.Format("{0}", workDir),
                             string.Format("{0}", waitTimeOut)});
-#line 25
+#line 45
     testRunner.Given("The Execution params", ((string)(null)), table1, "Given ");
 #line hidden
-#line 28
+#line 48
     testRunner.When("The compatible uses the compatible method", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 29
+#line 49
     testRunner.Then("The execution trigger an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

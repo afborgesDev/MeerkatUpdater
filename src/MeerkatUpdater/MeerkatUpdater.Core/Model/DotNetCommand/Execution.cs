@@ -39,12 +39,7 @@ namespace MeerkatUpdater.Core.Model.DotNetCommand
         /// <exception cref="ArgumentException">If there's any argument that is a blank or white space</exception>
         public static Execution FromCurrentDirrectoryAndArgument(params string[] arguments)
         {
-            var execution = new Execution()
-            {
-                WorkDirectory = Directory.GetCurrentDirectory(),
-                MaximumWait = DefaultMaximumWait
-            };
-
+            var execution = NewExecution(Directory.GetCurrentDirectory(), DefaultMaximumWait);
             ValidateAndAddArguments(ref execution, arguments);
             return execution;
         }
@@ -60,12 +55,7 @@ namespace MeerkatUpdater.Core.Model.DotNetCommand
         /// <exception cref="ArgumentException">If there's any argument that is a blank or white space</exception>
         public static Execution FromDirectoryAndArguments(string directory, params string[] arguments)
         {
-            var execution = new Execution()
-            {
-                WorkDirectory = directory,
-                MaximumWait = DefaultMaximumWait
-            };
-
+            var execution = NewExecution(directory, DefaultMaximumWait);
             ValidateAndAddArguments(ref execution, arguments);
             return execution;
         }
@@ -81,11 +71,7 @@ namespace MeerkatUpdater.Core.Model.DotNetCommand
         /// <exception cref="ArgumentException">If there's any argument that is a blank or white space</exception>
         public static Execution FromDirectoryWaitTimeAndArguments(string directory, TimeSpan maximumWait, params string[] arguments)
         {
-            var execution = new Execution()
-            {
-                WorkDirectory = directory,
-                MaximumWait = maximumWait
-            };
+            var execution = NewExecution(directory, maximumWait);
             ValidateAndAddArguments(ref execution, arguments);
             return execution;
         }
@@ -116,5 +102,11 @@ namespace MeerkatUpdater.Core.Model.DotNetCommand
             if (arguments.Any(x => string.IsNullOrWhiteSpace(x)))
                 throw new ArgumentException(DefaultMessages.ArgumentExeptionForValidationDotNetCommand);
         }
+
+        private static Execution NewExecution(string directory, TimeSpan maximumWait) => new Execution
+        {
+            WorkDirectory = directory,
+            MaximumWait = maximumWait
+        };
     }
 }

@@ -112,6 +112,34 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:MeerkatUpdater.Core.Model.DotNetCommand.OutPutDotNetCommandExecution">
+            <summary>
+            Class used to look at execution process on CLI
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.OutPutDotNetCommandExecution.OutPut">
+            <summary>
+            All lines from StandardOutput
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.OutPutDotNetCommandExecution.OutPutTask">
+            <summary>
+            All lines from StandardErrorOutput
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.OutPutDotNetCommandExecution.FromStreamReader(System.IO.StreamReader)">
+            <summary>
+            Wraps the class and creates by using a separated task to read the output
+            </summary>
+            <param name="streamReader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.OutPutDotNetCommandExecution.GetOutPutString">
+            <summary>
+            Safe return the string from the output
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:MeerkatUpdater.Core.Model.DotNetCommand.Result">
             <summary>
             The result of a dotnet command execution

@@ -1,7 +1,10 @@
 ﻿using FluentAssertions;
+using MeerkatUpdater.Core.Helpers;
 using MeerkatUpdater.Core.Model.DotNetCommand;
 using MeerkatUpdater.Core.Runner;
 using System;
+using System.IO;
+using System.Linq;
 using TechTalk.SpecFlow;
 
 namespace MeerkatUpdater.Core.Test.FeaturesForServices
@@ -12,7 +15,11 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices
         private const string DotNetCommandIdentify = "DotNetCommandIdentify";
         private const string DotNetExecutionResultIdentify = "DotNetExecutionResultIdentify";
         private const string ExecutingCommandActionKey = "ExecutingCommandActionKey";
+        private const string ExecutingCommandFuncKey = "ExecutingCommandFuncKey";
         private const string ExecutionParamsKey = "executionParams";
+        private const string DirectoryKey = "directory";
+        private const string ArgumentsKey = "arguments";
+        private const string ExecutionNullValueKey = "ExecutionNullValue";
         private readonly ScenarioContext scenarioContext;
 
         public DotNetCommandSteps(ScenarioContext scenarioContext) => this.scenarioContext = scenarioContext;
@@ -41,6 +48,24 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices
             this.scenarioContext.Set(executionParams, ExecutionParamsKey);
         }
 
+        [Given("The directory: '(.*)' and the arguments '(.*)'")]
+        public void GivenTheDirectoryAndTheArguments(string directory, string arguments)
+        {
+            this.scenarioContext.Set(directory, DirectoryKey);
+            this.scenarioContext.Set(arguments, ArgumentsKey);
+        }
+
+        [Given("The null value for execution")]
+        public void GivenTheNullValueForExecution() => SetDefaultValueForIdentify(ExecutionNullValueKey);
+
+        [Given("The mileSecond timeout: '(.*)'")]
+        public void GivenTheMileSecondTimeout(int miliSecondsTimeOut)
+        {
+            var maximumWait = TimeSpan.FromMilliseconds(miliSecondsTimeOut);
+            var execution = Execution.FromDirectoryWaitTimeAndArguments(".", maximumWait, "--version");
+            this.scenarioContext.Set(execution, DotNetCommandIdentify);
+        }
+
         [When("the DotNetCommandService is triggered")]
         public void WhenTheDotNetCommandServiceIsTriggered()
         {
@@ -54,7 +79,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices
         {
             this.scenarioContext.TryGetValue(DotNetCommandIdentify, out Execution execution);
             void ExecutingCommand() => DotNetCommand.RunCommand(execution);
-            this.scenarioContext.Set((Action)ExecutingCommand, ExecutingCommandActionKey);
+            SetExecutingCommandActionIntoScenarioContext(ExecutingCommand);
         }
 
         [When("The compatible uses the compatible method")]
@@ -62,7 +87,33 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices
         {
             var executionParams = this.scenarioContext.Get<ExecutionParams>(ExecutionParamsKey);
             void ExecutingCommand() => Execution.FromDirectoryWaitTimeAndArguments(executionParams.WorkDirectory, executionParams.MaximumWaitTime.Value, executionParams.Arguments.ToArray());
-            this.scenarioContext.Set((Action)ExecutingCommand, ExecutingCommandActionKey);
+            SetExecutingCommandActionIntoScenarioContext(ExecutingCommand);
+        }
+
+        [When("The FromDirectoryAndArguments is picked to use")]
+        public void WhenTheFromDirectoryAndArgumentsIsPickedToUse()
+        {
+            var directory = this.scenarioContext.Get<string>(DirectoryKey);
+            var arguments = this.scenarioContext.Get<string>(ArgumentsKey);
+
+            Execution fromDirectoryExecution() => Execution.FromDirectoryAndArguments(directory, arguments);
+            this.scenarioContext.Set((Func<Execution>)fromDirectoryExecution, ExecutingCommandFuncKey);
+        }
+
+        [When("The Method is select")]
+        public void WhenTheMethodIsSelect()
+        {
+            var executionParam = SafeGetValueFromScenarioContex<Execution>(ExecutionNullValueKey);
+            void ExecutingCommand() => ExecutionProcess.CreateNewProcess(executionParam);
+            SetExecutingCommandActionIntoScenarioContext(ExecutingCommand);
+        }
+
+        [When("The FromStreamReader method is select")]
+        public void WhenTheFromStreamReaderMethodIsSelect()
+        {
+            var executionParam = SafeGetValueFromScenarioContex<StreamReader>(ExecutionNullValueKey);
+            void ExecutingCommand() => OutPutDotNetCommandExecution.FromStreamReader(executionParam);
+            SetExecutingCommandActionIntoScenarioContext(ExecutingCommand);
         }
 
         [Then("the results have the success execution and the errors has no items")]
@@ -86,6 +137,23 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices
             executingCommand.Should().Throw<Exception>();
         }
 
+        [Then("The result of the execution is a valid Execution object with directory: '(.*)' and arguments: '(.*)'")]
+        public void ThenTheResultOfTheExecutionIsAValidExecutionObjectWithDirectoryAndArguments(string directory, string arguments)
+        {
+            var executionFunc = this.scenarioContext.Get<Func<Execution>>(ExecutingCommandFuncKey);
+            var execution = executionFunc.Invoke();
+            execution.Should().NotBeNull();
+            execution.WorkDirectory.Should().Be(directory);
+            execution.Arguments.Any(x => x == arguments).Should().BeTrue();
+        }
+
+        [Then("The result should not be successfull")]
+        public void ThenTheResultShouldNotBeSuccessfull()
+        {
+            var result = this.scenarioContext.Get<Result>(DotNetExecutionResultIdentify);
+            AssertDotNetExecution(result, false, false, false);
+        }
+
         private static void AssertDotNetExecution(Result result, bool hasSuccess, bool hasOutPut, bool hasErrors)
         {
             result.Should().NotBeNull();
@@ -99,6 +167,18 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices
                 result.Errors.Should().NotBeNullOrWhiteSpace();
             else
                 result.Errors.Should().BeNullOrWhiteSpace();
+        }
+
+        private void SetDefaultValueForIdentify(string key) => this.scenarioContext.Add(key, default);
+
+        private void SetExecutingCommandActionIntoScenarioContext(Action executingCommand) => this.scenarioContext.Set(executingCommand, ExecutingCommandActionKey);
+
+        private T SafeGetValueFromScenarioContex<T>(string key) where T : class
+        {
+            this.scenarioContext.TryGetValue<T>(key, out T result);
+            if (result == default)
+                return null;
+            return result;
         }
     }
 }
