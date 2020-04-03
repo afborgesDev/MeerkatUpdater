@@ -18,11 +18,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101    
-    - name: Build Configurations
-      run: dotnet build $baseProjectPath/MeerkatUpdater.Config/MeerkatUpdater.Config.csproj --configuration Release
     - name: Build Core
       run: dotnet build $baseProjectPath/MeerkatUpdater.Core/MeerkatUpdater.Core.csproj --configuration Release
-    - name: Test Configs
-      run: dotnet test $baseProjectPath/MeerkatUpdater.Config.Test/MeerkatUpdater.Config.Test.csproj --no-build
     - name: Test Core
       run: dotnet test $baseProjectPath/MeerkatUpdater.Core.Test/MeerkatUpdater.Core.Test.csproj --no-build      

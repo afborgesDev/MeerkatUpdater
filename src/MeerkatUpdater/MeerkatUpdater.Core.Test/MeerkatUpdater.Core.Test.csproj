@@ -7,6 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="FeaturesForConfig\payloads\invalidPayload" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="FeaturesForConfig\DefaultConfigurationGeneration.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="FeaturesForConfig\YamlDefaultDeserialization.feature.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="FeaturesForConfig\payloads\invalidPayload" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="SpecFlow" Version="3.1.89" />
@@ -26,8 +39,28 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="FeaturesForConfig\DefaultConfigurationGeneration.feature.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="FeaturesForConfig\YamlDefaultDeserialization.feature.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="specflow.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SpecFlowFeatureFiles Update="FeaturesForConfig\DefaultConfigurationGeneration.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="FeaturesForConfig\YamlDefaultDeserialization.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
   </ItemGroup>
 </Project>

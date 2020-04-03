@@ -1,9 +1,9 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
-using MeerkatUpdater.Core.Model.DotNetCommand;
+using MeerkatUpdater.Core.Runner.Model.DotNet;
 using System;
 using System.Diagnostics;
 
-namespace MeerkatUpdater.Core.Helpers
+namespace MeerkatUpdater.Core.Runner.Helpers
 {
     /// <summary>
     /// Helper for create and configure process to work with dotnet command cli

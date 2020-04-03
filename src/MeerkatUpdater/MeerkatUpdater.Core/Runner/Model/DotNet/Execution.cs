@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace MeerkatUpdater.Core.Model.DotNetCommand
+namespace MeerkatUpdater.Core.Runner.Model.DotNet
 {
     /// <summary>
     /// Represents the required params to execute a dotnet command

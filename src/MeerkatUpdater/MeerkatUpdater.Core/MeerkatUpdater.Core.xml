@@ -4,6 +4,133 @@
         <name>MeerkatUpdater.Core</name>
     </assembly>
     <members>
+        <member name="T:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator">
+            <summary>
+            Generate the default yml file that have the default convetions for the configurations
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator.DefaultSolutionPath">
+            <summary>
+            The default value that is used to generate the yaml example file
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator.DefaultLogLevel">
+            <summary>
+            The default value that is used to generate loglevel for the yaml example file
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator.GenerateDefaultConfigurations">
+            <summary>
+            Generate the yml string with the default configurations
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator.GenerateYmlFileForDefaultConfigurations(System.String)">
+            <summary>
+            Generate the yml configuration files that have the default convertions
+            </summary>
+            <param name="filePath"></param>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Config.DefaultYmlDeserializer">
+            <summary>
+            The default deserializer for Yaml to grant that have a safe way to transform <br/>
+            the file into a class
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.DefaultYmlDeserializer.Deserialize``1(System.String)">
+            <summary>
+            Deserialize a Yaml payload into a target class
+            </summary>
+            <typeparam name="TTargetClass"></typeparam>
+            <param name="payload"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations">
+            <summary>
+            All basic configurations for MeerkatUpdate runs and try to update
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations.SolutionPath">
+            <summary>
+            The root path for the solution file .sln
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations.LogLevel">
+            <summary>
+            The level of the log inside the application. <br/>
+            to see all configurations please see <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations.NugetConfigurations">
+            <summary>
+            Aggragated configurations to nuget like: <br/>
+            - <see cref="P:MeerkatUpdater.Core.Config.Model.NugetConfigurations.MaxTimeSecondsTimeOut"/> as the maximun timeout for try to get a package from nuget repository <br/>
+            - <see cref="P:MeerkatUpdater.Core.Config.Model.NugetConfigurations.Sources"/>  as the adicional urls as sources from nuget
+            </summary>/
+        </member>
+        <member name="P:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations.UpdateConfigurations">
+            <summary>
+            Aggregated configurations for the update process <br/>
+            <see cref="P:MeerkatUpdater.Core.Config.Model.UpdateConfigurations.RolbackIfFail"/> Sets if the process will continue if the updates fail <br/>
+            <see cref="P:MeerkatUpdater.Core.Config.Model.UpdateConfigurations.AllowedVersionsToUpdate"/> Sets the types of semantic versions that will be updated
+            </summary>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Config.Model.NugetConfigurations">
+            <summary>
+            Aggragated configurations to nuget
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Config.Model.NugetConfigurations.MaxTimeSecondsTimeOut">
+            <summary>
+            The maximun timeout for try to get a package from nuget repository
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Config.Model.NugetConfigurations.Sources">
+            <summary>
+            The adicional urls as sources from nuget
+            </summary>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Config.Model.SemanticVersion">
+            <summary>
+            Suported semantic versions to update
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Config.Model.SemanticVersion.Major">
+            <summary>
+            Represents a Major version of a package
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Config.Model.SemanticVersion.Minor">
+            <summary>
+            Represents a Minor version of a pacakge
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Config.Model.SemanticVersion.Path">
+            <summary>
+            Represents a Path version of a pacakge
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Config.Model.SemanticVersion.NoUpdate">
+            <summary>
+            Represents that the update should not update (It is used to jus show that have packages to update)
+            </summary>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Config.Model.UpdateConfigurations">
+            <summary>
+            Aggregated configurations for the update process
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Config.Model.UpdateConfigurations.RolbackIfFail">
+            <summary>
+            Sets if the process will continue if the updates fail
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Config.Model.UpdateConfigurations.AllowedVersionsToUpdate">
+            <summary>
+            Sets the types of semantic versions that will be updated
+            </summary>
+        </member>
         <member name="T:MeerkatUpdater.Core.DefaultMessages">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -40,12 +167,27 @@
               Looks up a localized string similar to Could not create readers for the standard Output or standard Error.
             </summary>
         </member>
-        <member name="T:MeerkatUpdater.Core.Helpers.ExecutionProcess">
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetCommand">
+            <summary>
+            Run a dotnet command and returns the execution results such as <br/>
+            - Output <br/>
+            - Errors <br/>
+            - ExitCode
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommand.RunCommand(MeerkatUpdater.Core.Runner.Model.DotNet.Execution)">
+            <summary>
+            Executes a dotnet command and takes the output and error
+            </summary>
+            <param name="execution"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Helpers.ExecutionProcess">
             <summary>
             Helper for create and configure process to work with dotnet command cli
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Helpers.ExecutionProcess.CreateNewProcess(MeerkatUpdater.Core.Model.DotNetCommand.Execution)">
+        <member name="M:MeerkatUpdater.Core.Runner.Helpers.ExecutionProcess.CreateNewProcess(MeerkatUpdater.Core.Runner.Model.DotNet.Execution)">
             <summary>
             Create and configure a process to execute the dotnet command by cli
             </summary>
@@ -53,27 +195,27 @@
             <returns></returns>
             <exception cref="T:System.ArgumentNullException"></exception>
         </member>
-        <member name="T:MeerkatUpdater.Core.Model.DotNetCommand.Execution">
+        <member name="T:MeerkatUpdater.Core.Runner.Model.DotNet.Execution">
             <summary>
             Represents the required params to execute a dotnet command
             </summary>
         </member>
-        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Execution.WorkDirectory">
+        <member name="P:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.WorkDirectory">
             <summary>
             The full path to dotnet command start to work
             </summary>
         </member>
-        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Execution.MaximumWait">
+        <member name="P:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.MaximumWait">
             <summary>
             The maximun time to wait until abort a execution
             </summary>
         </member>
-        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Execution.Arguments">
+        <member name="P:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.Arguments">
             <summary>
             The complete list of arguments to be forward into the dotnet command
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.Execution.FromCurrentDirrectoryAndArgument(System.String[])">
+        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.FromCurrentDirrectoryAndArgument(System.String[])">
             <summary>
             Creates a Execution using default for maximumWait and the current directory <br/>
             Just taking the arguments <br/>
@@ -84,9 +226,9 @@
             <exception cref="T:System.ArgumentNullException">If the arguments has zero items</exception>
             <exception cref="T:System.ArgumentException">If there's any argument that is a blank or white space</exception>
         </member>
-        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.Execution.FromDirectoryAndArguments(System.String,System.String[])">
+        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.FromDirectoryAndArguments(System.String,System.String[])">
              <summary>
-             Creates a Execution using the default maximum wait time <see cref="F:MeerkatUpdater.Core.Model.DotNetCommand.Execution.DefaultMaximumWait"></see> <br/>
+             Creates a Execution using the default maximum wait time <see cref="F:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.DefaultMaximumWait"></see> <br/>
             
              </summary>
              <param name="directory"></param>
@@ -95,7 +237,7 @@
              <exception cref="T:System.ArgumentNullException">If the arguments has zero items</exception>
              <exception cref="T:System.ArgumentException">If there's any argument that is a blank or white space</exception>
         </member>
-        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.Execution.FromDirectoryWaitTimeAndArguments(System.String,System.TimeSpan,System.String[])">
+        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.FromDirectoryWaitTimeAndArguments(System.String,System.TimeSpan,System.String[])">
             <summary>
             Creates a Execution with all custom parameters
             </summary>
@@ -106,71 +248,71 @@
             <exception cref="T:System.ArgumentNullException">If the arguments has zero items</exception>
             <exception cref="T:System.ArgumentException">If there's any argument that is a blank or white space</exception>
         </member>
-        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.Execution.GetTotalMilisecondsForMaximumWait">
+        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.GetTotalMilisecondsForMaximumWait">
             <summary>
             Get in seconds the MaximumWait time converted to int
             </summary>
             <returns></returns>
         </member>
-        <member name="T:MeerkatUpdater.Core.Model.DotNetCommand.OutPutDotNetCommandExecution">
+        <member name="T:MeerkatUpdater.Core.Runner.Model.DotNet.OutPutDotNetCommandExecution">
             <summary>
             Class used to look at execution process on CLI
             </summary>
         </member>
-        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.OutPutDotNetCommandExecution.OutPut">
+        <member name="P:MeerkatUpdater.Core.Runner.Model.DotNet.OutPutDotNetCommandExecution.OutPut">
             <summary>
             All lines from StandardOutput
             </summary>
         </member>
-        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.OutPutDotNetCommandExecution.OutPutTask">
+        <member name="P:MeerkatUpdater.Core.Runner.Model.DotNet.OutPutDotNetCommandExecution.OutPutTask">
             <summary>
             All lines from StandardErrorOutput
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.OutPutDotNetCommandExecution.FromStreamReader(System.IO.StreamReader)">
+        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.OutPutDotNetCommandExecution.FromStreamReader(System.IO.StreamReader)">
             <summary>
             Wraps the class and creates by using a separated task to read the output
             </summary>
             <param name="streamReader"></param>
             <returns></returns>
         </member>
-        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.OutPutDotNetCommandExecution.GetOutPutString">
+        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.OutPutDotNetCommandExecution.GetOutPutString">
             <summary>
             Safe return the string from the output
             </summary>
             <returns></returns>
         </member>
-        <member name="T:MeerkatUpdater.Core.Model.DotNetCommand.Result">
+        <member name="T:MeerkatUpdater.Core.Runner.Model.DotNet.Result">
             <summary>
             The result of a dotnet command execution
             </summary>
         </member>
-        <member name="F:MeerkatUpdater.Core.Model.DotNetCommand.Result.DefaultSuccessExitCode">
+        <member name="F:MeerkatUpdater.Core.Runner.Model.DotNet.Result.DefaultSuccessExitCode">
             <summary>
             Representation of the default Exit Code for a successful dotnet command execution
             </summary>
         </member>
-        <member name="F:MeerkatUpdater.Core.Model.DotNetCommand.Result.DefaultErrorExitCode">
+        <member name="F:MeerkatUpdater.Core.Runner.Model.DotNet.Result.DefaultErrorExitCode">
             <summary>
             Representation of the default fail exist code for a dotnet execution
             </summary>
         </member>
-        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Result.Output">
+        <member name="P:MeerkatUpdater.Core.Runner.Model.DotNet.Result.Output">
             <summary>
             The complete standard output from the execution
             </summary>
         </member>
-        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Result.Errors">
+        <member name="P:MeerkatUpdater.Core.Runner.Model.DotNet.Result.Errors">
             <summary>
             The complete standard errors from the execution
             </summary>
         </member>
-        <member name="P:MeerkatUpdater.Core.Model.DotNetCommand.Result.ExitCode">
+        <member name="P:MeerkatUpdater.Core.Runner.Model.DotNet.Result.ExitCode">
             <summary>
             The exit code as result from the dotnet command
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.Result.FromStandardsTextAndExitCode(System.String,System.String,System.Int32)">
+        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Result.FromStandardsTextAndExitCode(System.String,System.String,System.Int32)">
             <summary>
             Creates a new instance of Result by passing the outputs and the exit code
             </summary>
@@ -179,25 +321,10 @@
             <param name="exitCode"></param>
             <returns></returns>
         </member>
-        <member name="M:MeerkatUpdater.Core.Model.DotNetCommand.Result.IsSuccess">
+        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Result.IsSuccess">
             <summary>
             Check if the exit code is the success one
             </summary>
-        </member>
-        <member name="T:MeerkatUpdater.Core.Runner.DotNetCommand">
-            <summary>
-            Run a dotnet command and returns the execution results such as <br/>
-            - Output <br/>
-            - Errors <br/>
-            - ExitCode
-            </summary>
-        </member>
-        <member name="M:MeerkatUpdater.Core.Runner.DotNetCommand.RunCommand(MeerkatUpdater.Core.Model.DotNetCommand.Execution)">
-            <summary>
-            Executes a dotnet command and takes the output and error
-            </summary>
-            <param name="execution"></param>
-            <returns></returns>
         </member>
     </members>
 </doc>

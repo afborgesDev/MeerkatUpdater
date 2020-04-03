@@ -1,9 +1,9 @@
-﻿using MeerkatUpdater.Core.Helpers;
-using MeerkatUpdater.Core.Model.DotNetCommand;
+﻿using MeerkatUpdater.Core.Runner.Helpers;
+using MeerkatUpdater.Core.Runner.Model.DotNet;
 using System;
 using System.Threading.Tasks;
 
-namespace MeerkatUpdater.Core.Runner
+namespace MeerkatUpdater.Core.Runner.Command
 {
     /// <summary>
     /// Run a dotnet command and returns the execution results such as <br/>

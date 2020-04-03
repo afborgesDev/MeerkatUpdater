@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
-using MeerkatUpdater.Core.Helpers;
-using MeerkatUpdater.Core.Model.DotNetCommand;
-using MeerkatUpdater.Core.Runner;
+using MeerkatUpdater.Core.Runner.Command;
+using MeerkatUpdater.Core.Runner.Helpers;
+using MeerkatUpdater.Core.Runner.Model.DotNet;
 using System;
 using System.IO;
 using System.Linq;

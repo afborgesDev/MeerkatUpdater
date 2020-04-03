@@ -1,4 +1,4 @@
-﻿namespace MeerkatUpdater.Core.Model.DotNetCommand
+﻿namespace MeerkatUpdater.Core.Runner.Model.DotNet
 {
     /// <summary>
     /// The result of a dotnet command execution

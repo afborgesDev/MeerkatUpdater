@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeerkatUpdater.Core.Model.DotNetCommand
+namespace MeerkatUpdater.Core.Runner.Model.DotNet
 {
     /// <summary>
     /// Class used to look at execution process on CLI
