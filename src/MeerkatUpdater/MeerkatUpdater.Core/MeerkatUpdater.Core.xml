@@ -157,6 +157,11 @@
               Looks up a localized string similar to The Maximum Wait time should be gratan then Zero.
             </summary>
         </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.RequiredWorkDirectoryForBuildCommand">
+            <summary>
+              Looks up a localized string similar to The work directory is required for build command.
+            </summary>
+        </member>
         <member name="P:MeerkatUpdater.Core.DefaultMessages.ValidateArgumentToWorkDotNetCommand">
             <summary>
               Looks up a localized string similar to should informe a directory to work.
@@ -166,6 +171,18 @@
             <summary>
               Looks up a localized string similar to Could not create readers for the standard Output or standard Error.
             </summary>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.Build">
+            <summary>
+            Wrap the dotnet build command
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.Build.Execute(MeerkatUpdater.Core.Runner.Model.DotNet.Execution)">
+            <summary>
+            Exceute the dotnet build command
+            </summary>
+            <param name="execution"></param>
+            <returns></returns>
         </member>
         <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetCommand">
             <summary>
@@ -325,6 +342,18 @@
             <summary>
             Check if the exit code is the success one
             </summary>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Scraper.CleanOrBuildSuccess">
+            <summary>
+            Scraper to output dotnet CLI that can be used for Clean and Build commands
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Scraper.CleanOrBuildSuccess.IsSucceed(System.String)">
+            <summary>
+            Determine if the output result is for a succeeed result
+            </summary>
+            <param name="output"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

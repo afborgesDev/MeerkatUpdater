@@ -123,6 +123,9 @@
   <data name="MaximumWaitNotEnougthDotNetCommand" xml:space="preserve">
     <value>The Maximum Wait time should be gratan then Zero</value>
   </data>
+  <data name="RequiredWorkDirectoryForBuildCommand" xml:space="preserve">
+    <value>The work directory is required for build command</value>
+  </data>
   <data name="ValidateArgumentToWorkDotNetCommand" xml:space="preserve">
     <value>should informe a directory to work</value>
   </data>

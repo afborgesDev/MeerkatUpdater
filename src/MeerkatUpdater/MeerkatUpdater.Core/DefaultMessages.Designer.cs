@@ -79,6 +79,15 @@ namespace MeerkatUpdater.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The work directory is required for build command.
+        /// </summary>
+        internal static string RequiredWorkDirectoryForBuildCommand {
+            get {
+                return ResourceManager.GetString("RequiredWorkDirectoryForBuildCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to should informe a directory to work.
         /// </summary>
         internal static string ValidateArgumentToWorkDotNetCommand {
