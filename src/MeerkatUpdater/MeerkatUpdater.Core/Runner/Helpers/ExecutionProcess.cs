@@ -2,6 +2,7 @@
 using MeerkatUpdater.Core.Runner.Model.DotNet;
 using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace MeerkatUpdater.Core.Runner.Helpers
 {
@@ -33,7 +34,7 @@ namespace MeerkatUpdater.Core.Runner.Helpers
 
             return new ProcessStartInfo(DotNetExe.FullPathOrDefault(), string.Join(DefaultSeparatorForJoinArguments, args))
             {
-                WorkingDirectory = workingDirectory,
+                WorkingDirectory = Path.GetDirectoryName(workingDirectory),
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 RedirectStandardOutput = true,

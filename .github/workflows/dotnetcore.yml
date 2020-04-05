@@ -8,6 +8,7 @@ on:
 
 env:
   baseProjectPath: src/MeerkatUpdater
+  MSBUILDSINGLELOADCONTEXT: 1 #This environment is to solve the temporary issue on SpecFlow 3.1.x that can't build by using dotnet build
 
 jobs:
   build:

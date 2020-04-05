@@ -14,21 +14,20 @@ namespace MeerkatUpdater.Core.Runner.Command
         /// <summary>
         /// Exceute the dotnet build command
         /// </summary>
-        /// <param name="execution"></param>
+        /// <param name="solutionPath"></param>
         /// <returns></returns>
-        public static bool Execute(Execution execution)
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="NullReferenceException"></exception>
+        public static bool Execute(string solutionPath)
         {
-            if (execution is null)
-                throw new ArgumentNullException(nameof(execution));
+            if (string.IsNullOrWhiteSpace(solutionPath))
+                throw new ArgumentNullException(nameof(solutionPath));
 
-            if (execution.WorkDirectory is null)
-                throw new NullReferenceException(DefaultMessages.RequiredWorkDirectoryForBuildCommand);
-
-            execution.Arguments.Add(BuildCommand);
-            execution.Arguments.Add(execution.WorkDirectory);
-
+            var execution = BuildExecution(solutionPath);
             var result = DotNetCommand.RunCommand(execution);
             return CleanOrBuildSuccess.IsSucceed(result.Output);
         }
+
+        private static Execution BuildExecution(string solutionPath) => Execution.FromDirectoryAndArguments(solutionPath, BuildCommand, "--output", "outputTest");
     }
 }

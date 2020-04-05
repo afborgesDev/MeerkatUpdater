@@ -177,12 +177,14 @@
             Wrap the dotnet build command
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.Build.Execute(MeerkatUpdater.Core.Runner.Model.DotNet.Execution)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.Build.Execute(System.String)">
             <summary>
             Exceute the dotnet build command
             </summary>
-            <param name="execution"></param>
+            <param name="solutionPath"></param>
             <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.NullReferenceException"></exception>
         </member>
         <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetCommand">
             <summary>

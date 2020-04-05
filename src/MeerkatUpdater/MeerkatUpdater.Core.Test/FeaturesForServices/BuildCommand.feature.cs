@@ -83,11 +83,14 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices
         [Xunit.SkippableFactAttribute(DisplayName="😊 Build a valid project has no errors")]
         [Xunit.TraitAttribute("FeatureTitle", "To grant that the possibilities for the build command can run as expected")]
         [Xunit.TraitAttribute("Description", "😊 Build a valid project has no errors")]
+        [Xunit.TraitAttribute("Category", "deleteOutPutTest")]
         public virtual void BuildAValidProjectHasNoErrors()
         {
-            string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😊 Build a valid project has no errors", null, ((string[])(null)));
-#line 3
+            string[] tagsOfScenario = new string[] {
+                    "deleteOutPutTest"};
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😊 Build a valid project has no errors", null, new string[] {
+                        "deleteOutPutTest"});
+#line 4
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -107,13 +110,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 4
+#line 5
   testRunner.Given("The solution file to use", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 5
+#line 6
   testRunner.When("The comamnd is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 6
+#line 7
   testRunner.Then("The function returns a true as a succeed result for the build", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
