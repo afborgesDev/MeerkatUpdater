@@ -1,4 +1,5 @@
-﻿using MeerkatUpdater.Core.Runner.Model.DotNet;
+﻿using MeerkatUpdater.Core.Runner.Command.Common;
+using MeerkatUpdater.Core.Runner.Model.DotNet;
 using MeerkatUpdater.Core.Runner.Scraper;
 using System;
 
@@ -9,8 +10,6 @@ namespace MeerkatUpdater.Core.Runner.Command
     /// </summary>
     public static class Build
     {
-        private const string BuildCommand = "build";
-
         /// <summary>
         /// Exceute the dotnet build command
         /// </summary>
@@ -28,6 +27,7 @@ namespace MeerkatUpdater.Core.Runner.Command
             return CleanOrBuildSuccess.IsSucceed(result.Output);
         }
 
-        private static Execution BuildExecution(string solutionPath) => Execution.FromDirectoryAndArguments(solutionPath, BuildCommand, "--output", "outputTest");
+        private static Execution BuildExecution(string solutionPath) =>
+            Execution.FromDirectoryAndArguments(solutionPath, DotnetCommandConst.BuildCommand, DotnetCommandConst.TargetOutPutParam, "outputTest");
     }
 }
