@@ -11,7 +11,8 @@ namespace MeerkatUpdater.Core.Runner.Command
     public static class Build
     {
         /// <summary>
-        /// Exceute the dotnet build command
+        /// Exceute the dotnet build command <br/>
+        /// <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build">microsoft documentation</see>
         /// </summary>
         /// <param name="solutionPath"></param>
         /// <returns></returns>

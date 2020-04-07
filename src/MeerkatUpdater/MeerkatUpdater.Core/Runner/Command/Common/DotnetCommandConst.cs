@@ -1,11 +1,13 @@
 ﻿namespace MeerkatUpdater.Core.Runner.Command.Common
 {
-    public sealed class DotnetCommandConst
+    internal sealed class DotnetCommandConst
     {
-        public const string BuildCommand = "build";
-        public const string TargetOutPutParam = "--output";
-        public const string CleanCommand = "clean";
-        public const string SolutionCommand = "sln";
-        public const string ListCommand = "list";
+        internal const string BuildCommand = "build";
+        internal const string TargetOutPutParam = "--output";
+        internal const string CleanCommand = "clean";
+        internal const string SolutionCommand = "sln";
+        internal const string ListCommand = "list";
+        internal const string PackageCommand = "package";
+        internal const string OutDatedParam = "--outdated";
     }
 }

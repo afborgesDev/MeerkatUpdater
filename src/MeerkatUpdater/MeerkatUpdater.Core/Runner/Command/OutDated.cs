@@ -1,43 +1,25 @@
-﻿using MeerkatUpdater.Core.Runner.Model.DotNet;
-using System;
-using System.Threading.Tasks;
+﻿using MeerkatUpdater.Core.Runner.Command.Common;
+using MeerkatUpdater.Core.Runner.Model.DotNet;
+using MeerkatUpdater.Core.Runner.Model.PackageInfo;
+using System.Collections.Generic;
 
 namespace MeerkatUpdater.Core.Runner.Command
 {
     /// <summary>
-    /// Centralize the outdate work flow to <br/>
-    /// - Count <br/>
-    /// - Set Configurations <br/>
-    /// - Update <br/>
+    /// Warp the dotnet package --outdated
     /// </summary>
     public static class OutDated
     {
         /// <summary>
-        /// Do the OutDated process by checking and trying to update
+        /// Executes the dotnet package --outdated command to have the items that need update <br/>
+        /// <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-list-package">Microsoft documentation</see>
         /// </summary>
-        /// <param name="workDirectory"></param>
+        /// <param name="workdDirectory"></param>
         /// <returns></returns>
-        public static async Task Execute(string workDirectory)
+        public static List<ProjectInfo> Execute(string workdDirectory)
         {
-            var maximumWaitTime = BeforeExecution(workDirectory);
-        }
-
-        private static TimeSpan BeforeExecution(string workDirectory)
-        {
-            Clean.Execute(workDirectory);
-            Build.Execute(workDirectory);
-            return CalculateMaximumWaitForExecution(workDirectory);
-        }
-
-        private static TimeSpan CalculateMaximumWaitForExecution(string workDirectory)
-        {
-            const int BaseSeconds = 10;
-            var numberOfProjectsOnSolution = CountProject.Execute(workDirectory);
-
-            if (numberOfProjectsOnSolution is null)
-                return Execution.DefaultMaximumWait;
-
-            return TimeSpan.FromSeconds(numberOfProjectsOnSolution.Value * BaseSeconds);
+            var execution = Execution.FromDirectoryAndArguments(workdDirectory, DotnetCommandConst.PackageCommand, DotnetCommandConst.OutDatedParam);
+            var result = DotNetCommand.RunCommand(execution);
         }
     }
 }

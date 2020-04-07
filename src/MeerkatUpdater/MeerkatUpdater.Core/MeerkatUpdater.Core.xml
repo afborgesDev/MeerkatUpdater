@@ -179,12 +179,38 @@
         </member>
         <member name="M:MeerkatUpdater.Core.Runner.Command.Build.Execute(System.String)">
             <summary>
-            Exceute the dotnet build command
+            Exceute the dotnet build command <br/>
+            <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build">microsoft documentation</see>
             </summary>
             <param name="solutionPath"></param>
             <returns></returns>
             <exception cref="T:System.ArgumentException"></exception>
             <exception cref="T:System.NullReferenceException"></exception>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.Clean">
+            <summary>
+            Run the Clean Command
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.Clean.Execute(System.String)">
+            <summary>
+            Executes the dotnet clean command <br/>
+            For more information about the command, see: <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-clean">dotnet clean documentation</see>
+            </summary>
+            <param name="workDirectory"></param>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.CountProject">
+            <summary>
+            Run the commands that provide the number of projects inside a solution
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.CountProject.Execute(System.String)">
+            <summary>
+            Executes the dotnet command sln list to see more information see <br/>
+            <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-sln">microsoft documentation</see>
+            </summary>
+            <param name="workdirectory"></param>
+            <returns></returns>
         </member>
         <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetCommand">
             <summary>
@@ -199,6 +225,34 @@
             Executes a dotnet command and takes the output and error
             </summary>
             <param name="execution"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.OutDated">
+            <summary>
+            Warp the dotnet package --outdated
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.OutDated.Execute(System.String)">
+            <summary>
+            Executes the dotnet package --outdated command to have the items that need update <br/>
+            <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-list-package">Microsoft documentation</see>
+            </summary>
+            <param name="workdDirectory"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.UpdateProcess">
+            <summary>
+            Centralize the outdate work flow to <br/>
+            - Count <br/>
+            - Set Configurations <br/>
+            - Update <br/>
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.UpdateProcess.Execute(System.String)">
+            <summary>
+            Do the OutDated process by checking and trying to update
+            </summary>
+            <param name="workDirectory"></param>
             <returns></returns>
         </member>
         <member name="T:MeerkatUpdater.Core.Runner.Helpers.ExecutionProcess">
@@ -345,6 +399,113 @@
             Check if the exit code is the success one
             </summary>
         </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Model.PackageInfo.InstalledPackage">
+            <summary>
+            Informations about the instaled package on a project
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Runner.Model.PackageInfo.InstalledPackage.Name">
+            <summary>
+            The package name
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Runner.Model.PackageInfo.InstalledPackage.Current">
+            <summary>
+            The current version of the package
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Runner.Model.PackageInfo.InstalledPackage.Latest">
+            <summary>
+            The latest version of the package
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Runner.Model.PackageInfo.InstalledPackage.SemanticVersionChange">
+            <summary>
+            The semantic version used to target the update
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Runner.Model.PackageInfo.InstalledPackage.UpdatedAt">
+            <summary>
+            Indicates when the package was updated
+            </summary>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo">
+            <summary>
+            Information about the project into a solution
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo.Name">
+            <summary>
+            The project name
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo.TargetFramework">
+            <summary>
+            The project targetframework
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo.Path">
+            <summary>
+            The project path
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo.InstalledPackages">
+            <summary>
+            The list of instaled packages into the project
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo.HasItemsToCommit">
+            <summary>
+            Indicate if any package was updated and than needs to be pushed into the repository
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo.ToString">
+            <summary>
+            Returns a report about the project
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Model.PackageInfo.SemanticVersion">
+            <summary>
+            Determine the version of the package
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Runner.Model.PackageInfo.SemanticVersion.Major">
+            <summary>
+            Major version
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Runner.Model.PackageInfo.SemanticVersion.Minor">
+            <summary>
+            Minor version
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Runner.Model.PackageInfo.SemanticVersion.Path">
+            <summary>
+            Path version
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Runner.Model.PackageInfo.SemanticVersion.NoUpdate">
+            <summary>
+            Should not update
+            </summary>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Model.PackageInfo.VersionInfo">
+            <summary>
+            Information about the instaled package
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Runner.Model.PackageInfo.VersionInfo.Version">
+            <summary>
+            The number of the version
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Model.PackageInfo.VersionInfo.IsEstable">
+            <summary>
+            Indicates if the version is istable or not
+            </summary>
+        </member>
         <member name="T:MeerkatUpdater.Core.Runner.Scraper.CleanOrBuildSuccess">
             <summary>
             Scraper to output dotnet CLI that can be used for Clean and Build commands
@@ -356,6 +517,36 @@
             </summary>
             <param name="output"></param>
             <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Scraper.Common.SharedRegex">
+            <summary>
+            The shared regex for the outdated project
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Runner.Scraper.Common.SharedRegex.CleanUpCountProjectsRegex">
+            <summary>
+            Removes the header from the command list to have only the body
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Scraper.Common.SharedRegex.CleanUpUsingCountProjectRegex(System.String)">
+            <summary>
+            Replaces the match for a empty string and trim the result.
+            </summary>
+            <param name="output"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Scraper.CountProject">
+            <summary>
+            Scrap the result of a sln list to have the number of projects into a solution
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Scraper.CountProject.Execute(System.String)">
+            <summary>
+            Clean the output and than count the number of projects inside a solution
+            </summary>
+            <param name="output"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
     </members>
 </doc>

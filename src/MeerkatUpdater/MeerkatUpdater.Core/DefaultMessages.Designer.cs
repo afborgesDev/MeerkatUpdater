@@ -70,6 +70,15 @@ namespace MeerkatUpdater.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not convert the outdated output into the payload to continue the analisys.
+        /// </summary>
+        internal static string ErrorOnConvertOutDateOutPutIntoPayload {
+            get {
+                return ResourceManager.GetString("ErrorOnConvertOutDateOutPutIntoPayload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Maximum Wait time should be gratan then Zero.
         /// </summary>
         internal static string MaximumWaitNotEnougthDotNetCommand {

@@ -11,7 +11,7 @@ namespace MeerkatUpdater.Core.Runner.Command
     {
         /// <summary>
         /// Executes the dotnet command sln list to see more information see <br/>
-        ///
+        /// <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-sln">microsoft documentation</see>
         /// </summary>
         /// <param name="workdirectory"></param>
         /// <returns></returns>
