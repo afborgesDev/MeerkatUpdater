@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeerkatUpdater.Core.Runner.Scraper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,27 @@ namespace MeerkatUpdater.Core.Runner.Model.PackageInfo
         /// The list of instaled packages into the project
         /// </summary>
         public IEnumerable<InstalledPackage> InstalledPackages { get; set; } = new List<InstalledPackage>();
+
+        /// <summary>
+        /// Build a new complet project setting the semantic version for each installed package
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="targetFrameWork"></param>
+        /// <param name="installedPackages"></param>
+        /// <returns></returns>
+        public static ProjectInfo BuildCompleteProjectinfo(string? name, string? targetFrameWork, IEnumerable<InstalledPackage> installedPackages)
+        {
+            var projectInfo = new ProjectInfo
+            {
+                Name = name,
+                TargetFramework = targetFrameWork,
+                InstalledPackages = installedPackages
+            };
+
+            SemanticVersionAnalizer.SetSemanticVersionChange(ref projectInfo);
+
+            return projectInfo;
+        }
 
         /// <summary>
         /// Indicate if any package was updated and than needs to be pushed into the repository

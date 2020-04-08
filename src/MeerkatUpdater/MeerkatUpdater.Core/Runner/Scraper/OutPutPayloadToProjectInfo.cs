@@ -1,6 +1,7 @@
 ﻿using MeerkatUpdater.Core.Runner.Model.PackageInfo;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace MeerkatUpdater.Core.Runner.Scraper
@@ -24,7 +25,7 @@ namespace MeerkatUpdater.Core.Runner.Scraper
         private static readonly Regex PackageVersionInfosRegex = new Regex("(> [A-Za-z._-]{1,}( ){1,}[a-z0-9. -]{1,})", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex LibVersionInfoRegex = new Regex("[a-z0-9.-]{1,}", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        private static List<ProjectInfo>? TransformPayloadsToProjectInfo(List<string> payloads)
+        internal static List<ProjectInfo>? TransformPayloadsToProjectInfo(List<string> payloads)
         {
             var result = new List<ProjectInfo>();
             foreach (var payload in payloads)
@@ -32,14 +33,7 @@ namespace MeerkatUpdater.Core.Runner.Scraper
                 var packageName = GetPayloadPackageName(payload);
                 var frameWork = GetPayloadFrameWork(payload);
                 var installedPackages = GetInstalledPackages(payload);
-                var projectInfo = new ProjectInfo
-                {
-                    Name = packageName,
-                    TargetFramework = frameWork,
-                    InstalledPackages = installedPackages
-                };
-                SemanticVersionAnalizer.SetSemanticVersionChange(ref projectInfo);
-                result.Add(projectInfo);
+                result.Add(ProjectInfo.BuildCompleteProjectinfo(packageName, frameWork, installedPackages));
             }
 
             return result;
@@ -73,18 +67,13 @@ namespace MeerkatUpdater.Core.Runner.Scraper
             if (matches.Count == 0) return new List<InstalledPackage>();
 
             var list = new List<InstalledPackage>();
-            for (var i = 0; i <= matches.Count - 1; i++)
+            foreach (var libLine in matches.Where(x => x != null).Select(x => x.Value))
             {
-                var libLine = matches[i].Value;
                 var libName = ExtractLibName(libLine);
                 var (currentVersion, latestVersion) = ExtractLibVersion(libLine.Replace(libName, string.Empty, StringComparison.InvariantCultureIgnoreCase).Trim());
-                list.Add(new InstalledPackage
-                {
-                    Name = libName,
-                    Current = VersionInfo.FromVersionText(currentVersion),
-                    Latest = VersionInfo.FromVersionText(latestVersion)
-                });
+                list.Add(InstalledPackage.FromStringValues(libName, currentVersion, latestVersion));
             }
+
             return list;
         }
 

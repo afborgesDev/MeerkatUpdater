@@ -16,10 +16,11 @@ namespace MeerkatUpdater.Core.Runner.Command
         /// </summary>
         /// <param name="workdDirectory"></param>
         /// <returns></returns>
-        public static List<ProjectInfo> Execute(string workdDirectory)
+        public static List<ProjectInfo>? Execute(string workdDirectory)
         {
             var execution = Execution.FromDirectoryAndArguments(workdDirectory, DotnetCommandConst.PackageCommand, DotnetCommandConst.OutDatedParam);
             var result = DotNetCommand.RunCommand(execution);
+            return Scraper.Outdated.TransformOutPutToProjectInfo(result.Output);
         }
     }
 }

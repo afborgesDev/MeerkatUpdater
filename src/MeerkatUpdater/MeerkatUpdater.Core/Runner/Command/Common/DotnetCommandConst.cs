@@ -1,6 +1,6 @@
 ﻿namespace MeerkatUpdater.Core.Runner.Command.Common
 {
-    internal sealed class DotnetCommandConst
+    internal static class DotnetCommandConst
     {
         internal const string BuildCommand = "build";
         internal const string TargetOutPutParam = "--output";

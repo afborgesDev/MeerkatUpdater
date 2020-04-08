@@ -1,5 +1,7 @@
 ﻿using MeerkatUpdater.Core.Runner.Model.DotNet;
+using MeerkatUpdater.Core.Runner.Model.PackageInfo;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MeerkatUpdater.Core.Runner.Command
@@ -20,6 +22,16 @@ namespace MeerkatUpdater.Core.Runner.Command
         public static async Task Execute(string workDirectory)
         {
             var maximumWaitTime = BeforeExecution(workDirectory);
+            var projectInfo = OutDated.Execute(workDirectory);
+            if (projectInfo is null || projectInfo.Count == 0)
+                return;
+
+            await UpdateProjects(workDirectory, maximumWaitTime, projectInfo).ConfigureAwait(false);
+        }
+
+        private static Task UpdateProjects(string workDirectory, TimeSpan maximumWaitTime, List<ProjectInfo> projectInfo)
+        {
+            ProjectPathUpdater.Execute(workDirectory, ref projectInfo);
         }
 
         private static TimeSpan BeforeExecution(string workDirectory)

@@ -152,6 +152,11 @@
               Looks up a localized string similar to can&apos;t use arguments with a white spaces.
             </summary>
         </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.ErrorOnConvertOutDateOutPutIntoPayload">
+            <summary>
+              Looks up a localized string similar to Could not convert the outdated output into the payload to continue the analisys.
+            </summary>
+        </member>
         <member name="P:MeerkatUpdater.Core.DefaultMessages.MaximumWaitNotEnougthDotNetCommand">
             <summary>
               Looks up a localized string similar to The Maximum Wait time should be gratan then Zero.
@@ -429,6 +434,15 @@
             Indicates when the package was updated
             </summary>
         </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Model.PackageInfo.InstalledPackage.FromStringValues(System.String,System.String,System.String)">
+            <summary>
+            Convert the string values to the InstalledPackage and versionInfo
+            </summary>
+            <param name="name"></param>
+            <param name="currentVersion"></param>
+            <param name="latestVersion"></param>
+            <returns></returns>
+        </member>
         <member name="T:MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo">
             <summary>
             Information about the project into a solution
@@ -453,6 +467,15 @@
             <summary>
             The list of instaled packages into the project
             </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo.BuildCompleteProjectinfo(System.String,System.String,System.Collections.Generic.IEnumerable{MeerkatUpdater.Core.Runner.Model.PackageInfo.InstalledPackage})">
+            <summary>
+            Build a new complet project setting the semantic version for each installed package
+            </summary>
+            <param name="name"></param>
+            <param name="targetFrameWork"></param>
+            <param name="installedPackages"></param>
+            <returns></returns>
         </member>
         <member name="M:MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo.HasItemsToCommit">
             <summary>
@@ -501,6 +524,13 @@
             The number of the version
             </summary>
         </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Model.PackageInfo.VersionInfo.FromVersionText(System.String)">
+            <summary>
+            Creates a new versionInfo by using the text version
+            </summary>
+            <param name="versionText"></param>
+            <returns></returns>
+        </member>
         <member name="M:MeerkatUpdater.Core.Runner.Model.PackageInfo.VersionInfo.IsEstable">
             <summary>
             Indicates if the version is istable or not
@@ -547,6 +577,41 @@
             <param name="output"></param>
             <returns></returns>
             <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Scraper.Outdated">
+            <summary>
+            Scrap and transform the outdated command result into projectinfo list
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Scraper.Outdated.TransformOutPutToProjectInfo(System.String)">
+            <summary>
+            Transform the result of outdated command into a projectinfo list
+            </summary>
+            <param name="output"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Scraper.ProjectPathUpdater">
+            <summary>
+            Scrap the project list to extract the paths
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Scraper.ProjectPathUpdater.DiscoverProjectPath(System.String)">
+            <summary>
+            Scrap the project list to extract the paths
+            </summary>
+            <param name="output"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Scraper.SemanticVersionAnalizer">
+            <summary>
+            Define the semantic version for each installed package
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Scraper.SemanticVersionAnalizer.SetSemanticVersionChange(MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo@)">
+            <summary>
+            Analyse and add the semantic version for each installed package
+            </summary>
+            <param name="projectInfo"></param>
         </member>
     </members>
 </doc>

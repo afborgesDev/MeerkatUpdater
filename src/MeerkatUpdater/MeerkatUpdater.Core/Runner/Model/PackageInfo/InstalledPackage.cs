@@ -31,5 +31,31 @@ namespace MeerkatUpdater.Core.Runner.Model.PackageInfo
         /// Indicates when the package was updated
         /// </summary>
         public DateTime? UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Convert the string values to the InstalledPackage and versionInfo
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="currentVersion"></param>
+        /// <param name="latestVersion"></param>
+        /// <returns></returns>
+        public static InstalledPackage FromStringValues(string? name, string? currentVersion, string? latestVersion)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException(nameof(name));
+
+            if (string.IsNullOrEmpty(currentVersion))
+                throw new ArgumentNullException(nameof(currentVersion));
+
+            if (string.IsNullOrEmpty(latestVersion))
+                throw new ArgumentNullException(nameof(latestVersion));
+
+            return new InstalledPackage
+            {
+                Name = name,
+                Current = VersionInfo.FromVersionText(currentVersion),
+                Latest = VersionInfo.FromVersionText(latestVersion)
+            };
+        }
     }
 }
