@@ -1,6 +1,9 @@
-﻿using MeerkatUpdater.Core.Runner.Helpers;
+﻿using MeerkatUpdater.Core.Config;
+using MeerkatUpdater.Core.Runner.Command.Common;
+using MeerkatUpdater.Core.Runner.Helpers;
 using MeerkatUpdater.Core.Runner.Model.DotNet;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace MeerkatUpdater.Core.Runner.Command
@@ -16,20 +19,20 @@ namespace MeerkatUpdater.Core.Runner.Command
         /// <summary>
         /// Executes a dotnet command and takes the output and error
         /// </summary>
-        /// <param name="execution"></param>
+        /// <param name="arguments"></param>
         /// <returns></returns>
-        public static Result RunCommand(Execution execution)
+        public static Result RunCommand(params string[] arguments)
         {
-            if (execution is null)
-                throw new ArgumentNullException(nameof(execution));
+            ArgumentsValidation.Validate(arguments);
 
-            using var process = ExecutionProcess.CreateNewProcess(execution);
+            using var process = ExecutionProcess.CreateNewProcess(arguments);
 
             process.Start();
             var outputExecution = OutPutDotNetCommandExecution.FromStreamReader(process.StandardOutput);
             var errorExecution = OutPutDotNetCommandExecution.FromStreamReader(process.StandardError);
+            var waitMiliseconds = GetWaitMiliSeconds();
 
-            var processExited = process.WaitForExit(execution.GetTotalMilisecondsForMaximumWait());
+            var processExited = process.WaitForExit(waitMiliseconds);
             if (!processExited)
             {
                 process.Kill();
@@ -42,6 +45,10 @@ namespace MeerkatUpdater.Core.Runner.Command
             Task.WaitAll(outputExecution.OutPutTask, errorExecution.OutPutTask);
             return CreateAResultFromOutPutAndExitCode(outputExecution, errorExecution, Result.DefaultSuccessExitCode);
         }
+
+        private static int GetWaitMiliSeconds() =>
+            ConfigManager.GetExecutionConfigurations().NugetConfigurations?.GetMaximumWaitTimeMiliseconds() ??
+            Convert.ToInt32(ConfigManager.DefaultMaximumWait.TotalMilliseconds, CultureInfo.InvariantCulture);
 
         private static Result CreateAResultFromOutPutAndExitCode(OutPutDotNetCommandExecution outputExecution, OutPutDotNetCommandExecution errorExecution, int exitCode) =>
             Result.FromStandardsTextAndExitCode(outputExecution.GetOutPutString(), errorExecution.GetOutPutString(), exitCode);

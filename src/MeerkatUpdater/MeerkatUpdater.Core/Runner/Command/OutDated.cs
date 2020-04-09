@@ -1,5 +1,4 @@
 ﻿using MeerkatUpdater.Core.Runner.Command.Common;
-using MeerkatUpdater.Core.Runner.Model.DotNet;
 using MeerkatUpdater.Core.Runner.Model.PackageInfo;
 using System.Collections.Generic;
 
@@ -14,12 +13,10 @@ namespace MeerkatUpdater.Core.Runner.Command
         /// Executes the dotnet package --outdated command to have the items that need update <br/>
         /// <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-list-package">Microsoft documentation</see>
         /// </summary>
-        /// <param name="workdDirectory"></param>
         /// <returns></returns>
-        public static List<ProjectInfo>? Execute(string workdDirectory)
+        public static List<ProjectInfo>? Execute()
         {
-            var execution = Execution.FromDirectoryAndArguments(workdDirectory, DotnetCommandConst.PackageCommand, DotnetCommandConst.OutDatedParam);
-            var result = DotNetCommand.RunCommand(execution);
+            var result = DotNetCommand.RunCommand(DotnetCommandConst.PackageCommand, DotnetCommandConst.OutDatedParam);
             return Scraper.Outdated.TransformOutPutToProjectInfo(result.Output);
         }
     }

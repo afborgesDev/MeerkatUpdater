@@ -4,6 +4,17 @@
         <name>MeerkatUpdater.Core</name>
     </assembly>
     <members>
+        <member name="T:MeerkatUpdater.Core.Config.ConfigManager">
+            <summary>
+            Responsable to Load and provide access to the configurations
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.ConfigManager.GetExecutionConfigurations">
+            <summary>
+            Load if necessary and then return the ExecutionConfiguration
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator">
             <summary>
             Generate the default yml file that have the default convetions for the configurations
@@ -45,6 +56,36 @@
             <param name="payload"></param>
             <returns></returns>
             <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Config.Model.CustomExceptions.DeserealizationException">
+            <summary>
+            Exception when fails to deserialize the configuration
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Model.CustomExceptions.DeserealizationException.#ctor(System.String)">
+            <summary>
+            Constructor for add a custom message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Model.CustomExceptions.DeserealizationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructor for add a custom message and inner exception
+            </summary>
+            <param name="message"></param>
+            <param name="innerException"></param>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Model.CustomExceptions.DeserealizationException.#ctor">
+            <summary>
+            base constructor
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Model.CustomExceptions.DeserealizationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Stream serealization constructo
+            </summary>
+            <param name="serializationInfo"></param>
+            <param name="streamingContext"></param>
         </member>
         <member name="T:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations">
             <summary>
@@ -90,6 +131,24 @@
             <summary>
             The adicional urls as sources from nuget
             </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Model.NugetConfigurations.GetMaximumWaitTime">
+            <summary>
+            Calculate the seconds for Maximum wait time based on the int property
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Model.NugetConfigurations.GetMaximumWaitTimeMiliseconds">
+            <summary>
+            Return in miliseconds the maximum wait time
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Model.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(System.Nullable{System.Int32})">
+            <summary>
+            Validate and set the new max timeseconds
+            </summary>
+            <param name="newMaxTime"></param>
         </member>
         <member name="T:MeerkatUpdater.Core.Config.Model.SemanticVersion">
             <summary>
@@ -182,7 +241,7 @@
             Wrap the dotnet build command
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.Build.Execute(System.String)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.Build.Execute">
             <summary>
             Exceute the dotnet build command <br/>
             <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build">microsoft documentation</see>
@@ -197,7 +256,7 @@
             Run the Clean Command
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.Clean.Execute(System.String)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.Clean.Execute">
             <summary>
             Executes the dotnet clean command <br/>
             For more information about the command, see: <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-clean">dotnet clean documentation</see>
@@ -209,7 +268,7 @@
             Run the commands that provide the number of projects inside a solution
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.CountProject.Execute(System.String)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.CountProject.Execute">
             <summary>
             Executes the dotnet command sln list to see more information see <br/>
             <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-sln">microsoft documentation</see>
@@ -225,11 +284,11 @@
             - ExitCode
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommand.RunCommand(MeerkatUpdater.Core.Runner.Model.DotNet.Execution)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommand.RunCommand(System.String[])">
             <summary>
             Executes a dotnet command and takes the output and error
             </summary>
-            <param name="execution"></param>
+            <param name="arguments"></param>
             <returns></returns>
         </member>
         <member name="T:MeerkatUpdater.Core.Runner.Command.OutDated">
@@ -237,7 +296,7 @@
             Warp the dotnet package --outdated
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.OutDated.Execute(System.String)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.OutDated.Execute">
             <summary>
             Executes the dotnet package --outdated command to have the items that need update <br/>
             <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-list-package">Microsoft documentation</see>
@@ -253,7 +312,7 @@
             - Update <br/>
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.UpdateProcess.Execute(System.String)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.UpdateProcess.Execute">
             <summary>
             Do the OutDated process by checking and trying to update
             </summary>
@@ -265,72 +324,13 @@
             Helper for create and configure process to work with dotnet command cli
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Helpers.ExecutionProcess.CreateNewProcess(MeerkatUpdater.Core.Runner.Model.DotNet.Execution)">
+        <member name="M:MeerkatUpdater.Core.Runner.Helpers.ExecutionProcess.CreateNewProcess(System.String[])">
             <summary>
             Create and configure a process to execute the dotnet command by cli
             </summary>
-            <param name="execution"></param>
+            <param name="arguments"></param>
             <returns></returns>
             <exception cref="T:System.ArgumentNullException"></exception>
-        </member>
-        <member name="T:MeerkatUpdater.Core.Runner.Model.DotNet.Execution">
-            <summary>
-            Represents the required params to execute a dotnet command
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.WorkDirectory">
-            <summary>
-            The full path to dotnet command start to work
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.MaximumWait">
-            <summary>
-            The maximun time to wait until abort a execution
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.Arguments">
-            <summary>
-            The complete list of arguments to be forward into the dotnet command
-            </summary>
-        </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.FromCurrentDirrectoryAndArgument(System.String[])">
-            <summary>
-            Creates a Execution using default for maximumWait and the current directory <br/>
-            Just taking the arguments <br/>
-            This method takes the WorkDirectory directly from <see cref="M:System.IO.Directory.GetCurrentDirectory"/>
-            </summary>
-            <param name="arguments"></param>
-            <returns></returns>
-            <exception cref="T:System.ArgumentNullException">If the arguments has zero items</exception>
-            <exception cref="T:System.ArgumentException">If there's any argument that is a blank or white space</exception>
-        </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.FromDirectoryAndArguments(System.String,System.String[])">
-             <summary>
-             Creates a Execution using the default maximum wait time <see cref="F:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.DefaultMaximumWait"></see> <br/>
-            
-             </summary>
-             <param name="directory"></param>
-             <param name="arguments"></param>
-             <returns></returns>
-             <exception cref="T:System.ArgumentNullException">If the arguments has zero items</exception>
-             <exception cref="T:System.ArgumentException">If there's any argument that is a blank or white space</exception>
-        </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.FromDirectoryWaitTimeAndArguments(System.String,System.TimeSpan,System.String[])">
-            <summary>
-            Creates a Execution with all custom parameters
-            </summary>
-            <param name="directory"></param>
-            <param name="maximumWait"></param>
-            <param name="arguments"></param>
-            <returns></returns>
-            <exception cref="T:System.ArgumentNullException">If the arguments has zero items</exception>
-            <exception cref="T:System.ArgumentException">If there's any argument that is a blank or white space</exception>
-        </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Execution.GetTotalMilisecondsForMaximumWait">
-            <summary>
-            Get in seconds the MaximumWait time converted to int
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:MeerkatUpdater.Core.Runner.Model.DotNet.OutPutDotNetCommandExecution">
             <summary>
