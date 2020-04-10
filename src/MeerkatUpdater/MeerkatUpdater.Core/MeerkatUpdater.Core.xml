@@ -9,6 +9,11 @@
             Responsable to Load and provide access to the configurations
             </summary>
         </member>
+        <member name="F:MeerkatUpdater.Core.Config.ConfigManager.DefaultMaximumWait">
+            <summary>
+            The default maximum wait
+            </summary>
+        </member>
         <member name="M:MeerkatUpdater.Core.Config.ConfigManager.GetExecutionConfigurations">
             <summary>
             Load if necessary and then return the ExecutionConfiguration
@@ -246,7 +251,6 @@
             Exceute the dotnet build command <br/>
             <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build">microsoft documentation</see>
             </summary>
-            <param name="solutionPath"></param>
             <returns></returns>
             <exception cref="T:System.ArgumentException"></exception>
             <exception cref="T:System.NullReferenceException"></exception>
@@ -261,7 +265,6 @@
             Executes the dotnet clean command <br/>
             For more information about the command, see: <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-clean">dotnet clean documentation</see>
             </summary>
-            <param name="workDirectory"></param>
         </member>
         <member name="T:MeerkatUpdater.Core.Runner.Command.CountProject">
             <summary>
@@ -273,7 +276,6 @@
             Executes the dotnet command sln list to see more information see <br/>
             <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-sln">microsoft documentation</see>
             </summary>
-            <param name="workdirectory"></param>
             <returns></returns>
         </member>
         <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetCommand">
@@ -301,8 +303,18 @@
             Executes the dotnet package --outdated command to have the items that need update <br/>
             <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-list-package">Microsoft documentation</see>
             </summary>
-            <param name="workdDirectory"></param>
             <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.ProjectPathUpdater">
+            <summary>
+            Updater for path on each project inside a solution
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.ProjectPathUpdater.Execute(System.Collections.Generic.List{MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo}@)">
+            <summary>
+            Based on the solution update the path for each project
+            </summary>
+            <param name="projects"></param>
         </member>
         <member name="T:MeerkatUpdater.Core.Runner.Command.UpdateProcess">
             <summary>
@@ -316,7 +328,6 @@
             <summary>
             Do the OutDated process by checking and trying to update
             </summary>
-            <param name="workDirectory"></param>
             <returns></returns>
         </member>
         <member name="T:MeerkatUpdater.Core.Runner.Helpers.ExecutionProcess">
