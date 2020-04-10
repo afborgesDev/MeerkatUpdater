@@ -33,12 +33,24 @@ namespace MeerkatUpdater.Core.Runner.Helpers
 
             return new ProcessStartInfo(DotNetExe.FullPathOrDefault(), string.Join(DefaultSeparatorForJoinArguments, args))
             {
-                WorkingDirectory = Path.GetDirectoryName(solutionPath),
+                WorkingDirectory = GetValidWorkDirectory(solutionPath),
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true
             };
+        }
+
+        private static string GetValidWorkDirectory(string solutionPath)
+        {
+            if (string.IsNullOrWhiteSpace(solutionPath))
+                throw new ArgumentNullException(nameof(solutionPath));
+
+            var fromPath = Path.GetDirectoryName(solutionPath);
+            if (!string.IsNullOrWhiteSpace(fromPath) && Directory.Exists(fromPath))
+                return fromPath;
+
+            return Directory.GetCurrentDirectory();
         }
     }
 }

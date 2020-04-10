@@ -46,9 +46,13 @@ namespace MeerkatUpdater.Core.Runner.Command
             return CreateAResultFromOutPutAndExitCode(outputExecution, errorExecution, Result.DefaultSuccessExitCode);
         }
 
-        private static int GetWaitMiliSeconds() =>
-            ConfigManager.GetExecutionConfigurations().NugetConfigurations?.GetMaximumWaitTimeMiliseconds() ??
-            Convert.ToInt32(ConfigManager.DefaultMaximumWait.TotalMilliseconds, CultureInfo.InvariantCulture);
+        private static int GetWaitMiliSeconds()
+        {
+            var fromConfig = ConfigManager.GetExecutionConfigurations().NugetConfigurations?.GetMaximumWaitTimeMiliseconds();
+            if (fromConfig is null || fromConfig <= 0)
+                return Convert.ToInt32(ConfigManager.DefaultMaximumWait.TotalMilliseconds, CultureInfo.InvariantCulture);
+            return fromConfig.Value;
+        }
 
         private static Result CreateAResultFromOutPutAndExitCode(OutPutDotNetCommandExecution outputExecution, OutPutDotNetCommandExecution errorExecution, int exitCode) =>
             Result.FromStandardsTextAndExitCode(outputExecution.GetOutPutString(), errorExecution.GetOutPutString(), exitCode);
