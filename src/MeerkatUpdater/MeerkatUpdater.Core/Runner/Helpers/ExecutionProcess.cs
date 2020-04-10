@@ -1,5 +1,6 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
-using MeerkatUpdater.Core.Runner.Model.DotNet;
+using MeerkatUpdater.Core.Config;
+using MeerkatUpdater.Core.Runner.Command.Common;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -16,25 +17,23 @@ namespace MeerkatUpdater.Core.Runner.Helpers
         /// <summary>
         /// Create and configure a process to execute the dotnet command by cli
         /// </summary>
-        /// <param name="execution"></param>
+        /// <param name="arguments"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static Process CreateNewProcess(Execution execution)
+        public static Process CreateNewProcess(params string[] arguments)
         {
-            if (execution is null)
-                throw new ArgumentNullException(nameof(execution));
-
-            return new Process { StartInfo = CreateProcessStartInfo(execution.WorkDirectory, execution.Arguments.ToArray()) };
+            ArgumentsValidation.Validate(arguments);
+            return new Process { StartInfo = CreateProcessStartInfo(ConfigManager.GetExecutionConfigurations().SolutionPath, arguments) };
         }
 
-        private static ProcessStartInfo CreateProcessStartInfo(string? workingDirectory, string[] args)
+        private static ProcessStartInfo CreateProcessStartInfo(string? solutionPath, string[] args)
         {
-            if (string.IsNullOrWhiteSpace(workingDirectory))
-                throw new ArgumentException(DefaultMessages.ValidateArgumentToWorkDotNetCommand, nameof(workingDirectory));
+            if (string.IsNullOrWhiteSpace(solutionPath))
+                throw new ArgumentException(DefaultMessages.ValidateArgumentToWorkDotNetCommand, nameof(solutionPath));
 
             return new ProcessStartInfo(DotNetExe.FullPathOrDefault(), string.Join(DefaultSeparatorForJoinArguments, args))
             {
-                WorkingDirectory = Path.GetDirectoryName(workingDirectory),
+                WorkingDirectory = Path.GetDirectoryName(solutionPath),
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 RedirectStandardOutput = true,

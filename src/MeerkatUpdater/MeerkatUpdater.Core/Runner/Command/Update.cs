@@ -9,7 +9,7 @@ namespace MeerkatUpdater.Core.Runner.Command
         private const int MaxDegreeParallelForPackagesToUpdate = 10;
         private static readonly ParallelOptions parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = MaxDegreeParallelForPackagesToUpdate };
 
-        public static void Execute(string workDirectory, List<ProjectInfo> toUpdateProjectInfo)
+        public static void Execute(List<ProjectInfo> toUpdateProjectInfo)
         {
         }
     }

@@ -1,7 +1,6 @@
-﻿using MeerkatUpdater.Core.Runner.Model.DotNet;
-using MeerkatUpdater.Core.Runner.Model.PackageInfo;
+﻿using MeerkatUpdater.Core.Config;
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace MeerkatUpdater.Core.Runner.Command
@@ -17,39 +16,40 @@ namespace MeerkatUpdater.Core.Runner.Command
         /// <summary>
         /// Do the OutDated process by checking and trying to update
         /// </summary>
-        /// <param name="workDirectory"></param>
         /// <returns></returns>
-        public static async Task Execute(string workDirectory)
+        public static async Task Execute()
         {
-            var maximumWaitTime = BeforeExecution(workDirectory);
-            var projectInfo = OutDated.Execute(workDirectory);
+            BeforeExecution();
+            var projectInfo = OutDated.Execute();
             if (projectInfo is null || projectInfo.Count == 0)
                 return;
 
-            await UpdateProjects(workDirectory, maximumWaitTime, projectInfo).ConfigureAwait(false);
+            // await UpdateProjects(projectInfo).ConfigureAwait(false);
         }
 
-        private static Task UpdateProjects(string workDirectory, TimeSpan maximumWaitTime, List<ProjectInfo> projectInfo)
+        //private static Task UpdateProjects(List<ProjectInfo> projectInfo)
+        //{
+        //    ProjectPathUpdater.Execute(ref projectInfo);
+        //}
+
+        private static void BeforeExecution()
         {
-            ProjectPathUpdater.Execute(workDirectory, ref projectInfo);
+            Clean.Execute();
+            Build.Execute();
+            CalculateMaximumWaitForExecution();
         }
 
-        private static TimeSpan BeforeExecution(string workDirectory)
-        {
-            Clean.Execute(workDirectory);
-            Build.Execute(workDirectory);
-            return CalculateMaximumWaitForExecution(workDirectory);
-        }
-
-        private static TimeSpan CalculateMaximumWaitForExecution(string workDirectory)
+        private static void CalculateMaximumWaitForExecution()
         {
             const int BaseSeconds = 10;
-            var numberOfProjectsOnSolution = CountProject.Execute(workDirectory);
+            var numberOfProjectsOnSolution = CountProject.Execute();
 
             if (numberOfProjectsOnSolution is null)
-                return Execution.DefaultMaximumWait;
+                return;
 
-            return TimeSpan.FromSeconds(numberOfProjectsOnSolution.Value * BaseSeconds);
+            var newWaitTime = Convert.ToInt32(numberOfProjectsOnSolution * BaseSeconds, CultureInfo.InvariantCulture);
+
+            ConfigManager.GetExecutionConfigurations().NugetConfigurations?.SetNewMaxTimeSecondsTimeOut(newWaitTime);
         }
     }
 }

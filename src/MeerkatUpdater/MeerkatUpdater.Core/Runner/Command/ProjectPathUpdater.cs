@@ -1,24 +1,25 @@
 ﻿using MeerkatUpdater.Core.Runner.Command.Common;
-using MeerkatUpdater.Core.Runner.Model.DotNet;
 using MeerkatUpdater.Core.Runner.Model.PackageInfo;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MeerkatUpdater.Core.Runner.Command
 {
+    /// <summary>
+    /// Updater for path on each project inside a solution
+    /// </summary>
     public static class ProjectPathUpdater
     {
-        public static void Execute(string workDirectory, ref List<ProjectInfo> projects)
+        /// <summary>
+        /// Based on the solution update the path for each project
+        /// </summary>
+        /// <param name="projects"></param>
+        public static void Execute(ref List<ProjectInfo> projects)
         {
-            if (string.IsNullOrWhiteSpace(workDirectory))
-                return;
-
             if (projects is null || projects.Count == 0)
                 return;
 
-            var execution = Execution.FromDirectoryAndArguments(workDirectory, DotnetCommandConst.SolutionCommand, DotnetCommandConst.ListCommand);
-            var result = DotNetCommand.RunCommand(execution);
-
+            var result = DotNetCommand.RunCommand(DotnetCommandConst.SolutionCommand, DotnetCommandConst.ListCommand);
             if (!result.IsSuccess()) return;
 
             var projectPaths = Scraper.ProjectPathUpdater.DiscoverProjectPath(result.Output);

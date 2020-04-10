@@ -1,0 +1,11 @@
+﻿SolutionPath: .
+LogLevel: Information
+NugetConfigurations:
+  MaxTimeSecondsTimeOut: 10
+  Sources:
+  - https://api.nuget.org/v3/index.json
+UpdateConfigurations:
+  RolbackIfFail: false
+  AllowedVersionsToUpdate:
+  - Minor
+  - Path

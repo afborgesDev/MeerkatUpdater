@@ -1,6 +1,4 @@
 ﻿using MeerkatUpdater.Core.Runner.Command.Common;
-using MeerkatUpdater.Core.Runner.Model.DotNet;
-using System;
 
 namespace MeerkatUpdater.Core.Runner.Command
 {
@@ -13,15 +11,10 @@ namespace MeerkatUpdater.Core.Runner.Command
         /// Executes the dotnet command sln list to see more information see <br/>
         /// <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-sln">microsoft documentation</see>
         /// </summary>
-        /// <param name="workdirectory"></param>
         /// <returns></returns>
-        public static int? Execute(string workdirectory)
+        public static int? Execute()
         {
-            if (string.IsNullOrWhiteSpace(workdirectory))
-                throw new ArgumentNullException(nameof(workdirectory));
-
-            var execution = Execution.FromDirectoryAndArguments(workdirectory, DotnetCommandConst.SolutionCommand, DotnetCommandConst.ListCommand);
-            var result = DotNetCommand.RunCommand(execution);
+            var result = DotNetCommand.RunCommand(DotnetCommandConst.SolutionCommand, DotnetCommandConst.ListCommand);
             return Scraper.CountProject.Execute(result.Output);
         }
     }

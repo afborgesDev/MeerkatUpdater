@@ -84,7 +84,9 @@ namespace MeerkatUpdater.Core.Config
 
         private static NugetConfigurations GetNugetDefaultConfigurations()
         {
-            var nugetConfigs = new NugetConfigurations { MaxTimeSecondsTimeOut = (int)TimeSpan.FromSeconds(10).TotalSeconds };
+            var nugetConfigs = new NugetConfigurations();
+            nugetConfigs.SetNewMaxTimeSecondsTimeOut((int)TimeSpan.FromSeconds(10).TotalSeconds);
+
             nugetConfigs.Sources.Add("https://api.nuget.org/v3/index.json");
             return nugetConfigs;
         }
@@ -92,7 +94,8 @@ namespace MeerkatUpdater.Core.Config
         private static UpdateConfigurations GetUpdateConfigurations()
         {
             var updateConfig = new UpdateConfigurations() { RolbackIfFail = false };
-            updateConfig.AllowedVersionsToUpdate.Add(SemanticVersion.NoUpdate);
+            updateConfig.AllowedVersionsToUpdate.Add(SemanticVersion.Minor);
+            updateConfig.AllowedVersionsToUpdate.Add(SemanticVersion.Path);
             return updateConfig;
         }
     }
