@@ -11,7 +11,7 @@ namespace MeerkatUpdater.Core.Config.Model
         /// <summary>
         /// The maximun timeout for try to get a package from nuget repository
         /// </summary>
-        public int MaxTimeSecondsTimeOut { get; private set; }
+        public int MaxTimeSecondsTimeOut { get; set; }
 
         /// <summary>
         /// The adicional urls as sources from nuget
@@ -36,7 +36,7 @@ namespace MeerkatUpdater.Core.Config.Model
         /// <param name="newMaxTime"></param>
         public void SetNewMaxTimeSecondsTimeOut(int? newMaxTime)
         {
-            if (newMaxTime is null || newMaxTime < 0)
+            if (newMaxTime is null || newMaxTime <= 0)
                 return;
 
             MaxTimeSecondsTimeOut = newMaxTime.Value;

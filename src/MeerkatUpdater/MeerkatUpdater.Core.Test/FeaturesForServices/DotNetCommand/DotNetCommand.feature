@@ -7,3 +7,12 @@ Scenario: 😊 Get version of the installed dotnet works well with valid configu
    Then The result was a succeed execution
     And The errorOutput doesn't have any loged error
     And The output Has the dotnet version
+
+Scenario: 😊 Command should execute by the timeout default if doesn't have any valid configuration for that
+  Given The configuration with no valid WaitTimeOut
+    And The arguments to execute was '--version'
+   When The DotNetCommand is executed
+   Then The result was a succeed execution
+    And The errorOutput doesn't have any loged error
+    And The output Has the dotnet version
+    And The time spend was equal or lest than the default

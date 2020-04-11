@@ -30,6 +30,11 @@
             The default value that is used to generate the yaml example file
             </summary>
         </member>
+        <member name="F:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator.DefaultConfigurationFileName">
+            <summary>
+            The expected default file for configurations
+            </summary>
+        </member>
         <member name="F:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator.DefaultLogLevel">
             <summary>
             The default value that is used to generate loglevel for the yaml example file
@@ -46,6 +51,13 @@
             Generate the yml configuration files that have the default convertions
             </summary>
             <param name="filePath"></param>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator.BuildYmlFile(MeerkatUpdater.Core.Config.Model.ExecutionConfigurations)">
+            <summary>
+            Transform a configuration class into a Yaml file
+            </summary>
+            <param name="defaultConfigs"></param>
+            <returns></returns>
         </member>
         <member name="T:MeerkatUpdater.Core.Config.DefaultYmlDeserializer">
             <summary>
