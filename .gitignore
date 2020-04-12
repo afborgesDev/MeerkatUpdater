@@ -50,6 +50,9 @@ bld/
 # Visual Studio 2017 auto generated files
 Generated\ Files/
 
+# outputTest
+[Oo]utput[Tt]est*/
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
