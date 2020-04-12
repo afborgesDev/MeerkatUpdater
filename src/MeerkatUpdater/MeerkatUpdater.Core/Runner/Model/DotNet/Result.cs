@@ -43,7 +43,7 @@
         /// <summary>
         /// Check if the exit code is the success one
         /// </summary>
-        public bool IsSuccess()
+        public bool IsSucceed()
         {
             if (ExitCode == DefaultSuccessExitCode)
                 return true;

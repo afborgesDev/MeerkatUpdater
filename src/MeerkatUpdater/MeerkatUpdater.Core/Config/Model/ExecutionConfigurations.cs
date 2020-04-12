@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using System;
+using System.Globalization;
 
 namespace MeerkatUpdater.Core.Config.Model
 {
@@ -31,5 +33,17 @@ namespace MeerkatUpdater.Core.Config.Model
         /// <see cref="UpdateConfigurations.AllowedVersionsToUpdate"/> Sets the types of semantic versions that will be updated
         /// </summary>
         public UpdateConfigurations? UpdateConfigurations { get; set; }
+
+        /// <summary>
+        /// Returns the configuration from the nuget but if it was null take the time out from the default <see cref="ConfigManager.DefaultMaximumWait"/>
+        /// </summary>
+        /// <returns></returns>
+        public int GetWaitMiliSeconds()
+        {
+            var fromConfig = NugetConfigurations?.GetMaximumWaitTimeMiliseconds();
+            if (fromConfig is null || fromConfig <= 0)
+                return Convert.ToInt32(ConfigManager.DefaultMaximumWait.TotalMilliseconds, CultureInfo.InvariantCulture);
+            return fromConfig.Value;
+        }
     }
 }

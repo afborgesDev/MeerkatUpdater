@@ -14,6 +14,11 @@
             The default maximum wait
             </summary>
         </member>
+        <member name="P:MeerkatUpdater.Core.Config.ConfigManager.ExecutionConfigurations">
+            <summary>
+            The Configurations for executions
+            </summary>
+        </member>
         <member name="M:MeerkatUpdater.Core.Config.ConfigManager.GetExecutionConfigurations">
             <summary>
             Load if necessary and then return the ExecutionConfiguration
@@ -133,6 +138,12 @@
             <see cref="P:MeerkatUpdater.Core.Config.Model.UpdateConfigurations.RolbackIfFail"/> Sets if the process will continue if the updates fail <br/>
             <see cref="P:MeerkatUpdater.Core.Config.Model.UpdateConfigurations.AllowedVersionsToUpdate"/> Sets the types of semantic versions that will be updated
             </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations.GetWaitMiliSeconds">
+            <summary>
+            Returns the configuration from the nuget but if it was null take the time out from the default <see cref="F:MeerkatUpdater.Core.Config.ConfigManager.DefaultMaximumWait"/>
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:MeerkatUpdater.Core.Config.Model.NugetConfigurations">
             <summary>
@@ -422,7 +433,7 @@
             <param name="exitCode"></param>
             <returns></returns>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Result.IsSuccess">
+        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Result.IsSucceed">
             <summary>
             Check if the exit code is the success one
             </summary>

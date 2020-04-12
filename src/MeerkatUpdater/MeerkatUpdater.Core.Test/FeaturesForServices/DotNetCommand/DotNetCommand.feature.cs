@@ -117,7 +117,7 @@ this.ScenarioInitialize(scenarioInfo);
    testRunner.When("The DotNetCommand is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
-   testRunner.Then("The result was a succeed execution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.Then("The succeed result of the execution is \'true\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 8
     testRunner.And("The errorOutput doesn\'t have any loged error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -169,7 +169,7 @@ this.ScenarioInitialize(scenarioInfo);
    testRunner.When("The DotNetCommand is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 15
-   testRunner.Then("The result was a succeed execution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.Then("The succeed result of the execution is \'true\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 16
     testRunner.And("The errorOutput doesn\'t have any loged error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -179,6 +179,52 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
 #line 18
     testRunner.And("The time spend was equal or lest than the default", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="😊 Short TimeOut should kill the task and result into a not succeed execution")]
+        [Xunit.TraitAttribute("FeatureTitle", "In order to test the base DotNetCommand class and execution")]
+        [Xunit.TraitAttribute("Description", "😊 Short TimeOut should kill the task and result into a not succeed execution")]
+        public virtual void ShortTimeOutShouldKillTheTaskAndResultIntoANotSucceedExecution()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😊 Short TimeOut should kill the task and result into a not succeed execution", null, ((string[])(null)));
+#line 20
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 21
+  testRunner.Given("The configuration with the short WaitTimeOut", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 22
+   testRunner.And("The arguments to execute was \'build -v d\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 23
+   testRunner.When("The DotNetCommand is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 24
+    testRunner.Then("The succeed result of the execution is \'false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 25
+    testRunner.And("The errorOutput doesn\'t have any loged error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

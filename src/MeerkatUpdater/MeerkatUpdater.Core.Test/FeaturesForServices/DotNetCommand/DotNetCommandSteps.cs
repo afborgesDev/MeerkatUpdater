@@ -2,9 +2,9 @@
 using MeerkatUpdater.Core.Config;
 using MeerkatUpdater.Core.Config.Model;
 using MeerkatUpdater.Core.Runner.Model.DotNet;
+using MeerkatUpdater.Core.Test.GeneralUse;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
 
@@ -16,6 +16,8 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand
         private const string CommandToExecuteKey = "commandToExecute";
         private const string ExecutedCommandResultObjectKey = "executedCommandResultObject";
         private const string SpendedTimeToExecuteCommandKey = "SpendedTimeToExecuteCommand";
+        private const string ConfigurationsKey = "configurations";
+
         private readonly Regex DotNetVersionPattern = new Regex("([0-9]{1,}([.])?)", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         private readonly ScenarioContext scenarioContext;
 
@@ -27,11 +29,22 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand
         [Given("The configuration with no valid WaitTimeOut")]
         public void GivenTheConfigurationWithNoValidWaitTimeOut()
         {
-            var payload = DefaultConfigYmlGenerator.GenerateDefaultConfigurations();
-            var configurations = DefaultYmlDeserializer.Deserialize<ExecutionConfigurations>(payload);
+            var configurations = DotNetCommandUtils.GetObjectConfigurationFromDefault();
             configurations.NugetConfigurations = new NugetConfigurations();
-            payload = DefaultConfigYmlGenerator.BuildYmlFile(configurations);
-            File.WriteAllText(DefaultConfigYmlGenerator.DefaultConfigurationFileName, payload);
+            this.scenarioContext.Set(configurations, ConfigurationsKey);
+            DotNetCommandUtils.WriteNewConfigurations(configurations);
+        }
+
+        [Given("The configuration with the short WaitTimeOut")]
+        public void GivenTheConfigurationWithTheShortWaitTimeOut()
+        {
+            const int OneSecond = 1;
+
+            var configurations = DotNetCommandUtils.GetObjectConfigurationFromDefault();
+            configurations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(OneSecond);
+            configurations.SolutionPath = SolutionFinder.GetFirstSolutionFile();
+            this.scenarioContext.Set(configurations, ConfigurationsKey);
+            DotNetCommandUtils.WriteNewConfigurations(configurations);
         }
 
         [Given("The arguments to execute was '(.*)'")]
@@ -41,6 +54,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand
         public void WhenTheDotNetCommandIsExecuted()
         {
             var commandToBeExecuted = this.scenarioContext.Get<string>(CommandToExecuteKey);
+            SetConfigurationsIfWasSaved();
 
             var watcher = new Stopwatch();
             watcher.Start();
@@ -51,12 +65,12 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand
             this.scenarioContext.Set(watcher.ElapsedMilliseconds, SpendedTimeToExecuteCommandKey);
         }
 
-        [Then("The result was a succeed execution")]
-        public void ThenTheResultWasASucceedExecution()
+        [Then("The succeed result of the execution is '(.*)'")]
+        public void ThenTheSucceedResultOfTheExecutionIs(bool expectedSucceedResult)
         {
             var result = GetResultObject();
             result.Should().NotBeNull();
-            result.IsSuccess().Should().BeTrue();
+            result.IsSucceed().Should().Be(expectedSucceedResult);
         }
 
         [Then("The errorOutput doesn't have any loged error")]
@@ -84,6 +98,12 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand
             var secondsSpended = timeSpanSpended.TotalSeconds;
 
             secondsSpended.Should().BeLessOrEqualTo(defaultLongMaximumWait);
+        }
+
+        private void SetConfigurationsIfWasSaved()
+        {
+            if (this.scenarioContext.TryGetValue<ExecutionConfigurations>(ConfigurationsKey, out var configurations))
+                ConfigManager.ExecutionConfigurations = configurations;
         }
 
         private Result GetResultObject() => this.scenarioContext.Get<Result>(ExecutedCommandResultObjectKey);

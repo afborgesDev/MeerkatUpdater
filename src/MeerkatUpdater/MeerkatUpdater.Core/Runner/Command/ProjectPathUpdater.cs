@@ -20,7 +20,7 @@ namespace MeerkatUpdater.Core.Runner.Command
                 return;
 
             var result = DotNetCommand.RunCommand(DotnetCommandConst.SolutionCommand, DotnetCommandConst.ListCommand);
-            if (!result.IsSuccess()) return;
+            if (!result.IsSucceed()) return;
 
             var projectPaths = Scraper.ProjectPathUpdater.DiscoverProjectPath(result.Output);
 

@@ -18,7 +18,11 @@ namespace MeerkatUpdater.Core.Config
 
         private const string ExecutionConfigurationsFile = "MeerkatUpdater";
         private static readonly string[] SupportedExtensions = new string[2] { ".yaml", ".yml" };
-        private static ExecutionConfigurations? ExecutionConfigurations { get; set; }
+
+        /// <summary>
+        /// The Configurations for executions
+        /// </summary>
+        public static ExecutionConfigurations? ExecutionConfigurations { get; set; }
 
         /// <summary>
         /// Load if necessary and then return the ExecutionConfiguration

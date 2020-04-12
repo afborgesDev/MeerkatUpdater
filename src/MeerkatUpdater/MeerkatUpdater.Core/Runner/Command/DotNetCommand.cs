@@ -3,7 +3,6 @@ using MeerkatUpdater.Core.Runner.Command.Common;
 using MeerkatUpdater.Core.Runner.Helpers;
 using MeerkatUpdater.Core.Runner.Model.DotNet;
 using System;
-using System.Globalization;
 using System.Threading.Tasks;
 
 namespace MeerkatUpdater.Core.Runner.Command
@@ -30,7 +29,7 @@ namespace MeerkatUpdater.Core.Runner.Command
             process.Start();
             var outputExecution = OutPutDotNetCommandExecution.FromStreamReader(process.StandardOutput);
             var errorExecution = OutPutDotNetCommandExecution.FromStreamReader(process.StandardError);
-            var waitMiliseconds = GetWaitMiliSeconds();
+            var waitMiliseconds = ConfigManager.GetExecutionConfigurations().GetWaitMiliSeconds();
 
             var processExited = process.WaitForExit(waitMiliseconds);
             if (!processExited)
@@ -44,14 +43,6 @@ namespace MeerkatUpdater.Core.Runner.Command
 
             Task.WaitAll(outputExecution.OutPutTask, errorExecution.OutPutTask);
             return CreateAResultFromOutPutAndExitCode(outputExecution, errorExecution, Result.DefaultSuccessExitCode);
-        }
-
-        private static int GetWaitMiliSeconds()
-        {
-            var fromConfig = ConfigManager.GetExecutionConfigurations().NugetConfigurations?.GetMaximumWaitTimeMiliseconds();
-            if (fromConfig is null || fromConfig <= 0)
-                return Convert.ToInt32(ConfigManager.DefaultMaximumWait.TotalMilliseconds, CultureInfo.InvariantCulture);
-            return fromConfig.Value;
         }
 
         private static Result CreateAResultFromOutPutAndExitCode(OutPutDotNetCommandExecution outputExecution, OutPutDotNetCommandExecution errorExecution, int exitCode) =>
