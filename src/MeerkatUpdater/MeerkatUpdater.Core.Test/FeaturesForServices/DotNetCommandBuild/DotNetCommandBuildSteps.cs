@@ -21,21 +21,21 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandBuild
             this.scenarioContext = scenarioContext;
         }
 
-        [Then("The folder '(.*)' should be created with files")]
-        public static void ThenTheFolderShouldBeCreatedWithFiles(string outputFolderName)
-        {
-            var directoryOutPutPath = Scenarios.FindOutPutBuildPath();
-            directoryOutPutPath.Should().Contain(outputFolderName);
-
-            var files = Directory.EnumerateFiles(directoryOutPutPath);
-            files.Should().HaveCountGreaterThan(0);
-        }
-
         [Given("The valid configurations with the solution path")]
         public void GivenTheValidConfigurationsWithTheSolutionPath()
         {
             var configurations = DotNetCommandUtils.GetObjectConfigurationFromDefault();
             configurations.SolutionPath = SolutionFinder.GetFirstSolutionFile();
+            configurations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(15);
+            this.scenarioContext.Set(configurations, ConfigurationsKey);
+            DotNetCommandUtils.WriteNewConfigurations(configurations);
+        }
+
+        [Given("The configurations for a invalid solution")]
+        public void GivenTheConfigurationsForAInvalidSolution()
+        {
+            var configurations = DotNetCommandUtils.GetObjectConfigurationFromDefault();
+            configurations.SolutionPath = Path.Combine(Path.GetDirectoryName(SolutionFinder.GetFirstSolutionFile()), "InvalidSln.sln");
             configurations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(15);
             this.scenarioContext.Set(configurations, ConfigurationsKey);
             DotNetCommandUtils.WriteNewConfigurations(configurations);
@@ -49,11 +49,21 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandBuild
             this.scenarioContext.Set(result, ExecutedCommandResultObjectKey);
         }
 
-        [Then("The execution result should be true")]
-        public void ThenTheExecutionResultShouldBeTrue()
+        [Then("The execution result should be '(.*)'")]
+        public void ThenTheExecutionResultShouldBe(bool expectedResult)
         {
             var result = GetResultObject();
-            result.Should().BeTrue();
+            result.Should().Be(expectedResult);
+        }
+
+        [Then("The folder '(.*)' should be created with files")]
+        public void ThenTheFolderShouldBeCreatedWithFiles(string outputFolderName)
+        {
+            var directoryOutPutPath = Scenarios.FindOutPutBuildPath();
+            directoryOutPutPath.Should().Contain(outputFolderName);
+
+            var files = Directory.EnumerateFiles(directoryOutPutPath);
+            files.Should().HaveCountGreaterThan(0);
         }
 
         private void SetConfigurationsIfWasSaved()

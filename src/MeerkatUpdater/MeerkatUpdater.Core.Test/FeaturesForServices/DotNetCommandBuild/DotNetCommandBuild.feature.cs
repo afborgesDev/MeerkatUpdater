@@ -120,7 +120,53 @@ this.ScenarioInitialize(scenarioInfo);
    testRunner.Then("The folder \'outputTest\' should be created with files", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 8
-    testRunner.And("The execution result should be true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("The execution result should be \'true\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="😟 A not succeed build should fail the execution")]
+        [Xunit.TraitAttribute("FeatureTitle", "In order to test the Build command execution")]
+        [Xunit.TraitAttribute("Description", "😟 A not succeed build should fail the execution")]
+        [Xunit.TraitAttribute("Category", "deleteOutPutTest")]
+        public virtual void ANotSucceedBuildShouldFailTheExecution()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "deleteOutPutTest"};
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 A not succeed build should fail the execution", null, new string[] {
+                        "deleteOutPutTest"});
+#line 11
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 12
+   testRunner.Given("The configurations for a invalid solution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 13
+   testRunner.When("The Build is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 14
+   testRunner.Then("The folder \'outputTest\' should be created with files", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 15
+   testRunner.And("The execution result should be \'false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
