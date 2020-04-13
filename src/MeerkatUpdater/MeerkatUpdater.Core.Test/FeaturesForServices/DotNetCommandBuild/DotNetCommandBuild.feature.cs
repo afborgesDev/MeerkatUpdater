@@ -111,13 +111,14 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
-  testRunner.Given("The valid configurations with the solution path", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+  testRunner.Given("The valid configurations with the solution path for outputPath \'buildSucceedOutPu" +
+                        "tTest\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
    testRunner.When("The Build is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
-   testRunner.Then("The folder \'outputTest\' should be created with files", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.Then("The folder \'buildSucceedOutPutTest\' should be created with files", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 8
     testRunner.And("The execution result should be \'true\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -157,13 +158,14 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 12
-   testRunner.Given("The configurations for a invalid solution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.Given("The configurations for a invalid solution path for outputPath \'buildNotSucceedOut" +
+                        "PutTest\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 13
    testRunner.When("The Build is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 14
-   testRunner.Then("The folder \'outputTest\' should be created with files", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.Then("The folder \'buildNotSucceedOutPutTest\' should be created with files", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 15
    testRunner.And("The execution result should be \'false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

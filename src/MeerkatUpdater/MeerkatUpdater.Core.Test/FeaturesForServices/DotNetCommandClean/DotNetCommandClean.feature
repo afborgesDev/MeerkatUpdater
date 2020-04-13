@@ -2,6 +2,6 @@
 
 @deleteOutPutTest
 Scenario: 😊 Clean execution should remove files from output folder
-	Given The valid configurations with the solution path
+	Given The valid configurations with the solution path for outputPath 'cleanSucceedOutPutTest'
 	 When The Clean is executed
 	 Then The target solution dll file was cleaned up

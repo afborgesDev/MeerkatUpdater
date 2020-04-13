@@ -16,24 +16,26 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandBuild
             this.scenarioContext = scenarioContext;
         }
 
-        [Given("The valid configurations with the solution path")]
-        public void GivenTheValidConfigurationsWithTheSolutionPath()
+        [Given("The valid configurations with the solution path for outputPath '(.*)'")]
+        public void GivenTheValidConfigurationsWithTheSolutionPathForOutputPath(string outputTestPath)
         {
             var configurations = DotNetCommandUtils.GetObjectConfigurationFromDefault();
             configurations.SolutionPath = SolutionFinder.GetFirstSolutionFile();
-            configurations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(15);
+            configurations.OutPutPath = outputTestPath;
+            configurations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(20);
             this.scenarioContext.Set(configurations, DotNetCommandUtils.ConfigurationsKey);
-            DotNetCommandUtils.WriteNewConfigurations(configurations);
+            Scenarios.SaveOutPutPath(this.scenarioContext, outputTestPath);
         }
 
-        [Given("The configurations for a invalid solution")]
-        public void GivenTheConfigurationsForAInvalidSolution()
+        [Given("The configurations for a invalid solution path for outputPath '(.*)'")]
+        public void GivenTheConfigurationsForAInvalidSolutionPathForOutputPath(string outputTestPath)
         {
             var configurations = DotNetCommandUtils.GetObjectConfigurationFromDefault();
             configurations.SolutionPath = Path.Combine(Path.GetDirectoryName(SolutionFinder.GetFirstSolutionFile()), "InvalidSln.sln");
-            configurations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(15);
+            configurations.OutPutPath = outputTestPath;
+            configurations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(20);
             this.scenarioContext.Set(configurations, DotNetCommandUtils.ConfigurationsKey);
-            DotNetCommandUtils.WriteNewConfigurations(configurations);
+            Scenarios.SaveOutPutPath(this.scenarioContext, outputTestPath);
         }
 
         [When("The Build is executed")]
@@ -54,7 +56,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandBuild
         [Then("The folder '(.*)' should be created with files")]
         public void ThenTheFolderShouldBeCreatedWithFiles(string outputFolderName)
         {
-            var directoryOutPutPath = Scenarios.FindOutPutBuildPath();
+            var directoryOutPutPath = Scenarios.FindOutPutBuildPathFromScenario(this.scenarioContext);
             directoryOutPutPath.Should().Contain(outputFolderName);
 
             var files = Directory.EnumerateFiles(directoryOutPutPath);

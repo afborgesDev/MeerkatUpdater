@@ -30,6 +30,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandClean
             var buildedProject = Path.Combine(Path.GetDirectoryName(SolutionFinder.GetFirstSolutionFile()),
                                               ConfigManager.GetExecutionConfigurations().OutPutPath,
                                               ProjectName);
+
             var fileExists = File.Exists(buildedProject);
             fileExists.Should().BeFalse();
         }

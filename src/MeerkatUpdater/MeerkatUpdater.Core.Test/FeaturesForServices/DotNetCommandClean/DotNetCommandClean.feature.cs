@@ -83,11 +83,14 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandClean
         [Xunit.SkippableFactAttribute(DisplayName="😊 Clean execution should remove files from output folder")]
         [Xunit.TraitAttribute("FeatureTitle", "In order to test the Clean command execution")]
         [Xunit.TraitAttribute("Description", "😊 Clean execution should remove files from output folder")]
+        [Xunit.TraitAttribute("Category", "deleteOutPutTest")]
         public virtual void CleanExecutionShouldRemoveFilesFromOutputFolder()
         {
-            string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😊 Clean execution should remove files from output folder", null, ((string[])(null)));
-#line 3
+            string[] tagsOfScenario = new string[] {
+                    "deleteOutPutTest"};
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😊 Clean execution should remove files from output folder", null, new string[] {
+                        "deleteOutPutTest"});
+#line 4
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -107,13 +110,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 4
- testRunner.Given("The valid configurations with the solution path", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
 #line 5
-  testRunner.When("The Clean is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("The valid configurations with the solution path for outputPath \'cleanSucceedOutPu" +
+                        "tTest\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
+  testRunner.When("The Clean is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 7
   testRunner.Then("The target solution dll file was cleaned up", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
