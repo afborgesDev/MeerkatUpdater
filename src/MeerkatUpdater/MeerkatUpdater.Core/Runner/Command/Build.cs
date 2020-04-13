@@ -19,7 +19,9 @@ namespace MeerkatUpdater.Core.Runner.Command
         /// <exception cref="NullReferenceException"></exception>
         public static bool Execute()
         {
-            var result = DotNetCommand.RunCommand(DotnetCommandConst.BuildCommand, DotnetCommandConst.TargetOutPutParam, ConfigManager.GetExecutionConfigurations().GetOutPutPath());
+            var result = DotNetCommand.RunCommand(DotnetCommandConst.BuildCommand,
+                                                  ConfigManager.GetExecutionConfigurations().SolutionPath ?? string.Empty,
+                                                  DotnetCommandConst.TargetOutPutParam, ConfigManager.GetExecutionConfigurations().GetOutPutPath());
             return CleanOrBuildSuccess.IsSucceed(result.Output);
         }
     }

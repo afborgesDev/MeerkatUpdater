@@ -130,13 +130,10 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.SkippableFactAttribute(DisplayName="😟 A not succeed build should fail the execution")]
         [Xunit.TraitAttribute("FeatureTitle", "In order to test the Build command execution")]
         [Xunit.TraitAttribute("Description", "😟 A not succeed build should fail the execution")]
-        [Xunit.TraitAttribute("Category", "deleteOutPutTest")]
         public virtual void ANotSucceedBuildShouldFailTheExecution()
         {
-            string[] tagsOfScenario = new string[] {
-                    "deleteOutPutTest"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 A not succeed build should fail the execution", null, new string[] {
-                        "deleteOutPutTest"});
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 A not succeed build should fail the execution", null, ((string[])(null)));
 #line 11
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -165,7 +162,7 @@ this.ScenarioInitialize(scenarioInfo);
    testRunner.When("The Build is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 14
-   testRunner.Then("The folder \'buildNotSucceedOutPutTest\' should be created with files", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.Then("The output folder should not be created with files", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 15
    testRunner.And("The execution result should be \'false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
