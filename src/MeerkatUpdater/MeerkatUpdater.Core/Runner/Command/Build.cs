@@ -1,4 +1,5 @@
-﻿using MeerkatUpdater.Core.Runner.Command.Common;
+﻿using MeerkatUpdater.Core.Config;
+using MeerkatUpdater.Core.Runner.Command.Common;
 using MeerkatUpdater.Core.Runner.Scraper;
 using System;
 
@@ -18,7 +19,7 @@ namespace MeerkatUpdater.Core.Runner.Command
         /// <exception cref="NullReferenceException"></exception>
         public static bool Execute()
         {
-            var result = DotNetCommand.RunCommand(DotnetCommandConst.BuildCommand, DotnetCommandConst.TargetOutPutParam, "outputTest");
+            var result = DotNetCommand.RunCommand(DotnetCommandConst.BuildCommand, DotnetCommandConst.TargetOutPutParam, ConfigManager.GetExecutionConfigurations().GetOutPutPath());
             return CleanOrBuildSuccess.IsSucceed(result.Output);
         }
     }

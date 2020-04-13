@@ -9,6 +9,11 @@
             Responsable to Load and provide access to the configurations
             </summary>
         </member>
+        <member name="F:MeerkatUpdater.Core.Config.ConfigManager.DefaultTestOutput">
+            <summary>
+            The default output tests for configurations
+            </summary>
+        </member>
         <member name="F:MeerkatUpdater.Core.Config.ConfigManager.DefaultMaximumWait">
             <summary>
             The default maximum wait
@@ -125,6 +130,11 @@
             to see all configurations please see <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>
             </summary>
         </member>
+        <member name="P:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations.OutPutPath">
+            <summary>
+            Determinate if the commands that generate something on IO will use the custom output path
+            </summary>
+        </member>
         <member name="P:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations.NugetConfigurations">
             <summary>
             Aggragated configurations to nuget like: <br/>
@@ -142,6 +152,12 @@
         <member name="M:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations.GetWaitMiliSeconds">
             <summary>
             Returns the configuration from the nuget but if it was null take the time out from the default <see cref="F:MeerkatUpdater.Core.Config.ConfigManager.DefaultMaximumWait"/>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations.GetOutPutPath">
+            <summary>
+            Return empty if no output path was setted
             </summary>
             <returns></returns>
         </member>

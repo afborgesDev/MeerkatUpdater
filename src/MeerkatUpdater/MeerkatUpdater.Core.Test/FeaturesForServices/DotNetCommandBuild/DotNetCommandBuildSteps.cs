@@ -1,6 +1,4 @@
 ﻿using FluentAssertions;
-using MeerkatUpdater.Core.Config;
-using MeerkatUpdater.Core.Config.Model;
 using MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand;
 using MeerkatUpdater.Core.Test.GeneralUse;
 using System.IO;
@@ -11,9 +9,6 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandBuild
     [Binding]
     public class DotNetCommandBuildSteps
     {
-        private const string ConfigurationsKey = "configurations";
-        private const string ExecutedCommandResultObjectKey = "executedCommandResultObject";
-
         private readonly ScenarioContext scenarioContext;
 
         public DotNetCommandBuildSteps(ScenarioContext scenarioContext)
@@ -27,7 +22,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandBuild
             var configurations = DotNetCommandUtils.GetObjectConfigurationFromDefault();
             configurations.SolutionPath = SolutionFinder.GetFirstSolutionFile();
             configurations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(15);
-            this.scenarioContext.Set(configurations, ConfigurationsKey);
+            this.scenarioContext.Set(configurations, DotNetCommandUtils.ConfigurationsKey);
             DotNetCommandUtils.WriteNewConfigurations(configurations);
         }
 
@@ -37,16 +32,16 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandBuild
             var configurations = DotNetCommandUtils.GetObjectConfigurationFromDefault();
             configurations.SolutionPath = Path.Combine(Path.GetDirectoryName(SolutionFinder.GetFirstSolutionFile()), "InvalidSln.sln");
             configurations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(15);
-            this.scenarioContext.Set(configurations, ConfigurationsKey);
+            this.scenarioContext.Set(configurations, DotNetCommandUtils.ConfigurationsKey);
             DotNetCommandUtils.WriteNewConfigurations(configurations);
         }
 
         [When("The Build is executed")]
         public void WhenTheBuildIsExecuted()
         {
-            SetConfigurationsIfWasSaved();
+            DotNetCommandUtils.SetConfigurationsIfWasSaved(this.scenarioContext);
             var result = Runner.Command.Build.Execute();
-            this.scenarioContext.Set(result, ExecutedCommandResultObjectKey);
+            this.scenarioContext.Set(result, DotNetCommandUtils.ExecutedCommandResultObjectKey);
         }
 
         [Then("The execution result should be '(.*)'")]
@@ -66,12 +61,6 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandBuild
             files.Should().HaveCountGreaterThan(0);
         }
 
-        private void SetConfigurationsIfWasSaved()
-        {
-            if (this.scenarioContext.TryGetValue<ExecutionConfigurations>(ConfigurationsKey, out var configurations))
-                ConfigManager.ExecutionConfigurations = configurations;
-        }
-
-        private bool GetResultObject() => this.scenarioContext.Get<bool>(ExecutedCommandResultObjectKey);
+        private bool GetResultObject() => this.scenarioContext.Get<bool>(DotNetCommandUtils.ExecutedCommandResultObjectKey);
     }
 }

@@ -12,6 +12,11 @@ namespace MeerkatUpdater.Core.Config
     public static class ConfigManager
     {
         /// <summary>
+        /// The default output tests for configurations
+        /// </summary>
+        public const string DefaultTestOutput = "outputTest";
+
+        /// <summary>
         /// The default maximum wait
         /// </summary>
         public static readonly TimeSpan DefaultMaximumWait = TimeSpan.FromSeconds(10);
