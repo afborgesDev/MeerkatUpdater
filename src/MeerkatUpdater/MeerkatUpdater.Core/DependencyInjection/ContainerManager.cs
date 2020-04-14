@@ -24,13 +24,8 @@ namespace MeerkatUpdater.Core.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddMeerkatUpdater(this IServiceCollection serviceContainer)
         {
-            //Services?
-            //Executor
-            //serviceContainer.AddScoped
-
             serviceContainer.AddScoped<IConfigManager>();
             RegisterCommands(serviceContainer);
-
             return serviceContainer;
         }
 

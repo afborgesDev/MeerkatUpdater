@@ -13,7 +13,7 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNet
     /// - Errors <br/>
     /// - ExitCode
     /// </summary>
-    public class DotNetCommand
+    public class DotNetCommand : IDotNetCommand
     {
         private readonly IConfigManager configManager;
 
