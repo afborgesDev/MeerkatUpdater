@@ -130,10 +130,13 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.SkippableFactAttribute(DisplayName="😟 A not succeed build should fail the execution")]
         [Xunit.TraitAttribute("FeatureTitle", "In order to test the Build command execution")]
         [Xunit.TraitAttribute("Description", "😟 A not succeed build should fail the execution")]
+        [Xunit.TraitAttribute("Category", "deleteOutPutTest")]
         public virtual void ANotSucceedBuildShouldFailTheExecution()
         {
-            string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 A not succeed build should fail the execution", null, ((string[])(null)));
+            string[] tagsOfScenario = new string[] {
+                    "deleteOutPutTest"};
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("😟 A not succeed build should fail the execution", null, new string[] {
+                        "deleteOutPutTest"});
 #line 11
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
