@@ -1,13 +1,11 @@
-﻿using MeerkatUpdater.Core.Runner.Command.Common;
-using MeerkatUpdater.Core.Runner.Scraper;
-using System;
+﻿using System;
 
-namespace MeerkatUpdater.Core.Runner.Command
+namespace MeerkatUpdater.Core.Runner.Command.DotNetBuild
 {
     /// <summary>
     /// Wrap the dotnet build command
     /// </summary>
-    public static class Build
+    public interface IBuild
     {
         /// <summary>
         /// Exceute the dotnet build command <br/>
@@ -16,10 +14,6 @@ namespace MeerkatUpdater.Core.Runner.Command
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="NullReferenceException"></exception>
-        public static bool Execute()
-        {
-            var result = DotNetCommand.RunCommand(DotnetCommandConst.BuildCommand, DotnetCommandConst.TargetOutPutParam, "outputTest");
-            return CleanOrBuildSuccess.IsSucceed(result.Output);
-        }
+        bool Execute();
     }
 }

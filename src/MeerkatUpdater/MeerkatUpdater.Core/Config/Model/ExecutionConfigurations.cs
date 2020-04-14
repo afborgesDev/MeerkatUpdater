@@ -19,6 +19,11 @@ namespace MeerkatUpdater.Core.Config.Model
         public LogLevel LogLevel { get; set; }
 
         /// <summary>
+        /// Determinate if the commands that generate something on IO will use the custom output path
+        /// </summary>
+        public string? OutPutPath { get; set; }
+
+        /// <summary>
         /// Aggragated configurations to nuget like: <br/>
         /// - <see cref="NugetConfigurations.MaxTimeSecondsTimeOut"/> as the maximun timeout for try to get a package from nuget repository <br/>
         /// - <see cref="NugetConfigurations.Sources"/>  as the adicional urls as sources from nuget
@@ -31,5 +36,11 @@ namespace MeerkatUpdater.Core.Config.Model
         /// <see cref="UpdateConfigurations.AllowedVersionsToUpdate"/> Sets the types of semantic versions that will be updated
         /// </summary>
         public UpdateConfigurations? UpdateConfigurations { get; set; }
+
+        /// <summary>
+        /// Return empty if no output path was setted
+        /// </summary>
+        /// <returns></returns>
+        public string GetTargetOutPutPath() => OutPutPath ?? string.Empty;
     }
 }

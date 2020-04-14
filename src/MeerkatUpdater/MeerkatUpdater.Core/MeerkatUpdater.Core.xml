@@ -4,56 +4,52 @@
         <name>MeerkatUpdater.Core</name>
     </assembly>
     <members>
-        <member name="T:MeerkatUpdater.Core.Config.ConfigManager">
-            <summary>
-            Responsable to Load and provide access to the configurations
-            </summary>
-        </member>
-        <member name="F:MeerkatUpdater.Core.Config.ConfigManager.DefaultMaximumWait">
-            <summary>
-            The default maximum wait
-            </summary>
-        </member>
-        <member name="M:MeerkatUpdater.Core.Config.ConfigManager.GetExecutionConfigurations">
-            <summary>
-            Load if necessary and then return the ExecutionConfiguration
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator">
+        <member name="T:MeerkatUpdater.Core.Config.DefaultServices.DefaultConfigYmlGenerator">
             <summary>
             Generate the default yml file that have the default convetions for the configurations
             </summary>
         </member>
-        <member name="F:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator.DefaultSolutionPath">
+        <member name="F:MeerkatUpdater.Core.Config.DefaultServices.DefaultConfigYmlGenerator.DefaultSolutionPath">
             <summary>
             The default value that is used to generate the yaml example file
             </summary>
         </member>
-        <member name="F:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator.DefaultLogLevel">
+        <member name="F:MeerkatUpdater.Core.Config.DefaultServices.DefaultConfigYmlGenerator.DefaultConfigurationFileName">
+            <summary>
+            The expected default file for configurations
+            </summary>
+        </member>
+        <member name="F:MeerkatUpdater.Core.Config.DefaultServices.DefaultConfigYmlGenerator.DefaultLogLevel">
             <summary>
             The default value that is used to generate loglevel for the yaml example file
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator.GenerateDefaultConfigurations">
+        <member name="M:MeerkatUpdater.Core.Config.DefaultServices.DefaultConfigYmlGenerator.GenerateDefaultConfigurations">
             <summary>
             Generate the yml string with the default configurations
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MeerkatUpdater.Core.Config.DefaultConfigYmlGenerator.GenerateYmlFileForDefaultConfigurations(System.String)">
+        <member name="M:MeerkatUpdater.Core.Config.DefaultServices.DefaultConfigYmlGenerator.GenerateYmlFileForDefaultConfigurations(System.String)">
             <summary>
             Generate the yml configuration files that have the default convertions
             </summary>
             <param name="filePath"></param>
         </member>
-        <member name="T:MeerkatUpdater.Core.Config.DefaultYmlDeserializer">
+        <member name="M:MeerkatUpdater.Core.Config.DefaultServices.DefaultConfigYmlGenerator.BuildYmlFile(MeerkatUpdater.Core.Config.Model.ExecutionConfigurations)">
+            <summary>
+            Transform a configuration class into a Yaml file
+            </summary>
+            <param name="defaultConfigs"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Config.DefaultServices.DefaultYmlDeserializer">
             <summary>
             The default deserializer for Yaml to grant that have a safe way to transform <br/>
             the file into a class
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Config.DefaultYmlDeserializer.Deserialize``1(System.String)">
+        <member name="M:MeerkatUpdater.Core.Config.DefaultServices.DefaultYmlDeserializer.Deserialize``1(System.String)">
             <summary>
             Deserialize a Yaml payload into a target class
             </summary>
@@ -61,6 +57,64 @@
             <param name="payload"></param>
             <returns></returns>
             <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Config.Manager.ConfigManager">
+            <summary>
+            Responsable to Load and provide access to the configurations
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Manager.ConfigManager.GetConfigurations">
+            <summary>
+            If the ExecutionConfiguration is not loaded try to load from file.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Manager.ConfigManager.GetDefaultMaximumWait">
+            <summary>
+            Return the default maximum wait
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Manager.ConfigManager.GetWaitMiliSeconds">
+            <summary>
+            Get the configured wait time in mili seconds
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Manager.ConfigManager.SetConfigurations(MeerkatUpdater.Core.Config.Model.ExecutionConfigurations)">
+            <summary>
+            Set a new Instance of configurations
+            </summary>
+            <param name="executionConfigurations"></param>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Config.Manager.IConfigManager">
+            <summary>
+            Manage the configurations
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Manager.IConfigManager.GetConfigurations">
+            <summary>
+            If the ExecutionConfiguration is not loaded try to load from file.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Manager.IConfigManager.SetConfigurations(MeerkatUpdater.Core.Config.Model.ExecutionConfigurations)">
+            <summary>
+            Set a new Instance of configurations
+            </summary>
+            <param name="executionConfigurations"></param>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Manager.IConfigManager.GetDefaultMaximumWait">
+            <summary>
+            Return the default maximum wait
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Manager.IConfigManager.GetWaitMiliSeconds">
+            <summary>
+            Get the configured wait time in mili seconds
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:MeerkatUpdater.Core.Config.Model.CustomExceptions.DeserealizationException">
             <summary>
@@ -108,6 +162,11 @@
             to see all configurations please see <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>
             </summary>
         </member>
+        <member name="P:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations.OutPutPath">
+            <summary>
+            Determinate if the commands that generate something on IO will use the custom output path
+            </summary>
+        </member>
         <member name="P:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations.NugetConfigurations">
             <summary>
             Aggragated configurations to nuget like: <br/>
@@ -121,6 +180,12 @@
             <see cref="P:MeerkatUpdater.Core.Config.Model.UpdateConfigurations.RolbackIfFail"/> Sets if the process will continue if the updates fail <br/>
             <see cref="P:MeerkatUpdater.Core.Config.Model.UpdateConfigurations.AllowedVersionsToUpdate"/> Sets the types of semantic versions that will be updated
             </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Config.Model.ExecutionConfigurations.GetTargetOutPutPath">
+            <summary>
+            Return empty if no output path was setted
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:MeerkatUpdater.Core.Config.Model.NugetConfigurations">
             <summary>
@@ -241,12 +306,34 @@
               Looks up a localized string similar to Could not create readers for the standard Output or standard Error.
             </summary>
         </member>
-        <member name="T:MeerkatUpdater.Core.Runner.Command.Build">
+        <member name="T:MeerkatUpdater.Core.DependencyInjection.ContainerManager">
+            <summary>
+            Configure and inject all necessary items to Meerkat works
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.DependencyInjection.ContainerManager.AddMeerkatUpdater(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Responsable to inject <br/>
+            - <see cref="T:MeerkatUpdater.Core.Config.Manager.IConfigManager"/> <br/>
+            - <see cref="T:MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand"/> <br/>
+            -
+            </summary>
+            <param name="serviceContainer"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetBuild.Build">
             <summary>
             Wrap the dotnet build command
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.Build.Execute">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetBuild.Build.#ctor(MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand,MeerkatUpdater.Core.Config.Manager.IConfigManager)">
+            <summary>
+            Default constructor for DI
+            </summary>
+            <param name="dotNetCommand"></param>
+            <param name="configManager"></param>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetBuild.Build.Execute">
             <summary>
             Exceute the dotnet build command <br/>
             <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build">microsoft documentation</see>
@@ -255,68 +342,110 @@
             <exception cref="T:System.ArgumentException"></exception>
             <exception cref="T:System.NullReferenceException"></exception>
         </member>
-        <member name="T:MeerkatUpdater.Core.Runner.Command.Clean">
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetBuild.IBuild">
+            <summary>
+            Wrap the dotnet build command
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetBuild.IBuild.Execute">
+            <summary>
+            Exceute the dotnet build command <br/>
+            <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build">microsoft documentation</see>
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.NullReferenceException"></exception>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetClean.Clean">
             <summary>
             Run the Clean Command
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.Clean.Execute">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetClean.Clean.#ctor(MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand,MeerkatUpdater.Core.Config.Manager.IConfigManager)">
+            <summary>
+            The default DI constructor
+            </summary>
+            <param name="dotNetCommand"></param>
+            <param name="configManager"></param>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetClean.Clean.Execute">
             <summary>
             Executes the dotnet clean command <br/>
             For more information about the command, see: <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-clean">dotnet clean documentation</see>
             </summary>
         </member>
-        <member name="T:MeerkatUpdater.Core.Runner.Command.CountProject">
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetClean.IClean">
+            <summary>
+            Run the Clean Command
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetClean.IClean.Execute">
+            <summary>
+            Executes the dotnet clean command <br/>
+            For more information about the command, see: <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-clean">dotnet clean documentation</see>
+            </summary>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetContProject.CountProject">
             <summary>
             Run the commands that provide the number of projects inside a solution
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.CountProject.Execute">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetContProject.CountProject.#ctor(MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand)">
+            <summary>
+            Default constructor for DI
+            </summary>
+            <param name="dotNetCommand"></param>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetContProject.CountProject.Execute">
             <summary>
             Executes the dotnet command sln list to see more information see <br/>
             <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-sln">microsoft documentation</see>
             </summary>
             <returns></returns>
         </member>
-        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetCommand">
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetContProject.ICountProject">
             <summary>
-            Run a dotnet command and returns the execution results such as <br/>
-            - Output <br/>
-            - Errors <br/>
-            - ExitCode
+            Run the commands that provide the number of projects inside a solution
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommand.RunCommand(System.String[])">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetContProject.ICountProject.Execute">
             <summary>
-            Executes a dotnet command and takes the output and error
+            Executes the dotnet command sln list to see more information see <br/>
+            <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-sln">microsoft documentation</see>
             </summary>
-            <param name="arguments"></param>
             <returns></returns>
         </member>
-        <member name="T:MeerkatUpdater.Core.Runner.Command.OutDated">
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetOutDated.IOutDated">
             <summary>
             Warp the dotnet package --outdated
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.OutDated.Execute">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetOutDated.IOutDated.Execute">
             <summary>
             Executes the dotnet package --outdated command to have the items that need update <br/>
             <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-list-package">Microsoft documentation</see>
             </summary>
             <returns></returns>
         </member>
-        <member name="T:MeerkatUpdater.Core.Runner.Command.ProjectPathUpdater">
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetOutDated.OutDated">
             <summary>
-            Updater for path on each project inside a solution
+            Warp the dotnet package --outdated
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.ProjectPathUpdater.Execute(System.Collections.Generic.List{MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo}@)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetOutDated.OutDated.#ctor(MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand)">
             <summary>
-            Based on the solution update the path for each project
+            Default constructor for DI
             </summary>
-            <param name="projects"></param>
+            <param name="dotNetCommand"></param>
         </member>
-        <member name="T:MeerkatUpdater.Core.Runner.Command.UpdateProcess">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetOutDated.OutDated.Execute">
+            <summary>
+            Executes the dotnet package --outdated command to have the items that need update <br/>
+            <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-list-package">Microsoft documentation</see>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.IUpdateProcess">
             <summary>
             Centralize the outdate work flow to <br/>
             - Count <br/>
@@ -324,10 +453,81 @@
             - Update <br/>
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.UpdateProcess.Execute">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.IUpdateProcess.Execute">
             <summary>
             Do the OutDated process by checking and trying to update
             </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.ProjectPathUpdater">
+            <summary>
+            Updater for path on each project inside a solution
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.ProjectPathUpdater.Execute(System.Collections.Generic.List{MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo}@)">
+            <summary>
+            Based on the solution update the path for each project
+            </summary>
+            <param name="projects"></param>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.UpdateProcess">
+            <summary>
+            Centralize the outdate work flow to <br/>
+            - Count <br/>
+            - Set Configurations <br/>
+            - Update <br/>
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.UpdateProcess.#ctor(MeerkatUpdater.Core.Runner.Command.DotNetOutDated.IOutDated,MeerkatUpdater.Core.Runner.Command.DotNetClean.IClean,MeerkatUpdater.Core.Runner.Command.DotNetBuild.IBuild,MeerkatUpdater.Core.Runner.Command.DotNetContProject.ICountProject,MeerkatUpdater.Core.Config.Manager.IConfigManager)">
+            <summary>
+            Default DI constructor
+            </summary>
+            <param name="outDated"></param>
+            <param name="clean"></param>
+            <param name="build"></param>
+            <param name="countProject"></param>
+            <param name="configManager"></param>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.UpdateProcess.Execute">
+            <summary>
+            Do the OutDated process by checking and trying to update
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNet.DotNetCommand">
+            <summary>
+            Run a dotnet command and returns the execution results such as <br/>
+            - Output <br/>
+            - Errors <br/>
+            - ExitCode
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNet.DotNetCommand.#ctor(MeerkatUpdater.Core.Config.Manager.IConfigManager)">
+            <summary>
+            The defautl DI constructor
+            </summary>
+            <param name="configManager"></param>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNet.DotNetCommand.RunCommand(System.String[])">
+            <summary>
+            Executes a dotnet command and takes the output and error
+            </summary>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand">
+            <summary>
+            Run a dotnet command and returns the execution results such as <br/>
+            - Output <br/>
+            - Errors <br/>
+            - ExitCode
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand.RunCommand(System.String[])">
+            <summary>
+            Executes a dotnet command and takes the output and error
+            </summary>
+            <param name="arguments"></param>
             <returns></returns>
         </member>
         <member name="T:MeerkatUpdater.Core.Runner.Helpers.ExecutionProcess">
@@ -335,10 +535,11 @@
             Helper for create and configure process to work with dotnet command cli
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Helpers.ExecutionProcess.CreateNewProcess(System.String[])">
+        <member name="M:MeerkatUpdater.Core.Runner.Helpers.ExecutionProcess.CreateNewProcess(System.String,System.String[])">
             <summary>
             Create and configure a process to execute the dotnet command by cli
             </summary>
+            <param name="solutionPath"></param>
             <param name="arguments"></param>
             <returns></returns>
             <exception cref="T:System.ArgumentNullException"></exception>
@@ -410,7 +611,7 @@
             <param name="exitCode"></param>
             <returns></returns>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Result.IsSuccess">
+        <member name="M:MeerkatUpdater.Core.Runner.Model.DotNet.Result.IsSucceed">
             <summary>
             Check if the exit code is the success one
             </summary>

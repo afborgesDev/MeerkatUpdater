@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using YamlDotNet.Serialization;
 
-namespace MeerkatUpdater.Core.Config
+namespace MeerkatUpdater.Core.Config.DefaultServices
 {
     /// <summary>
     /// Generate the default yml file that have the default convetions for the configurations
@@ -16,6 +16,11 @@ namespace MeerkatUpdater.Core.Config
         /// The default value that is used to generate the yaml example file
         /// </summary>
         public const string DefaultSolutionPath = ".";
+
+        /// <summary>
+        /// The expected default file for configurations
+        /// </summary>
+        public const string DefaultConfigurationFileName = "MeerkatUpdater.yml";
 
         /// <summary>
         /// The default value that is used to generate loglevel for the yaml example file
@@ -49,6 +54,17 @@ namespace MeerkatUpdater.Core.Config
             File.WriteAllText(filePath, GenerateDefaultConfigurations());
         }
 
+        /// <summary>
+        /// Transform a configuration class into a Yaml file
+        /// </summary>
+        /// <param name="defaultConfigs"></param>
+        /// <returns></returns>
+        public static string BuildYmlFile(ExecutionConfigurations defaultConfigs)
+        {
+            var serializer = new SerializerBuilder().Build();
+            return serializer.Serialize(defaultConfigs);
+        }
+
         private static bool IsValidPath(string filePath)
         {
             var path = Path.GetDirectoryName(Path.GetFullPath(filePath));
@@ -65,12 +81,6 @@ namespace MeerkatUpdater.Core.Config
         {
             var fileExtension = Path.GetExtension(filePath);
             return SupportedYamlExtensions.Any(x => x == fileExtension);
-        }
-
-        private static string BuildYmlFile(ExecutionConfigurations defaultConfigs)
-        {
-            var serializer = new SerializerBuilder().Build();
-            return serializer.Serialize(defaultConfigs);
         }
 
         private static ExecutionConfigurations BuildDefaultConfigs() =>
