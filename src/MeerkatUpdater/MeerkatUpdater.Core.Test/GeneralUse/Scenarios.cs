@@ -1,13 +1,11 @@
 ﻿using BoDi;
 using MeerkatUpdater.Core.Config.Manager;
-using MeerkatUpdater.Core.DependencyInjection;
 using MeerkatUpdater.Core.Runner.Command.DotNet;
 using MeerkatUpdater.Core.Runner.Command.DotNetBuild;
 using MeerkatUpdater.Core.Runner.Command.DotNetClean;
 using MeerkatUpdater.Core.Runner.Command.DotNetContProject;
 using MeerkatUpdater.Core.Runner.Command.DotNetOutDated;
 using MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess;
-using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using TechTalk.SpecFlow;
 
@@ -47,10 +45,6 @@ namespace MeerkatUpdater.Core.Test.GeneralUse
         [BeforeScenario]
         public void PrepareDependencyInjections()
         {
-            var serviceCollection = new ServiceCollection();
-            serviceCollection.AddMeerkatUpdater();
-            var serviceProvider = serviceCollection.BuildServiceProvider();
-
             this.container.RegisterTypeAs<ConfigManager, IConfigManager>();
             this.container.RegisterTypeAs<DotNetCommand, IDotNetCommand>();
             this.container.RegisterTypeAs<Build, IBuild>();

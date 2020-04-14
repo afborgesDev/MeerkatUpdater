@@ -13,15 +13,19 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandClean
     public class DotNetCommandCleanSteps
     {
         private readonly ScenarioContext scenarioContext;
+        private readonly IBuild build;
+        private readonly IClean clean;
+        private readonly IConfigManager configManager;
 
-        public DotNetCommandCleanSteps(ScenarioContext scenarioContext) => this.scenarioContext = scenarioContext;
+        public DotNetCommandCleanSteps(ScenarioContext scenarioContext, IBuild build, IClean clean, IConfigManager configManager) =>
+            (this.scenarioContext, this.build, this.clean, this.configManager) = (scenarioContext, build, clean, configManager);
 
         [When("The Clean is executed")]
         public void WhenTheCleanIsExecuted()
         {
-            DotNetCommandUtils.SetConfigurationsIfWasSaved(this.scenarioContext);
-            Build.Execute();
-            Clean.Execute();
+            DotNetCommandUtils.SetConfigurationsIfWasSaved(this.scenarioContext, this.configManager);
+            this.build.Execute();
+            this.clean.Execute();
         }
 
         [Then("The target solution dll file was cleaned up")]
@@ -30,7 +34,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandClean
             const string ProjectName = "MeerkatUpdater.Core.dll";
 
             var buildedProject = Path.Combine(Path.GetDirectoryName(SolutionFinder.GetFirstSolutionFile()),
-                                              ConfigManager.GetExecutionConfigurations().OutPutPath,
+                                              this.configManager.GetConfigurations().OutPutPath,
                                               ProjectName);
 
             var fileExists = File.Exists(buildedProject);

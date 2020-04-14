@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using MeerkatUpdater.Core.Config.Manager;
 using MeerkatUpdater.Core.Runner.Command.DotNetBuild;
 using MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand;
 using MeerkatUpdater.Core.Test.GeneralUse;
@@ -11,11 +12,11 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandBuild
     public class DotNetCommandBuildSteps
     {
         private readonly ScenarioContext scenarioContext;
+        private readonly IBuild build;
+        private readonly IConfigManager configManager;
 
-        public DotNetCommandBuildSteps(ScenarioContext scenarioContext)
-        {
-            this.scenarioContext = scenarioContext;
-        }
+        public DotNetCommandBuildSteps(ScenarioContext scenarioContext, IBuild build, IConfigManager configManager) =>
+            (this.scenarioContext, this.build, this.configManager) = (scenarioContext, build, configManager);
 
         [Given("The valid configurations with the solution path for outputPath '(.*)'")]
         public void GivenTheValidConfigurationsWithTheSolutionPathForOutputPath(string outputTestPath)
@@ -42,8 +43,8 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandBuild
         [When("The Build is executed")]
         public void WhenTheBuildIsExecuted()
         {
-            DotNetCommandUtils.SetConfigurationsIfWasSaved(this.scenarioContext);
-            var result = Build.Execute();
+            DotNetCommandUtils.SetConfigurationsIfWasSaved(this.scenarioContext, this.configManager);
+            var result = this.build.Execute();
             this.scenarioContext.Set(result, DotNetCommandUtils.ExecutedCommandResultObjectKey);
         }
 

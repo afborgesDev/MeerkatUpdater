@@ -15,7 +15,6 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand
         {
             var payload = DefaultConfigYmlGenerator.GenerateDefaultConfigurations();
             var configurations = DefaultYmlDeserializer.Deserialize<ExecutionConfigurations>(payload);
-            configurations.OutPutPath = ConfigManager.DefaultTestOutput;
             return configurations;
         }
 
@@ -25,10 +24,10 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand
             File.WriteAllText(DefaultConfigYmlGenerator.DefaultConfigurationFileName, payload);
         }
 
-        public static void SetConfigurationsIfWasSaved(ScenarioContext scenarioContext)
+        public static void SetConfigurationsIfWasSaved(ScenarioContext scenarioContext, IConfigManager configManager)
         {
             if (scenarioContext.TryGetValue<ExecutionConfigurations>(ConfigurationsKey, out var configurations))
-                ConfigManager.ExecutionConfigurations = configurations;
+                configManager.SetConfigurations(configurations);
         }
     }
 }

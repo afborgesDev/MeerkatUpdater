@@ -2,6 +2,7 @@
 using MeerkatUpdater.Core.Config.DefaultServices;
 using MeerkatUpdater.Core.Config.Manager;
 using MeerkatUpdater.Core.Config.Model;
+using MeerkatUpdater.Core.Runner.Command.DotNet;
 using MeerkatUpdater.Core.Runner.Model.DotNet;
 using MeerkatUpdater.Core.Test.GeneralUse;
 using System;
@@ -21,8 +22,11 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand
 
         private readonly Regex DotNetVersionPattern = new Regex("([0-9]{1,}([.])?)", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
         private readonly ScenarioContext scenarioContext;
+        private readonly IDotNetCommand dotNetCommand;
+        private readonly IConfigManager configManager;
 
-        public DotNetCommandSteps(ScenarioContext scenarioContext) => this.scenarioContext = scenarioContext;
+        public DotNetCommandSteps(ScenarioContext scenarioContext, IDotNetCommand dotNetCommand, IConfigManager configManager) =>
+            (this.scenarioContext, this.dotNetCommand, this.configManager) = (scenarioContext, dotNetCommand, configManager);
 
         [Given("The valid configurations")]
         public static void GivenTheValidConfigurations() => DefaultConfigYmlGenerator.GenerateYmlFileForDefaultConfigurations("MeerkatUpdater.yml");
@@ -59,7 +63,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand
 
             var watcher = new Stopwatch();
             watcher.Start();
-            var result = Runner.Command.DotNet.DotNetCommand.RunCommand(commandToBeExecuted);
+            var result = this.dotNetCommand.RunCommand(commandToBeExecuted);
             watcher.Stop();
 
             this.scenarioContext.Set(result, ExecutedCommandResultObjectKey);
@@ -94,7 +98,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand
         public void ThenTheTimeSpendWasEqualOrLestThanTheDefault()
         {
             var spendedTime = this.scenarioContext.Get<long>(SpendedTimeToExecuteCommandKey);
-            var defaultLongMaximumWait = Convert.ToInt64(ConfigManager.DefaultMaximumWait.TotalSeconds);
+            var defaultLongMaximumWait = Convert.ToInt64(this.configManager.GetDefaultMaximumWait().TotalSeconds);
             var timeSpanSpended = TimeSpan.FromMilliseconds(spendedTime);
             var secondsSpended = timeSpanSpended.TotalSeconds;
 
@@ -104,7 +108,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand
         private void SetConfigurationsIfWasSaved()
         {
             if (this.scenarioContext.TryGetValue<ExecutionConfigurations>(ConfigurationsKey, out var configurations))
-                ConfigManager.ExecutionConfigurations = configurations;
+                this.configManager.SetConfigurations(configurations);
         }
 
         private Result GetResultObject() => this.scenarioContext.Get<Result>(ExecutedCommandResultObjectKey);
