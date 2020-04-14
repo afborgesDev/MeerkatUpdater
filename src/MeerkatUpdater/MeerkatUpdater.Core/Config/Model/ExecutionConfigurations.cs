@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Globalization;
 
 namespace MeerkatUpdater.Core.Config.Model
 {
@@ -40,21 +38,9 @@ namespace MeerkatUpdater.Core.Config.Model
         public UpdateConfigurations? UpdateConfigurations { get; set; }
 
         /// <summary>
-        /// Returns the configuration from the nuget but if it was null take the time out from the default <see cref="ConfigManager.DefaultMaximumWait"/>
-        /// </summary>
-        /// <returns></returns>
-        public int GetWaitMiliSeconds()
-        {
-            var fromConfig = NugetConfigurations?.GetMaximumWaitTimeMiliseconds();
-            if (fromConfig is null || fromConfig <= 0)
-                return Convert.ToInt32(ConfigManager.DefaultMaximumWait.TotalMilliseconds, CultureInfo.InvariantCulture);
-            return fromConfig.Value;
-        }
-
-        /// <summary>
         /// Return empty if no output path was setted
         /// </summary>
         /// <returns></returns>
-        public string GetOutPutPath() => OutPutPath ?? string.Empty;
+        public string GetTargetOutPutPath() => OutPutPath ?? string.Empty;
     }
 }

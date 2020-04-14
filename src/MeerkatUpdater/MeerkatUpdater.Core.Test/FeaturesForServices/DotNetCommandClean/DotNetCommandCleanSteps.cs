@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
-using MeerkatUpdater.Core.Config;
+using MeerkatUpdater.Core.Config.Manager;
+using MeerkatUpdater.Core.Runner.Command.DotNetBuild;
+using MeerkatUpdater.Core.Runner.Command.DotNetClean;
 using MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand;
 using MeerkatUpdater.Core.Test.GeneralUse;
 using System.IO;
@@ -18,8 +20,8 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandClean
         public void WhenTheCleanIsExecuted()
         {
             DotNetCommandUtils.SetConfigurationsIfWasSaved(this.scenarioContext);
-            Runner.Command.Build.Execute();
-            Runner.Command.Clean.Execute();
+            Build.Execute();
+            Clean.Execute();
         }
 
         [Then("The target solution dll file was cleaned up")]

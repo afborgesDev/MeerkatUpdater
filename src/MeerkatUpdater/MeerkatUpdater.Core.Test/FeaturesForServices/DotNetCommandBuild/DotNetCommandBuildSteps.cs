@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using MeerkatUpdater.Core.Runner.Command.DotNetBuild;
 using MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand;
 using MeerkatUpdater.Core.Test.GeneralUse;
 using System.IO;
@@ -42,7 +43,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandBuild
         public void WhenTheBuildIsExecuted()
         {
             DotNetCommandUtils.SetConfigurationsIfWasSaved(this.scenarioContext);
-            var result = Runner.Command.Build.Execute();
+            var result = Build.Execute();
             this.scenarioContext.Set(result, DotNetCommandUtils.ExecutedCommandResultObjectKey);
         }
 

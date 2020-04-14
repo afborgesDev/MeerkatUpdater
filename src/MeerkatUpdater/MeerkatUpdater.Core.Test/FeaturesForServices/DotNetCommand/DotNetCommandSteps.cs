@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
-using MeerkatUpdater.Core.Config;
+using MeerkatUpdater.Core.Config.DefaultServices;
+using MeerkatUpdater.Core.Config.Manager;
 using MeerkatUpdater.Core.Config.Model;
 using MeerkatUpdater.Core.Runner.Model.DotNet;
 using MeerkatUpdater.Core.Test.GeneralUse;
@@ -58,7 +59,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand
 
             var watcher = new Stopwatch();
             watcher.Start();
-            var result = Runner.Command.DotNetCommand.RunCommand(commandToBeExecuted);
+            var result = Runner.Command.DotNet.DotNetCommand.RunCommand(commandToBeExecuted);
             watcher.Stop();
 
             this.scenarioContext.Set(result, ExecutedCommandResultObjectKey);

@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using MeerkatUpdater.Core.Config;
+using MeerkatUpdater.Core.Config.DefaultServices;
 using MeerkatUpdater.Core.Config.Model;
 using Microsoft.Extensions.Logging;
 using System;

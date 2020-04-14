@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using YamlDotNet.Serialization;
 
-namespace MeerkatUpdater.Core.Config
+namespace MeerkatUpdater.Core.Config.DefaultServices
 {
     /// <summary>
     /// Generate the default yml file that have the default convetions for the configurations

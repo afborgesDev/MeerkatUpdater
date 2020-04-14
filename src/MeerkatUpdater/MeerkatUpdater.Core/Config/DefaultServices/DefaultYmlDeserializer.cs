@@ -2,7 +2,7 @@
 using System;
 using YamlDotNet.Serialization;
 
-namespace MeerkatUpdater.Core.Config
+namespace MeerkatUpdater.Core.Config.DefaultServices
 {
     /// <summary>
     /// The default deserializer for Yaml to grant that have a safe way to transform <br/>

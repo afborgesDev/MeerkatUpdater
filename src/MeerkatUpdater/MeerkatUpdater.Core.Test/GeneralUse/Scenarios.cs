@@ -1,4 +1,4 @@
-﻿using MeerkatUpdater.Core.Config;
+﻿using MeerkatUpdater.Core.Config.Manager;
 using System.IO;
 using TechTalk.SpecFlow;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MeerkatUpdater.Core.Runner.Command
+namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
 {
     public static class Update
     {
