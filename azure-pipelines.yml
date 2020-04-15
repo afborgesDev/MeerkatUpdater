@@ -1,0 +1,68 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  openCoverFileName: 'coverage.opencover.xml'
+  coberturaFileName: 'coverage.cobertura.xml'  
+  sourceTestFolder: 'src/MeerkatUpdater.Core.Test/'
+
+steps:
+- task: SonarCloudPrepare@1
+  displayName: Configuring SonarCloud
+  inputs:
+    SonarCloud: 'SonarCluodConnection'
+    organization: 'afborgesdev-github'
+    scannerMode: 'MSBuild'
+    projectKey: 'afborgesDev_MeerkatUpdater'
+    projectName: 'MeerkatUpdater'
+    extraProperties: |
+      sonar.exclusions=**/obj/**,**/*.dll
+      sonar.branch.name=$(Build.SourceBranchName)
+      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/$(openCoverFileName)
+      sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/TestResults/Report/*.trx
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    arguments: '-c $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Runing tests'
+  continueOnError: false
+  inputs:
+    command: test
+    projects: '**/*.Test/*.csproj'
+    arguments: '-c $(buildConfiguration) --no-restore --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publishing coverage results'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '**/*.Test/$(coberturaFileName)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(sourceTestFolder)'
+    Contents: '$(openCoverFileName)'
+    TargetFolder: '$(Build.SourcesDirectory)/TestResults/Coverage/'
+    OverWrite: true
+  displayName: 'copying coverage results'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(sourceTestFolder)'
+    Contents: '*.trx'
+    TargetFolder: '$(Build.SourcesDirectory)/TestResults/Report/'
+    OverWrite: true
+  displayName: 'copying tests report'  
+
+- task: SonarCloudAnalyze@1
+  displayName: Runing SonarCloudAnalyze
+
+- task: SonarCloudPublish@1
+  displayName: Pushing SonarCloudAnalyze
+  inputs:
+    pollingTimeoutSec: '300'
