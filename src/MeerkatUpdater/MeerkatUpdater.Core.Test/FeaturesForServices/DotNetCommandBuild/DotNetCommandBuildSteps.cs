@@ -18,17 +18,6 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandBuild
         public DotNetCommandBuildSteps(ScenarioContext scenarioContext, IBuild build, IConfigManager configManager) =>
             (this.scenarioContext, this.build, this.configManager) = (scenarioContext, build, configManager);
 
-        [Given("The valid configurations with the solution path for outputPath '(.*)'")]
-        public void GivenTheValidConfigurationsWithTheSolutionPathForOutputPath(string outputTestPath)
-        {
-            var configurations = DotNetCommandUtils.GetObjectConfigurationFromDefault();
-            configurations.SolutionPath = SolutionFinder.GetFirstSolutionFile();
-            configurations.OutPutPath = outputTestPath;
-            configurations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(30);
-            this.scenarioContext.Set(configurations, DotNetCommandUtils.ConfigurationsKey);
-            Scenarios.SaveOutPutPath(this.scenarioContext, outputTestPath);
-        }
-
         [Given("The configurations for a invalid solution path for outputPath '(.*)'")]
         public void GivenTheConfigurationsForAInvalidSolutionPathForOutputPath(string outputTestPath)
         {
