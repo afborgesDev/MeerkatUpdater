@@ -34,40 +34,41 @@ steps:
 #       sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/TestResults/Report/*.trx
 
 - task: DotNetCoreCLI@2
+  displayName: 'Building'
   inputs:
     workingDirectory: '$(sourceFolder)'
     command: 'build'
     arguments: '-c $(buildConfiguration)'
 
-# - task: DotNetCoreCLI@2
-#   displayName: 'Runing tests'
-#   continueOnError: false
-#   inputs:
-#     command: test
-#     projects: '**/*.Test/*.csproj'
-#     arguments: '-c $(buildConfiguration) --no-restore --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""'
+- task: DotNetCoreCLI@2
+  displayName: 'Runing tests'
+  continueOnError: false
+  inputs:
+    command: test
+    workingDirectory: '$(sourceTestFolder)'
+    arguments: '--no-restore --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""'
 
-# - task: PublishCodeCoverageResults@1
-#   displayName: 'Publishing coverage results'
-#   inputs:
-#     codeCoverageTool: Cobertura
-#     summaryFileLocation: '**/*.Test/$(coberturaFileName)'
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publishing coverage results'  
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(sourceTestFolder)$(coberturaFileName)'
 
-# - task: CopyFiles@2
-#   inputs:
-#     SourceFolder: '$(sourceTestFolder)'
-#     Contents: '$(openCoverFileName)'
-#     TargetFolder: '$(Build.SourcesDirectory)/TestResults/Coverage/'
-#     OverWrite: true
-#   displayName: 'copying coverage results'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(sourceTestFolder)'
+    Contents: '$(openCoverFileName)'
+    TargetFolder: '$(Build.SourcesDirectory)/TestResults/Coverage/'
+    OverWrite: true
+  displayName: 'copying coverage results'
 
-# - task: CopyFiles@2
-#   inputs:
-#     SourceFolder: '$(sourceTestFolder)'
-#     Contents: '*.trx'
-#     TargetFolder: '$(Build.SourcesDirectory)/TestResults/Report/'
-#     OverWrite: true
-#   displayName: 'copying tests report'  
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(sourceTestFolder)'
+    Contents: '*.trx'
+    TargetFolder: '$(Build.SourcesDirectory)/TestResults/Report/'
+    OverWrite: true
+  displayName: 'copying tests report'  
 
 # - task: SonarCloudAnalyze@1
 #   displayName: Runing SonarCloudAnalyze
