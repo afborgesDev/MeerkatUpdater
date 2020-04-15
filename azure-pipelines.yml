@@ -21,7 +21,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      ls
+      ls src/
 
 
 # - task: SonarCloudPrepare@1
