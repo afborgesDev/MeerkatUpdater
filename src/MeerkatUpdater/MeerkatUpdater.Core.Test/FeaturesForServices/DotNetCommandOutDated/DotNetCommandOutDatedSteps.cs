@@ -38,8 +38,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandOutDated
         [Then("The project info should have informatinos about the packages")]
         public void ThenTheProjectInfoShouldHaveInformatinosAboutThePackages()
         {
-            var result = this.scenarioContext.Get<List<ProjectInfo>>(OutDatedResultKey);
-            foreach (var project in result)
+            foreach (var project in this.scenarioContext.Get<List<ProjectInfo>>(OutDatedResultKey))
             {
                 project.Name.Should().NotBeNullOrWhiteSpace();
                 project.Path.Should().BeNullOrWhiteSpace();

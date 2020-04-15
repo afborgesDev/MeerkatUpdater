@@ -22,7 +22,7 @@ namespace MeerkatUpdater.Core.Runner.Scraper
             var payloads = OutDatedPayload.TransformRawTextToPayload(output);
 
             if (payloads is null || payloads.Count == 0)
-                throw new ArgumentNullException(DefaultMessages.ErrorOnConvertOutDateOutPutIntoPayload);
+                return default;
 
             return OutPutPayloadToProjectInfo.TransformPayloadsToProjectInfo(payloads);
         }
