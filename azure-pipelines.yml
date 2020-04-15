@@ -15,21 +15,28 @@ steps:
   displayName: Setting dotnet 3 version
   inputs:
     packageType: 'sdk'
-    version: '3.1.201'
+    version: '3.x'
+# - task: SonarCloudPrepare@1
+#   displayName: Configuring SonarCloud
+#   inputs:
+#     SonarCloud: 'SonarCloudConnection'
+#     organization: 'afborgesdev-github'
+#     scannerMode: 'MSBuild'
+#     projectKey: 'afborgesDev_MeerkatUpdater'
+#     projectName: 'MeerkatUpdater'
+#     extraProperties: |
+#       sonar.exclusions=**/obj/**,**/*.dll
+#       sonar.branch.name=$(Build.SourceBranchName)
+#       sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/$(openCoverFileName)
+#       sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/TestResults/Report/*.trx
 
 - task: SonarCloudPrepare@1
-  displayName: Configuring SonarCloud
   inputs:
     SonarCloud: 'SonarCloudConnection'
     organization: 'afborgesdev-github'
     scannerMode: 'MSBuild'
     projectKey: 'afborgesDev_MeerkatUpdater'
     projectName: 'MeerkatUpdater'
-    extraProperties: |
-      sonar.exclusions=**/obj/**,**/*.dll
-      sonar.branch.name=$(Build.SourceBranchName)
-      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/$(openCoverFileName)
-      sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/TestResults/Report/*.trx
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
