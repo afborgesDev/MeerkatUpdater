@@ -21,7 +21,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      ls src/
+      ls src/MeerkatUpdater/
 
 
 # - task: SonarCloudPrepare@1
