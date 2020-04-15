@@ -46,7 +46,7 @@ steps:
   inputs:
     command: test
     workingDirectory: '$(sourceTestFolder)'
-    projects: 'MeerketUpdater.Core.Test.csproj'
+    #projects: 'MeerkatUpdater.Core.Test.csproj'
     arguments: '-c $(buildConfiguration) --no-restore --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""'
 
 # - task: PublishCodeCoverageResults@1
