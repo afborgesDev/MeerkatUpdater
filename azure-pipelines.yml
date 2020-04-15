@@ -11,6 +11,12 @@ variables:
   sourceTestFolder: 'src/MeerkatUpdater.Core.Test/'
 
 steps:
+- task: UseDotNet@2
+  displayName: Setting dotnet 3 version
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.201'
+
 - task: SonarCloudPrepare@1
   displayName: Configuring SonarCloud
   inputs:
