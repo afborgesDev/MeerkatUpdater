@@ -34,6 +34,7 @@ steps:
 #       sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/TestResults/Report/*.trx
 
 - task: DotNetCoreCLI@2
+  displayName: 'Building'
   inputs:
     workingDirectory: '$(sourceFolder)'
     command: 'build'
@@ -45,7 +46,7 @@ steps:
   inputs:
     command: test
     workingDirectory: '$(sourceTestFolder)'
-    projects: '*.Test/*.csproj'
+    projects: 'MeerketUpdater.Core.Test.csproj'
     arguments: '-c $(buildConfiguration) --no-restore --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""'
 
 # - task: PublishCodeCoverageResults@1
