@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +14,13 @@ namespace MeerkatUpdater.Core.Runner.Model.DotNet
         /// <summary>
         /// All lines from StandardOutput
         /// </summary>
+        [DebuggerDisplay("{GetOutPutString()}")]
         public StringBuilder? OutPut { get; set; }
 
         /// <summary>
         /// All lines from StandardErrorOutput
         /// </summary>
+
         public Task? OutPutTask { get; set; }
 
         /// <summary>

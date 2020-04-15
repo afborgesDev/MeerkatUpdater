@@ -1,4 +1,5 @@
-﻿using MeerkatUpdater.Core.Runner.Command.Common;
+﻿using MeerkatUpdater.Core.Config.Manager;
+using MeerkatUpdater.Core.Runner.Command.Common;
 using MeerkatUpdater.Core.Runner.Command.DotNet;
 using MeerkatUpdater.Core.Runner.Model.PackageInfo;
 using System.Collections.Generic;
@@ -11,12 +12,15 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetOutDated
     public class OutDated : IOutDated
     {
         private readonly IDotNetCommand dotNetCommand;
+        private readonly IConfigManager configManager;
 
         /// <summary>
         /// Default constructor for DI
         /// </summary>
         /// <param name="dotNetCommand"></param>
-        public OutDated(IDotNetCommand dotNetCommand) => this.dotNetCommand = dotNetCommand;
+        /// <param name="configManager"></param>
+        public OutDated(IDotNetCommand dotNetCommand, IConfigManager configManager) =>
+            (this.dotNetCommand, this.configManager) = (dotNetCommand, configManager);
 
         /// <summary>
         /// Executes the dotnet package --outdated command to have the items that need update <br/>
@@ -25,7 +29,13 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetOutDated
         /// <returns></returns>
         public List<ProjectInfo>? Execute()
         {
-            var result = this.dotNetCommand.RunCommand(DotnetCommandConst.PackageCommand, DotnetCommandConst.OutDatedParam);
+            var solutionPath = this.configManager.GetConfigurations().SolutionPath ?? string.Empty;
+
+            var result = this.dotNetCommand.RunCommand(DotnetCommandConst.ListCommand,
+                                                       solutionPath,
+                                                       DotnetCommandConst.PackageCommand,
+                                                       DotnetCommandConst.OutDatedParam);
+
             return Scraper.Outdated.TransformOutPutToProjectInfo(result.Output);
         }
     }
