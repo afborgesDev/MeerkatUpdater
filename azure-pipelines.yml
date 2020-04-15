@@ -33,6 +33,7 @@ steps:
 
 - task: DotNetCoreCLI@2
   inputs:
+    workingDirectory: 'MeerkatUpdater/src'
     command: 'build'
     arguments: '-c $(buildConfiguration)'
 
