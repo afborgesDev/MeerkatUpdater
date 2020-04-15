@@ -14,7 +14,7 @@ steps:
 - task: SonarCloudPrepare@1
   displayName: Configuring SonarCloud
   inputs:
-    SonarCloud: 'SonarCluodConnection'
+    SonarCloud: 'SonarCloudConnection'
     organization: 'afborgesdev-github'
     scannerMode: 'MSBuild'
     projectKey: 'afborgesDev_MeerkatUpdater'
