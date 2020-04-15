@@ -21,7 +21,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      pwd \
       ls
 
 
