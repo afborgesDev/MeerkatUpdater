@@ -39,13 +39,14 @@ steps:
     command: 'build'
     arguments: '-c $(buildConfiguration)'
 
-# - task: DotNetCoreCLI@2
-#   displayName: 'Runing tests'
-#   continueOnError: false
-#   inputs:
-#     command: test
-#     projects: '**/*.Test/*.csproj'
-#     arguments: '-c $(buildConfiguration) --no-restore --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""'
+- task: DotNetCoreCLI@2
+  displayName: 'Runing tests'
+  continueOnError: false
+  inputs:
+    command: test
+    workingDirectory: '$(sourceTestFolder)'
+    projects: '*.Test/*.csproj'
+    arguments: '-c $(buildConfiguration) --no-restore --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""'
 
 # - task: PublishCodeCoverageResults@1
 #   displayName: 'Publishing coverage results'
