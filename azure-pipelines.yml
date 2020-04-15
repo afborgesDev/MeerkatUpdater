@@ -8,7 +8,8 @@ variables:
   buildConfiguration: 'Release'
   openCoverFileName: 'coverage.opencover.xml'
   coberturaFileName: 'coverage.cobertura.xml'  
-  sourceTestFolder: 'src/MeerkatUpdater.Core.Test/'
+  sourceFolder: 'src/MeerkatUpdater/'
+  sourceTestFolder: '$(sourceFolder)MeerkatUpdater.Core.Test/'
 
 steps:
 - task: UseDotNet@2
@@ -16,13 +17,6 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '3.x'
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      ls src/MeerkatUpdater/
-
 
 # - task: SonarCloudPrepare@1
 #   displayName: Configuring SonarCloud
@@ -38,11 +32,11 @@ steps:
 #       sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/$(openCoverFileName)
 #       sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/TestResults/Report/*.trx
 
-# - task: DotNetCoreCLI@2
-#   inputs:
-#     workingDirectory: 'MeerkatUpdater/src'
-#     command: 'build'
-#     arguments: '-c $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    workingDirectory: '$(sourceFolder)'
+    command: 'build'
+    arguments: '-c $(buildConfiguration)'
 
 # - task: DotNetCoreCLI@2
 #   displayName: 'Runing tests'
