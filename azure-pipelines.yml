@@ -16,6 +16,7 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '3.x'
+
 # - task: SonarCloudPrepare@1
 #   displayName: Configuring SonarCloud
 #   inputs:
@@ -30,13 +31,6 @@ steps:
 #       sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/$(openCoverFileName)
 #       sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/TestResults/Report/*.trx
 
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloudConnection'
-    organization: 'afborgesdev-github'
-    scannerMode: 'MSBuild'
-    projectKey: 'afborgesDev_MeerkatUpdater'
-    projectName: 'MeerkatUpdater'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
@@ -72,10 +66,10 @@ steps:
     OverWrite: true
   displayName: 'copying tests report'  
 
-- task: SonarCloudAnalyze@1
-  displayName: Runing SonarCloudAnalyze
+# - task: SonarCloudAnalyze@1
+#   displayName: Runing SonarCloudAnalyze
 
-- task: SonarCloudPublish@1
-  displayName: Pushing SonarCloudAnalyze
-  inputs:
-    pollingTimeoutSec: '300'
+# - task: SonarCloudPublish@1
+#   displayName: Pushing SonarCloudAnalyze
+#   inputs:
+#     pollingTimeoutSec: '300'
