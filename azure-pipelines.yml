@@ -9,7 +9,8 @@ variables:
   openCoverFileName: 'coverage.opencover.xml'
   coberturaFileName: 'coverage.cobertura.xml'  
   sourceFolder: 'src/MeerkatUpdater/'
-  sourceTestFolder: '$(sourceFolder)MeerkatUpdater.Core.Test/'
+  sourceTestFolder: '$(sourceFolder)MeerkatUpdater.Core.Test/'  
+  MSBUILDSINGLELOADCONTEXT: 1 #This environment is to solve the temporary issue on SpecFlow 3.1.x that can't build by using dotnet build
 
 steps:
 - task: UseDotNet@2
