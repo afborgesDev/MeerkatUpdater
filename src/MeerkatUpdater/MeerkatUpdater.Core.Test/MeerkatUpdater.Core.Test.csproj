@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <None Remove="FeaturesForConfig\payloads\invalidPayload" />
+    <None Remove="PayloadSolutionForTest\PayloadSolutionForTest.zip" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,6 +17,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="FeaturesForConfig\payloads\invalidPayload" />
+    <EmbeddedResource Include="PayloadSolutionForTest\payloads\PayloadSolutionForTest.zip" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,9 +66,5 @@
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="PayloadForSolutionTest\" />
   </ItemGroup>
 </Project>

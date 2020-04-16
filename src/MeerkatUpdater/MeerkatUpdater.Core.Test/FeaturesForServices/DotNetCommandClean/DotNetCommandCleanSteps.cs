@@ -33,7 +33,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandClean
         {
             const string ProjectName = "MeerkatUpdater.Core.dll";
 
-            var buildedProject = Path.Combine(Path.GetDirectoryName(SolutionFinder.GetFirstSolutionFile()),
+            var buildedProject = Path.Combine(Path.GetDirectoryName(SolutionForRunTests.GetFirstSolutionFile()),
                                               this.configManager.GetConfigurations().OutPutPath,
                                               ProjectName);
 

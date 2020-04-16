@@ -22,7 +22,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommandBuild
         public void GivenTheConfigurationsForAInvalidSolutionPathForOutputPath(string outputTestPath)
         {
             var configurations = DotNetCommandUtils.GetObjectConfigurationFromDefault();
-            configurations.SolutionPath = Path.Combine(Path.GetDirectoryName(SolutionFinder.GetFirstSolutionFile()), "Invali%$@#$09()dSln.sln");
+            configurations.SolutionPath = Path.Combine(Path.GetDirectoryName(SolutionForRunTests.GetFirstSolutionFile()), "Invali%$@#$09()dSln.sln");
             configurations.OutPutPath = outputTestPath;
             configurations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(20);
             this.scenarioContext.Set(configurations, DotNetCommandUtils.ConfigurationsKey);

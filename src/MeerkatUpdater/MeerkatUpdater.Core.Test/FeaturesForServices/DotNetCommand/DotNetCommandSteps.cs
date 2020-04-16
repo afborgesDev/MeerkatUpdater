@@ -47,7 +47,7 @@ namespace MeerkatUpdater.Core.Test.FeaturesForServices.DotNetCommand
 
             var configurations = DotNetCommandUtils.GetObjectConfigurationFromDefault();
             configurations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(OneSecond);
-            configurations.SolutionPath = SolutionFinder.GetFirstSolutionFile();
+            configurations.SolutionPath = SolutionForRunTests.GetFirstSolutionFile();
             this.scenarioContext.Set(configurations, ConfigurationsKey);
             DotNetCommandUtils.WriteNewConfigurations(configurations);
         }

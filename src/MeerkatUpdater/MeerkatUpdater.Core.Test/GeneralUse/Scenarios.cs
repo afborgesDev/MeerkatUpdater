@@ -14,6 +14,7 @@ namespace MeerkatUpdater.Core.Test.GeneralUse
     [Binding]
     public class Scenarios
     {
+        private const string SolutionPathKey = "SolutionPath";
         private const string OutPutPathForTextKey = "OutPutPathForText";
         private const int MaximumDegreeToFindDirectory = 10;
         private readonly ScenarioContext scenarioContext;
@@ -26,6 +27,12 @@ namespace MeerkatUpdater.Core.Test.GeneralUse
 
         public static void SaveOutPutPath(ScenarioContext scenarioContext, string path) =>
             scenarioContext.Set(path, OutPutPathForTextKey);
+
+        public static void SaveSolutionPath(ScenarioContext scenarioContext, string solutionPath) =>
+            scenarioContext.Set(solutionPath, SolutionPathKey);
+
+        public static string GetSolutionPath(ScenarioContext scenarioContext) =>
+            scenarioContext.Get<string>(SolutionPathKey);
 
         public static string GetFromScenarioOutPutPath(ScenarioContext scenarioContext)
         {

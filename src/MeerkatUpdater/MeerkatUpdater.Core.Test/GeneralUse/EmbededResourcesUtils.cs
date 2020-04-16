@@ -8,11 +8,25 @@ namespace MeerkatUpdater.Core.Test.GeneralUse
     {
         private const string TargetAssemblyTest = "MeerkatUpdater.Core.Test";
 
+        public static void SaveEmbededResourceToFile(string rootPath, string targetFileName,
+            string embededResourceIdentify, string embededResourAditionalPath = "")
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var path = BuildPath(embededResourceIdentify, embededResourAditionalPath);
+            if (!Directory.Exists(rootPath))
+                Directory.CreateDirectory(rootPath);
+
+            var fileName = Path.Combine(rootPath, targetFileName);
+            using var resourceStream = assembly.GetManifestResourceStream(path);
+            using var file = new FileStream(fileName, FileMode.Create, FileAccess.Write);
+            resourceStream.CopyTo(file);
+        }
+
         public static string GetEmbededResource(string identify, string aditionalPath = "")
         {
             var assembly = Assembly.GetExecutingAssembly();
             var path = BuildPath(identify, aditionalPath);
-            var resourceStream = assembly.GetManifestResourceStream(path);
+            using var resourceStream = assembly.GetManifestResourceStream(path);
             using var reader = new StreamReader(resourceStream, Encoding.UTF8);
             return reader.ReadToEnd();
         }
