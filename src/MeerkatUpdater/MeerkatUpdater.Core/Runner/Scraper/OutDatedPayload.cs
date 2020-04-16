@@ -42,7 +42,10 @@ namespace MeerkatUpdater.Core.Runner.Scraper
             {
                 var match = PackageIdentifyRegex.Matches(noHeaderOutPut);
                 if (match.Count <= HasSinglePackageToExtract)
+                {
+                    yield return noHeaderOutPut;
                     break;
+                }
 
                 var startAt = match[PackageInfoStartAtIndex].Index;
                 var endAt = match[PackageInfoEndAtIndex].Index;

@@ -1,6 +1,7 @@
 ﻿using MeerkatUpdater.Core.Config.Manager;
 using MeerkatUpdater.Core.Runner.Command.Common;
 using MeerkatUpdater.Core.Runner.Command.DotNet;
+using MeerkatUpdater.Core.Runner.Command.DotNetBuild;
 using MeerkatUpdater.Core.Runner.Model.PackageInfo;
 using System.Collections.Generic;
 
@@ -13,14 +14,15 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetOutDated
     {
         private readonly IDotNetCommand dotNetCommand;
         private readonly IConfigManager configManager;
+        private readonly IBuild build;
 
         /// <summary>
         /// Default constructor for DI
         /// </summary>
         /// <param name="dotNetCommand"></param>
         /// <param name="configManager"></param>
-        public OutDated(IDotNetCommand dotNetCommand, IConfigManager configManager) =>
-            (this.dotNetCommand, this.configManager) = (dotNetCommand, configManager);
+        public OutDated(IDotNetCommand dotNetCommand, IBuild build, IConfigManager configManager) =>
+            (this.dotNetCommand, this.build, this.configManager) = (dotNetCommand, build, configManager);
 
         /// <summary>
         /// Executes the dotnet package --outdated command to have the items that need update <br/>
@@ -29,6 +31,7 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetOutDated
         /// <returns></returns>
         public List<ProjectInfo>? Execute()
         {
+            this.build.Execute();
             var solutionPath = this.configManager.GetConfigurations().SolutionPath ?? string.Empty;
 
             var result = this.dotNetCommand.RunCommand(DotnetCommandConst.ListCommand,

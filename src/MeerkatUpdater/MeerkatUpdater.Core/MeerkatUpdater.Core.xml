@@ -432,7 +432,7 @@
             Warp the dotnet package --outdated
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetOutDated.OutDated.#ctor(MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand,MeerkatUpdater.Core.Config.Manager.IConfigManager)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetOutDated.OutDated.#ctor(MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand,MeerkatUpdater.Core.Runner.Command.DotNetBuild.IBuild,MeerkatUpdater.Core.Config.Manager.IConfigManager)">
             <summary>
             Default constructor for DI
             </summary>
