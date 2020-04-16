@@ -14,6 +14,7 @@ variables:
 
 steps:
 - task: UseDotNet@2
+  continueOnError: false
   displayName: Setting dotnet 3 version
   inputs:
     packageType: 'sdk'
@@ -35,6 +36,7 @@ steps:
 
 - task: DotNetCoreCLI@2
   displayName: 'Building'
+  continueOnError: false
   inputs:
     workingDirectory: '$(sourceFolder)'
     command: 'build'
@@ -43,18 +45,21 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: 'Runing tests'
   continueOnError: false
+  timeoutInMinutes: 5
   inputs:
     command: test
     workingDirectory: '$(sourceTestFolder)'
-    arguments: '--no-restore --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""'
+    arguments: '--no-restore'# --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""
 
 - task: PublishCodeCoverageResults@1
-  displayName: 'Publishing coverage results'  
+  displayName: 'Publishing coverage results'
+  continueOnError: true
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(sourceTestFolder)$(coberturaFileName)'
 
 - task: CopyFiles@2
+  continueOnError: true
   inputs:
     SourceFolder: '$(sourceTestFolder)'
     Contents: '$(openCoverFileName)'
@@ -63,6 +68,7 @@ steps:
   displayName: 'copying coverage results'
 
 - task: CopyFiles@2
+  continueOnError: true
   inputs:
     SourceFolder: '$(sourceTestFolder)'
     Contents: '*.trx'
