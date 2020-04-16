@@ -42,14 +42,24 @@ steps:
     command: 'build'
     arguments: '-c $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Runing tests'
-  continueOnError: false
-  timeoutInMinutes: 5
+
+- task: Bash@3
+  displayName: 'Running tests'
+  timeoutInMinutes: 2
   inputs:
-    command: test
+    targetType: 'inline'
     workingDirectory: '$(sourceTestFolder)'
-    arguments: '--no-restore'# --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""
+    script: |
+      dotnet test --no-restore
+      
+#- task: DotNetCoreCLI@2
+#  displayName: 'Runing tests'
+#  continueOnError: false
+#  timeoutInMinutes: 5
+#  inputs:
+#    command: test
+#    workingDirectory: '$(sourceTestFolder)'
+#    arguments: '--no-restore'# --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publishing coverage results'
