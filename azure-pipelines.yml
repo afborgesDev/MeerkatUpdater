@@ -44,15 +44,15 @@ steps:
     arguments: '-c $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
- displayName: 'Runing tests'
- env:
+  displayName: 'Runing tests'
+  env:
     MSBUILDSINGLELOADCONTEXT: 1
- continueOnError: false
- timeoutInMinutes: 5
- inputs:
-   command: test
-   workingDirectory: '$(sourceTestFolder)'
-   arguments: '--no-restore'# --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""
+  continueOnError: false
+  timeoutInMinutes: 5
+  inputs:
+    command: test
+    workingDirectory: '$(sourceTestFolder)'
+    arguments: '--no-restore'# --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publishing coverage results'
