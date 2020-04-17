@@ -39,6 +39,7 @@ steps:
   continueOnError: false
   inputs:
     workingDirectory: '$(sourceCoreFolder)'
+    targetType: 'inline'
     script: 'dotnet build -c $(buildConfiguration)'
 
 - task: Bash@3
