@@ -34,7 +34,6 @@ steps:
 #       sonar.branch.name=$(Build.SourceBranchName)
 #       sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/$(openCoverFileName)
 #       sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/TestResults/Report/*.trx
-
 - task: DotNetCoreCLI@2
   displayName: 'Building'
   continueOnError: false
@@ -43,16 +42,18 @@ steps:
     command: 'build'
     arguments: '-c $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
+
+- task: Bash@3
   displayName: 'Runing tests'
   env:
     MSBUILDSINGLELOADCONTEXT: 1
   continueOnError: false
   timeoutInMinutes: 5
   inputs:
-    command: test
     workingDirectory: '$(sourceTestFolder)'
-    arguments: '--no-restore'# --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""
+    targetType: 'inline'
+    script: 'dotnet test MeerkatUpdater.Core.Test --no-build --logger trx'
+#     arguments: '--no-restore'# --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publishing coverage results'
