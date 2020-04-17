@@ -40,7 +40,7 @@ steps:
   continueOnError: false
   inputs:
     workingDirectory: '$(sourceCoreFolder)'
-    script: 'dotnet build MeerkatUpdater.core.csproj - c $(buildConfiguration)'
+    script: 'dotnet build - c $(buildConfiguration)'
 
 - task: Bash@3
   displayName: 'Runing tests'
