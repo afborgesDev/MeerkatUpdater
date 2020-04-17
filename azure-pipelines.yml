@@ -46,6 +46,8 @@ steps:
 
 - task: Bash@3
   displayName: 'Running tests'
+  env:
+    MSBUILDSINGLELOADCONTEXT: 1
   timeoutInMinutes: 2
   inputs:
     targetType: 'inline'
