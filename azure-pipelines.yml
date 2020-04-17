@@ -19,7 +19,7 @@ steps:
   displayName: Use dotnet 3
   inputs:
     packageType: 'sdk'
-    version: '3.x'
+    version: '3.1.100'
 
 # - task: SonarCloudPrepare@1
 #   displayName: Configuring SonarCloud
@@ -44,8 +44,8 @@ steps:
 
 - task: Bash@3
   displayName: 'Runing tests'
-  env:
-    MSBUILDSINGLELOADCONTEXT: 1
+  #env:
+  #  MSBUILDSINGLELOADCONTEXT: 1
   continueOnError: false
   timeoutInMinutes: 5
   inputs:
