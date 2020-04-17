@@ -34,14 +34,13 @@ steps:
 #       sonar.branch.name=$(Build.SourceBranchName)
 #       sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/$(openCoverFileName)
 #       sonar.cs.vstest.reportsPaths=$(Build.SourcesDirectory)/TestResults/Report/*.trx
-- task: DotNetCoreCLI@2
+
+- task: Bash@3
   displayName: 'Building'
   continueOnError: false
   inputs:
     workingDirectory: '$(sourceCoreFolder)'
-    command: 'build'
-    arguments: '-c $(buildConfiguration)'
-
+    script: 'dotnet build MeerkatUpdater.core.csproj - c $(buildConfiguration)'
 
 - task: Bash@3
   displayName: 'Runing tests'
