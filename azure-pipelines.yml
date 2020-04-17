@@ -16,7 +16,7 @@ variables:
 steps:
 - task: UseDotNet@2
   continueOnError: false
-  displayName: Setting dotnet 3 version
+  displayName: Use dotnet 3
   inputs:
     packageType: 'sdk'
     version: '3.x'
@@ -43,26 +43,16 @@ steps:
     command: 'build'
     arguments: '-c $(buildConfiguration)'
 
-
-- task: Bash@3
-  displayName: 'Running tests'
-  env:
+- task: DotNetCoreCLI@2
+ displayName: 'Runing tests'
+ env:
     MSBUILDSINGLELOADCONTEXT: 1
-  timeoutInMinutes: 2
-  inputs:
-    targetType: 'inline'
-    workingDirectory: '$(sourceTestFolder)'
-    script: |
-      dotnet test --no-restore
-      
-#- task: DotNetCoreCLI@2
-#  displayName: 'Runing tests'
-#  continueOnError: false
-#  timeoutInMinutes: 5
-#  inputs:
-#    command: test
-#    workingDirectory: '$(sourceTestFolder)'
-#    arguments: '--no-restore'# --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""
+ continueOnError: false
+ timeoutInMinutes: 5
+ inputs:
+   command: test
+   workingDirectory: '$(sourceTestFolder)'
+   arguments: '--no-restore'# --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publishing coverage results'
