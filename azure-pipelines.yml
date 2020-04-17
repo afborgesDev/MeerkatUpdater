@@ -11,7 +11,6 @@ variables:
   sourceFolder: 'src/MeerkatUpdater/'
   sourceCoreFolder : '$(sourceFolder)MeerkatUpdater.Core/'
   sourceTestFolder: '$(sourceFolder)MeerkatUpdater.Core.Test/'  
-  #MSBUILDSINGLELOADCONTEXT: 1 #This environment is to solve the temporary issue on SpecFlow 3.1.x that can't build by using dotnet build
 
 steps:
 - task: UseDotNet@2
@@ -40,7 +39,7 @@ steps:
   continueOnError: false
   inputs:
     workingDirectory: '$(sourceCoreFolder)'
-    script: 'dotnet build - c $(buildConfiguration)'
+    script: 'dotnet build -c $(buildConfiguration)'
 
 - task: Bash@3
   displayName: 'Runing tests'
