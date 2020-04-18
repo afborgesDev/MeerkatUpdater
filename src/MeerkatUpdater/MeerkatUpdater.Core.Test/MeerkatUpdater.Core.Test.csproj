@@ -7,10 +7,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="PayloadSolutionForTest\payloads\PayloadSolutionForTest.zip" />
+    <None Remove="TestsForConfig\payloads\invalidPayload" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="PayloadSolutionForTest\payloads\PayloadSolutionForTest.zip" />
+    <EmbeddedResource Include="TestsForConfig\payloads\invalidPayload" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="coverlet.msbuild" Version="2.8.1" />
-    <PackageReference Include="LightInject" Version="6.3.2" />
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MeerkatUpdater.Core\MeerkatUpdater.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestsForServices\" />
   </ItemGroup>
 </Project>
