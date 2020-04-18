@@ -10,8 +10,8 @@ namespace MeerkatUpdater.Core.Test.TestsForConfig
 {
     public class DefaultConfigurationGenerationTest
     {
-        private const string stringEmptyIdentifyForParameters = "string.empty";
-        private const string nullIdentifyForParameters = "null";
+        public const string stringEmptyIdentifyForParameters = "string.empty";
+        public const string nullIdentifyForParameters = "null";
 
         [Fact]
         public void ShouldGenerateValidYMLStringForDefaultConfigurations()
