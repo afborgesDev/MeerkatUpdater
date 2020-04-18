@@ -2,6 +2,7 @@
 using MeerkatUpdater.Core.Config.DefaultServices;
 using MeerkatUpdater.Core.Config.Model;
 using Microsoft.Extensions.Logging;
+using System;
 using System.IO;
 using Xunit;
 
@@ -9,6 +10,9 @@ namespace MeerkatUpdater.Core.Test.TestsForConfig
 {
     public class DefaultConfigurationGenerationTest
     {
+        private const string stringEmptyIdentifyForParameters = "string.empty";
+        private const string nullIdentifyForParameters = "null";
+
         [Fact]
         public void ShouldGenerateValidYMLStringForDefaultConfigurations()
         {
@@ -30,6 +34,37 @@ namespace MeerkatUpdater.Core.Test.TestsForConfig
             var generatedPayload = File.ReadAllText(fileName);
             ValidateYmlPayloadIsValid(generatedPayload);
             ValidateYmlPayloadCanBeConvertedToConfigClass(generatedPayload);
+        }
+
+        [Theory]
+        [InlineData("invalidPath")]
+        [InlineData(@"--#$!#@#\")]
+        [InlineData(@"PathWithOutYml\")]
+        [InlineData("null")]
+        [InlineData("string.empty")]
+        [InlineData("Path.sln")]
+        public void ShouldNotGenerateYMLFileWhenUsingInvalidPath(string path)
+        {
+            if (path == stringEmptyIdentifyForParameters)
+                path = string.Empty;
+
+            if (path == nullIdentifyForParameters)
+                path = null;
+
+            Exception triggeredException = null;
+
+            try
+            {
+                DefaultConfigYmlGenerator.GenerateYmlFileForDefaultConfigurations(path);
+            }
+            catch (Exception e)
+            {
+                triggeredException = e;
+            }
+            finally
+            {
+                triggeredException.Should().NotBeNull();
+            }
         }
 
         private static void ValidateYmlPayloadIsValid(string payloadResult)
