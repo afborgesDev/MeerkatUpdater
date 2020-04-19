@@ -18,5 +18,11 @@ namespace MeerkatUpdater.Core.Test.GeneralUsage
             (ListOfCreatedFolders ?? (ListOfCreatedFolders = new ConcurrentDictionary<string, string>())).TryAdd(testKey, folder);
             return folder;
         }
+
+        public static void TierDownTest(string testKey)
+        {
+            if (ListOfCreatedFolders.TryGetValue(testKey, out string path))
+                Directory.Delete(path, true);
+        }
     }
 }
