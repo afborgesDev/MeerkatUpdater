@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using MeerkatUpdater.Core.Config.DefaultServices;
 using MeerkatUpdater.Core.Config.Model;
+using MeerkatUpdater.Core.Test.GeneralUsage;
 using System;
 using Xunit;
 
@@ -39,6 +40,26 @@ namespace MeerkatUpdater.Core.Test.TestsForConfig
             try
             {
                 DefaultYmlDeserializer.Deserialize<ExecutionConfigurations>(stringPayload);
+            }
+            catch (Exception e)
+            {
+                expectedException = e;
+            }
+            finally
+            {
+                expectedException.Should().NotBeNull();
+            }
+        }
+
+        [Fact]
+        public void ShouldDefaultDeserealizationRiseExceptionWhenInvalidPayload()
+        {
+            var invalidPayload = EmbededResourcesUtils.GetEmbededResource("invalidPayload", "TestsForConfig");
+
+            Exception expectedException = null;
+            try
+            {
+                DefaultYmlDeserializer.Deserialize<ExecutionConfigurations>(invalidPayload);
             }
             catch (Exception e)
             {

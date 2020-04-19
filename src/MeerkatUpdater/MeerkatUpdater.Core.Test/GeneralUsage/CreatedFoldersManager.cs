@@ -11,7 +11,9 @@ namespace MeerkatUpdater.Core.Test.GeneralUsage
 
         public static string GenerateNewFolder(string testKey)
         {
-            var folderName = $"FolderToTest_{DateTime.Now.ToString("yyyyMMdd-HHMMSS.zzz", CultureInfo.InvariantCulture)}";
+            var random = new Random();
+            var id = random.Next(1, 1000);
+            var folderName = $"FolderToTest_{DateTime.Now.ToString("yyyyMMdd-HHMMss", CultureInfo.InvariantCulture)}-{id}";
             var folder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
             (ListOfCreatedFolders ?? (ListOfCreatedFolders = new ConcurrentDictionary<string, string>())).TryAdd(testKey, folder);
             return folder;
