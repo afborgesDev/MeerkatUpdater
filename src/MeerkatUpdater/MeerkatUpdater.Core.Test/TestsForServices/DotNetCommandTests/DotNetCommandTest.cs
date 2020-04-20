@@ -14,11 +14,10 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandTests
     {
         private readonly Regex DotNetVersionPattern = new Regex("([0-9]{1,}([.])?)", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        //Get version of the installed dotnet works well with valid configurations
         [Fact]
         public void ShouldReturnInstalleDotNetVersionWhenUsingValidConfigurations()
         {
-            const string TestKey = "returnVersionDotNetCommand";
+            const string TestKey = "ShouldReturnInstalleDotNetVersionWhenUsingValidConfigurations";
             var dotnetCommand = BuildDotNetCommand(TestKey);
 
             try
@@ -38,7 +37,7 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandTests
         [Fact]
         public void ShouldCommandExecuteByTheTimeOutDefaultIfDoesntHaveAnyValidConfigurationForThat()
         {
-            const string TestKey = "shouldUseDefaultTimeOutDotNetCommnand";
+            const string TestKey = "ShouldCommandExecuteByTheTimeOutDefaultIfDoesntHaveAnyValidConfigurationForThat";
 
             try
             {
@@ -65,7 +64,7 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandTests
         [Fact]
         public void ShortTimeOutShouldKillTaskAndResltIntoNotSucceedExecution()
         {
-            const string TestKey = "shortTimeOutKillTask";
+            const string TestKey = "ShortTimeOutShouldKillTaskAndResltIntoNotSucceedExecution";
             const int OneSecond = 1;
 
             try

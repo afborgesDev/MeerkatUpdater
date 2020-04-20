@@ -12,12 +12,14 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandCleanTests
         {
             const string ProjectName = "MeerkatUpdater.Core.dll";
             const string TestKey = "ShouldRemoveFilesFromOutPutFolderTheCleanExecution";
+            string outputDirectory = string.Empty;
             try
             {
                 var configManager = CreateCommandObjects.CreateConfigManager(TestKey);
                 var configurations = configManager.GetConfigurations();
                 configurations.OutPutPath = Path.Combine(configurations.OutPutPath, "CleanOutPut");
                 Directory.CreateDirectory(configurations.OutPutPath);
+                outputDirectory = configurations.OutPutPath;
                 configManager.SetConfigurations(configurations);
                 var dotNetcommand = CreateCommandObjects.CreateDotNetCommand(configManager);
                 var build = CreateCommandObjects.CreateBuildCommand(configManager, dotNetcommand);
@@ -32,6 +34,7 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandCleanTests
             }
             finally
             {
+                Directory.Delete(outputDirectory, true);
                 CreatedFoldersManager.TierDownTest(TestKey);
             }
         }

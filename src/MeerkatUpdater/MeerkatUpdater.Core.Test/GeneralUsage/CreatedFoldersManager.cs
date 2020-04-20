@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
@@ -7,7 +7,7 @@ namespace MeerkatUpdater.Core.Test.GeneralUsage
 {
     public static class CreatedFoldersManager
     {
-        private static ConcurrentDictionary<string, string> ListOfCreatedFolders { get; set; }
+        private static Dictionary<string, string> ListOfCreatedFolders { get; set; }
 
         public static string GenerateNewFolder(string testKey)
         {
@@ -15,7 +15,7 @@ namespace MeerkatUpdater.Core.Test.GeneralUsage
             var id = random.Next(1, 1000);
             var folderName = $"FolderToTest_{DateTime.Now.ToString("yyyyMMdd-HHMMss", CultureInfo.InvariantCulture)}-{id}";
             var folder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-            (ListOfCreatedFolders ?? (ListOfCreatedFolders = new ConcurrentDictionary<string, string>())).TryAdd(testKey, folder);
+            (ListOfCreatedFolders ?? (ListOfCreatedFolders = new Dictionary<string, string>())).TryAdd(testKey, folder);
             return folder;
         }
 
