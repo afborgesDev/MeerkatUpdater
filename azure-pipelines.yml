@@ -11,6 +11,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  sourcePath: 'src/MeerkatUpdater'
 
 steps:
 - task: UseDotNet@2
@@ -23,4 +24,6 @@ steps:
     packageType: runtime 
 
 - script: dotnet build --configuration $(buildConfiguration)
+  continueOnError: false
   displayName: 'dotnet build $(buildConfiguration)'
+  workingDirectory: $(sourcePath)
