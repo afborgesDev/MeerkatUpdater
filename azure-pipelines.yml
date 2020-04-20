@@ -48,7 +48,7 @@ steps:
   continueOnError: false
   timeoutInMinutes: 5
   inputs:   
-    workingDirectory: '$(sourceTestFolder)' 
+    workingDirectory: '$(sourceFolder)' 
     targetType: 'inline'
     script: dotnet test --no-build
       
