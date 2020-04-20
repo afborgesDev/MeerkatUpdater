@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Text;
 
-namespace MeerkatUpdater.Core.Test.GeneralUse
+namespace MeerkatUpdater.Core.Test.GeneralUsage
 {
     public static class EmbededResourcesUtils
     {

@@ -5,12 +5,12 @@ VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeerkatUpdater.Core", "MeerkatUpdater.Core\MeerkatUpdater.Core.csproj", "{A1E015C7-83B2-43F5-9A1A-9EA1D774A04E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeerkatUpdater.Core.Test", "MeerkatUpdater.Core.Test\MeerkatUpdater.Core.Test.csproj", "{7AAD7DA1-B4DF-4FCB-A76F-9174ED17CD32}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DFFE930D-EACC-474F-AF36-52AA5296397D}"
 	ProjectSection(SolutionItems) = preProject
 		.runsettings = .runsettings
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeerkatUpdater.Core.Test", "MeerkatUpdater.Core.Test\MeerkatUpdater.Core.Test.csproj", "{7EB9851D-7B6F-4C0C-B67C-47B56D278348}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,10 @@ Global
 		{A1E015C7-83B2-43F5-9A1A-9EA1D774A04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1E015C7-83B2-43F5-9A1A-9EA1D774A04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1E015C7-83B2-43F5-9A1A-9EA1D774A04E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7AAD7DA1-B4DF-4FCB-A76F-9174ED17CD32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7AAD7DA1-B4DF-4FCB-A76F-9174ED17CD32}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7AAD7DA1-B4DF-4FCB-A76F-9174ED17CD32}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7AAD7DA1-B4DF-4FCB-A76F-9174ED17CD32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EB9851D-7B6F-4C0C-B67C-47B56D278348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EB9851D-7B6F-4C0C-B67C-47B56D278348}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EB9851D-7B6F-4C0C-B67C-47B56D278348}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EB9851D-7B6F-4C0C-B67C-47B56D278348}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
