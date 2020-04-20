@@ -43,21 +43,31 @@ steps:
     targetType: 'inline'
     script: 'dotnet build -c $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
+- task: Bash@3
   displayName: 'Runing tests' 
   continueOnError: false
   timeoutInMinutes: 5
-  inputs:
-    command: 'test'
-    arguments: '--not-build'
-    workingDirectory: '$(sourceTestFolder)'
+  inputs:   
+    workingDirectory: '$(sourceTestFolder)' 
+    targetType: 'inline'
+    script: dotnet test --no-build
+      
+
+# - task: DotNetCoreCLI@2
+#   
+#   
+#   
+#   inputs:
+#     command: 'test'
+#     arguments: '--not-build'
+#     workingDirectory: '$(sourceTestFolder)'
 
 #- task: Bash@3
 #  displayName: 'Runing tests'
 #  continueOnError: false
 #  timeoutInMinutes: 5
 #  inputs:
-#    workingDirectory: '$(sourceTestFolder)'
+#    
 #    targetType: 'inline'
 #    script: 'dotnet test MeerkatUpdater.Core.Test.csproj --no-build --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""'
 
