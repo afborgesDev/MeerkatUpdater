@@ -62,6 +62,29 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandTests
             }
         }
 
+        [Fact]
+        public void ShortTimeOutShouldKillTaskAndResltIntoNotSucceedExecution()
+        {
+            const string TestKey = "shortTimeOutKillTask";
+            const int OneSecond = 1;
+
+            try
+            {
+                var configManager = CreateCommandObjects.CreateConfigManager(TestKey);
+                var configuarations = configManager.GetConfigurations();
+                configuarations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(OneSecond);
+                configManager.SetConfigurations(configuarations);
+                var dotNetCommand = new DotNetCommand(configManager);
+
+                var (_, result) = ExecuteDotNetCommand(dotNetCommand, "build -v d");
+                BasicValidationsDotNetCommand(result, false, false, false);
+            }
+            finally
+            {
+                CreatedFoldersManager.TierDownTest(TestKey);
+            }
+        }
+
         private IDotNetCommand BuildDotNetCommand(string testKey)
         {
             var configurations = CreateCommandObjects.CreateConfigManager(testKey);
@@ -83,14 +106,14 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandTests
             result.Should().NotBeNull();
             result.IsSucceed().Should().Be(isSucceed);
             if (shouldHaveError)
-                result.Errors.Should().NotBeNullOrEmpty();
+                result.Errors.Should().NotBeNullOrWhiteSpace();
             else
-                result.Errors.Should().BeNullOrEmpty();
+                result.Errors.Should().BeNullOrWhiteSpace();
 
             if (shouldHaveOutPut)
-                result.Output.Should().NotBeNullOrEmpty();
+                result.Output.Should().NotBeNullOrWhiteSpace();
             else
-                result.Output.Should().BeNullOrEmpty();
+                result.Output.Should().BeNullOrWhiteSpace();
         }
     }
 }
