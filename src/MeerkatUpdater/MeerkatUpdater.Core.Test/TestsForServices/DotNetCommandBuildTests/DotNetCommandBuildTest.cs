@@ -28,5 +28,33 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandBuildTests
                 CreatedFoldersManager.TierDownTest(TestKey);
             }
         }
+
+        [Fact]
+        public void ShouldFailANotSuceedBuild()
+        {
+            const string TestKey = "ShouldFailANotSuceedBuild";
+            try
+            {
+                var configManager = CreateCommandObjects.CreateConfigManager(TestKey);
+                var configurations = configManager.GetConfigurations();
+                configurations.SolutionPath = Path.Combine(Path.GetDirectoryName(configurations.SolutionPath), "Invali%$@#$09()dSln.sln");
+                configurations.OutPutPath = Path.Combine(configurations.OutPutPath, "failBuild");
+                Directory.CreateDirectory(configurations.OutPutPath);
+                configManager.SetConfigurations(configurations);
+
+                var dotnetCommand = CreateCommandObjects.CreateDotNetCommand(configManager);
+                var build = CreateCommandObjects.CreateBuildCommand(configManager, dotnetCommand);
+
+                var result = build.Execute();
+                result.Should().BeFalse();
+
+                var files = Directory.EnumerateFiles(configManager.GetConfigurations().OutPutPath);
+                files.Should().HaveCount(0);
+            }
+            finally
+            {
+                CreatedFoldersManager.TierDownTest(TestKey);
+            }
+        }
     }
 }
