@@ -19,6 +19,7 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '3.1.100'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
 
 # - task: SonarCloudPrepare@1
 #   displayName: Configuring SonarCloud
@@ -43,13 +44,32 @@ steps:
     script: 'dotnet build -c $(buildConfiguration)'
 
 - task: Bash@3
-  displayName: 'Runing tests'
+  displayName: 'Runing tests' 
   continueOnError: false
   timeoutInMinutes: 5
-  inputs:
-    workingDirectory: '$(sourceTestFolder)'
+  inputs:   
+    workingDirectory: '$(sourceFolder)' 
     targetType: 'inline'
-    script: 'dotnet test MeerkatUpdater.Core.Test.csproj --no-build --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""'
+    script: dotnet test --no-build
+      
+
+# - task: DotNetCoreCLI@2
+#   
+#   
+#   
+#   inputs:
+#     command: 'test'
+#     arguments: '--not-build'
+#     workingDirectory: '$(sourceTestFolder)'
+
+#- task: Bash@3
+#  displayName: 'Runing tests'
+#  continueOnError: false
+#  timeoutInMinutes: 5
+#  inputs:
+#    
+#    targetType: 'inline'
+#    script: 'dotnet test MeerkatUpdater.Core.Test.csproj --no-build --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publishing coverage results'
