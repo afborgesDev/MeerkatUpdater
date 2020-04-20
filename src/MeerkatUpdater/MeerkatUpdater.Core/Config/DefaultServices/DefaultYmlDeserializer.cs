@@ -30,17 +30,8 @@ namespace MeerkatUpdater.Core.Config.DefaultServices
             return TransformJsonCompatiblePayloadToTargetClass<TTargetClass>(jsonCompatiblePayload);
         }
 
-        private static TTargetClass? TransformJsonCompatiblePayloadToTargetClass<TTargetClass>(string jsonCompatiblePayload) where TTargetClass : class
-        {
-            try
-            {
-                return JsonConvert.DeserializeObject<TTargetClass>(jsonCompatiblePayload);
-            }
-            catch (JsonException e) when (e is JsonReaderException || e is JsonSerializationException)
-            {
-                return default;
-            }
-        }
+        private static TTargetClass? TransformJsonCompatiblePayloadToTargetClass<TTargetClass>(string jsonCompatiblePayload) where TTargetClass : class =>
+            JsonConvert.DeserializeObject<TTargetClass>(jsonCompatiblePayload);
 
         private static string TransformPayloadToJsonCompatible(string payload)
         {

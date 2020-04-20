@@ -2,69 +2,29 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="FeaturesForConfig\payloads\invalidPayload" />
-    <None Remove="PayloadSolutionForTest\PayloadSolutionForTest.zip" />
+    <None Remove="PayloadSolutionForTest\payloads\PayloadSolutionForTest.zip" />
+    <None Remove="TestsForConfig\payloads\invalidPayload" />
   </ItemGroup>
 
   <ItemGroup>
-    <SpecFlowObsoleteCodeBehindFiles Remove="FeaturesForConfig\DefaultConfigurationGeneration.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="FeaturesForConfig\YamlDefaultDeserialization.feature.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="FeaturesForConfig\payloads\invalidPayload" />
     <EmbeddedResource Include="PayloadSolutionForTest\payloads\PayloadSolutionForTest.zip" />
+    <EmbeddedResource Include="TestsForConfig\payloads\invalidPayload" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="2.8.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="coverlet.msbuild" Version="2.8.1" />
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-    <PackageReference Include="SpecFlow" Version="3.1.97" />
-    <PackageReference Include="SpecFlow.Assist.Dynamic" Version="1.4.1" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.97" />
-    <PackageReference Include="SpecFlow.xUnit" Version="3.1.97" />
     <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MeerkatUpdater.Core\MeerkatUpdater.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="FeaturesForConfig\DefaultConfigurationGeneration.feature.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <Compile Update="FeaturesForConfig\YamlDefaultDeserialization.feature.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="specflow.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <SpecFlowFeatureFiles Update="FeaturesForConfig\DefaultConfigurationGeneration.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="FeaturesForConfig\YamlDefaultDeserialization.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
   </ItemGroup>
 </Project>
