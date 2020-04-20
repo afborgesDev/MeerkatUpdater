@@ -38,21 +38,18 @@ steps:
   displayName: 'Building'
   continueOnError: false
   inputs:
-    workingDirectory: '$(sourceCoreFolder)'
+    workingDirectory: '$(sourceFolder)'
     targetType: 'inline'
     script: 'dotnet build -c $(buildConfiguration)'
 
 - task: Bash@3
   displayName: 'Runing tests'
-  #env:
-  #  MSBUILDSINGLELOADCONTEXT: 1
   continueOnError: false
   timeoutInMinutes: 5
   inputs:
     workingDirectory: '$(sourceTestFolder)'
     targetType: 'inline'
-    script: 'dotnet test MeerkatUpdater.Core.Test.csproj --no-build --logger trx'
-#     arguments: '--no-restore'# --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""
+    script: 'dotnet test MeerkatUpdater.Core.Test.csproj --no-build --logger trx /p:Exclude=[xunit.*]* /p:CollectCoverage=true "/p:CoverletOutputFormat=\"cobertura,opencover\""'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publishing coverage results'
