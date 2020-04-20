@@ -27,3 +27,8 @@ steps:
   continueOnError: false
   displayName: 'dotnet build $(buildConfiguration)'
   workingDirectory: $(sourcePath)
+
+- script: dotnet test --no-build
+  continueOnError: false
+  displayName: 'dotnet test'
+  workingDirectory: $(sourcePath)
