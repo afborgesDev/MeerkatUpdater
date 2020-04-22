@@ -1,11 +1,14 @@
 ﻿using MeerkatUpdater.Core.Config.Manager;
 using MeerkatUpdater.Core.Runner.Command.DotNetBuild;
 using MeerkatUpdater.Core.Runner.Command.DotNetClean;
+using MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater;
+using MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate;
 using MeerkatUpdater.Core.Runner.Command.DotNetContProject;
 using MeerkatUpdater.Core.Runner.Command.DotNetOutDated;
+using MeerkatUpdater.Core.Runner.Model.PackageInfo;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
-using System.Threading.Tasks;
 
 namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
 {
@@ -22,6 +25,8 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
         private readonly ICountProject countProject;
         private readonly IOutDated outDated;
         private readonly IConfigManager configManager;
+        private readonly IProjectPathUpdater projectPathUpdater;
+        private readonly IUpdate update;
 
         /// <summary>
         /// Default DI constructor
@@ -31,37 +36,44 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
         /// <param name="build"></param>
         /// <param name="countProject"></param>
         /// <param name="configManager"></param>
+        /// <param name="projectPathUpdater"></param>
+        /// <param name="update"></param>
         public UpdateProcess(IOutDated outDated,
             IClean clean,
             IBuild build,
             ICountProject countProject,
-            IConfigManager configManager)
+            IConfigManager configManager,
+            IProjectPathUpdater projectPathUpdater,
+            IUpdate update)
         {
             this.clean = clean;
             this.build = build;
             this.countProject = countProject;
             this.outDated = outDated;
             this.configManager = configManager;
+            this.projectPathUpdater = projectPathUpdater;
+            this.update = update;
         }
 
         /// <summary>
         /// Do the OutDated process by checking and trying to update
         /// </summary>
         /// <returns></returns>
-        public async Task Execute()
+        public void Execute()
         {
             BeforeExecution();
             var projectInfo = this.outDated.Execute();
             if (projectInfo is null || projectInfo.Count == 0)
                 return;
 
-            // await UpdateProjects(projectInfo).ConfigureAwait(false);
+            UpdateProjects(projectInfo);
         }
 
-        //private Task UpdateProjects(List<ProjectInfo> projectInfo)
-        //{
-        //    ProjectPathUpdater.Execute(ref projectInfo);
-        //}
+        private void UpdateProjects(List<ProjectInfo> projectInfo)
+        {
+            this.projectPathUpdater.Execute(ref projectInfo);
+            this.update.Execute(projectInfo);
+        }
 
         private void BeforeExecution()
         {
@@ -79,7 +91,6 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
                 return;
 
             var newWaitTime = Convert.ToInt32(numberOfProjectsOnSolution * BaseSeconds, CultureInfo.InvariantCulture);
-
             this.configManager.GetConfigurations().NugetConfigurations?.SetNewMaxTimeSecondsTimeOut(newWaitTime);
         }
     }

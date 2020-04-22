@@ -2,3 +2,9 @@
 
 # CA1000: Do not declare static members on generic types
 dotnet_diagnostic.CA1000.severity = none
+
+# CA1031: Do not catch general exception types
+dotnet_diagnostic.CA1031.severity = none
+
+# IDE0058: Expression value is never used
+csharp_style_unused_value_expression_statement_preference = discard_variable:none

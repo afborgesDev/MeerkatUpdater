@@ -1,4 +1,5 @@
-﻿using MeerkatUpdater.Core.Runner.Model.PackageInfo;
+﻿using MeerkatUpdater.Core.Config.Model;
+using MeerkatUpdater.Core.Runner.Model.PackageInfo;
 using System;
 using System.Text.RegularExpressions;
 

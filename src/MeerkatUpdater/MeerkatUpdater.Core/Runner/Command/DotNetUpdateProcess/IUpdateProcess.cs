@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
+﻿namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
 {
     /// <summary>
     /// Centralize the outdate work flow to <br/>
@@ -14,6 +12,6 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
         /// Do the OutDated process by checking and trying to update
         /// </summary>
         /// <returns></returns>
-        Task Execute();
+        void Execute();
     }
 }

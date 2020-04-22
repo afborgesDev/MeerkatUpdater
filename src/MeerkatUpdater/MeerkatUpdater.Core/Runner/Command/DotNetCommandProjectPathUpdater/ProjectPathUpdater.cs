@@ -4,19 +4,20 @@ using MeerkatUpdater.Core.Runner.Model.PackageInfo;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
+namespace MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater
 {
     /// <summary>
     /// Updater for path on each project inside a solution
     /// </summary>
-    public class ProjectPathUpdater
+    public class ProjectPathUpdater : IProjectPathUpdater
     {
         private readonly IDotNetCommand dotNetCommand;
 
-        public ProjectPathUpdater(IDotNetCommand dotNetCommand)
-        {
-            this.dotNetCommand = dotNetCommand;
-        }
+        /// <summary>
+        /// Default DI constructor
+        /// </summary>
+        /// <param name="dotNetCommand"></param>
+        public ProjectPathUpdater(IDotNetCommand dotNetCommand) => this.dotNetCommand = dotNetCommand;
 
         /// <summary>
         /// Based on the solution update the path for each project

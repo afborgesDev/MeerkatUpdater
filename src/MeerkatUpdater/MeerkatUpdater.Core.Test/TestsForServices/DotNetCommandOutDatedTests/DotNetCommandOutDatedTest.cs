@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using MeerkatUpdater.Core.Test.GeneralUsage;
+using System.IO;
 using Xunit;
 
 namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandOutDatedTests
@@ -11,10 +12,12 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandOutDatedTests
         {
             const int ThirtySecondsTimeOut = 30;
             const string TestKey = "ShouldReturnInformationsAboutProjecOutDatedInsideSolution";
+            var outPutPath = string.Empty;
             try
             {
                 var configManager = CreateCommandObjects.CreateConfigManager(TestKey);
                 var configurations = configManager.GetConfigurations();
+                outPutPath = configurations.OutPutPath;
                 configurations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(ThirtySecondsTimeOut);
                 var dotNetcommand = CreateCommandObjects.CreateDotNetCommand(configManager);
                 var build = CreateCommandObjects.CreateBuildCommand(configManager, dotNetcommand);
@@ -44,7 +47,7 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandOutDatedTests
             }
             finally
             {
-                CreatedFoldersManager.TierDownTest(TestKey);
+                Directory.Delete(outPutPath, true);
             }
         }
     }

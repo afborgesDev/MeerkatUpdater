@@ -5,6 +5,7 @@ using MeerkatUpdater.Core.Runner.Model.DotNet;
 using MeerkatUpdater.Core.Test.GeneralUsage;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Text.RegularExpressions;
 using Xunit;
 
@@ -67,10 +68,12 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandTests
             const string TestKey = "ShortTimeOutShouldKillTaskAndResltIntoNotSucceedExecution";
             const int OneSecond = 1;
 
+            var outPutPath = string.Empty;
             try
             {
                 var configManager = CreateCommandObjects.CreateConfigManager(TestKey);
                 var configuarations = configManager.GetConfigurations();
+                outPutPath = configuarations.OutPutPath;
                 configuarations.NugetConfigurations.SetNewMaxTimeSecondsTimeOut(OneSecond);
                 configManager.SetConfigurations(configuarations);
                 var dotNetCommand = new DotNetCommand(configManager);
@@ -80,7 +83,7 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandTests
             }
             finally
             {
-                CreatedFoldersManager.TierDownTest(TestKey);
+                Directory.Delete(outPutPath, true);
             }
         }
 

@@ -2,6 +2,8 @@
 using MeerkatUpdater.Core.Runner.Command.DotNet;
 using MeerkatUpdater.Core.Runner.Command.DotNetBuild;
 using MeerkatUpdater.Core.Runner.Command.DotNetClean;
+using MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater;
+using MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate;
 using MeerkatUpdater.Core.Runner.Command.DotNetContProject;
 using MeerkatUpdater.Core.Runner.Command.DotNetOutDated;
 using MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess;
@@ -36,6 +38,8 @@ namespace MeerkatUpdater.Core.DependencyInjection
             serviceContainer.AddScoped<IClean>();
             serviceContainer.AddScoped<ICountProject>();
             serviceContainer.AddScoped<IOutDated>();
+            serviceContainer.AddScoped<IProjectPathUpdater>();
+            serviceContainer.AddScoped<IUpdate>();
             serviceContainer.AddScoped<IUpdateProcess>();
         }
     }

@@ -20,6 +20,7 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetOutDated
         /// Default constructor for DI
         /// </summary>
         /// <param name="dotNetCommand"></param>
+        /// <param name="build"></param>
         /// <param name="configManager"></param>
         public OutDated(IDotNetCommand dotNetCommand, IBuild build, IConfigManager configManager) =>
             (this.dotNetCommand, this.build, this.configManager) = (dotNetCommand, build, configManager);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeerkatUpdater.Core.Config.Model;
+using System;
 
 namespace MeerkatUpdater.Core.Runner.Model.PackageInfo
 {

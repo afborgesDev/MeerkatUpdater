@@ -385,6 +385,62 @@
             For more information about the command, see: <see href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-clean">dotnet clean documentation</see>
             </summary>
         </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater.IProjectPathUpdater">
+            <summary>
+            Using dotnet sln list update the path for each project insde a solution
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater.IProjectPathUpdater.Execute(System.Collections.Generic.List{MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo}@)">
+            <summary>
+            Using dotnet sln list update the path for each project insde a solution
+            </summary>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater.ProjectPathUpdater">
+            <summary>
+            Updater for path on each project inside a solution
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater.ProjectPathUpdater.#ctor(MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand)">
+            <summary>
+            Default DI constructor
+            </summary>
+            <param name="dotNetCommand"></param>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater.ProjectPathUpdater.Execute(System.Collections.Generic.List{MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo}@)">
+            <summary>
+            Based on the solution update the path for each project
+            </summary>
+            <param name="projects"></param>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.IUpdate">
+            <summary>
+            Update a solution based on semantic allowed version to update
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.IUpdate.Execute(System.Collections.Generic.List{MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo})">
+            <summary>
+            Execute the update by using add package to sulution command
+            </summary>
+            <param name="toUpdateProjectInfo"></param>
+        </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.Update">
+            <summary>
+            Update a solution based on semantic allowed version to update
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.Update.#ctor(MeerkatUpdater.Core.Config.Manager.IConfigManager,MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand)">
+            <summary>
+            Default DI constructor
+            </summary>
+            <param name="configManager"></param>
+            <param name="dotNetCommand"></param>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.Update.Execute(System.Collections.Generic.List{MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo})">
+            <summary>
+            Execute the update by using add package to sulution command
+            </summary>
+            <param name="toUpdateProjectInfo"></param>
+        </member>
         <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetContProject.CountProject">
             <summary>
             Run the commands that provide the number of projects inside a solution
@@ -437,6 +493,7 @@
             Default constructor for DI
             </summary>
             <param name="dotNetCommand"></param>
+            <param name="build"></param>
             <param name="configManager"></param>
         </member>
         <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetOutDated.OutDated.Execute">
@@ -460,17 +517,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.ProjectPathUpdater">
-            <summary>
-            Updater for path on each project inside a solution
-            </summary>
-        </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.ProjectPathUpdater.Execute(System.Collections.Generic.List{MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo}@)">
-            <summary>
-            Based on the solution update the path for each project
-            </summary>
-            <param name="projects"></param>
-        </member>
         <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.UpdateProcess">
             <summary>
             Centralize the outdate work flow to <br/>
@@ -479,7 +525,7 @@
             - Update <br/>
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.UpdateProcess.#ctor(MeerkatUpdater.Core.Runner.Command.DotNetOutDated.IOutDated,MeerkatUpdater.Core.Runner.Command.DotNetClean.IClean,MeerkatUpdater.Core.Runner.Command.DotNetBuild.IBuild,MeerkatUpdater.Core.Runner.Command.DotNetContProject.ICountProject,MeerkatUpdater.Core.Config.Manager.IConfigManager)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.UpdateProcess.#ctor(MeerkatUpdater.Core.Runner.Command.DotNetOutDated.IOutDated,MeerkatUpdater.Core.Runner.Command.DotNetClean.IClean,MeerkatUpdater.Core.Runner.Command.DotNetBuild.IBuild,MeerkatUpdater.Core.Runner.Command.DotNetContProject.ICountProject,MeerkatUpdater.Core.Config.Manager.IConfigManager,MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater.IProjectPathUpdater,MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.IUpdate)">
             <summary>
             Default DI constructor
             </summary>
@@ -488,6 +534,8 @@
             <param name="build"></param>
             <param name="countProject"></param>
             <param name="configManager"></param>
+            <param name="projectPathUpdater"></param>
+            <param name="update"></param>
         </member>
         <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.UpdateProcess.Execute">
             <summary>
@@ -702,31 +750,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:MeerkatUpdater.Core.Runner.Model.PackageInfo.SemanticVersion">
-            <summary>
-            Determine the version of the package
-            </summary>
-        </member>
-        <member name="F:MeerkatUpdater.Core.Runner.Model.PackageInfo.SemanticVersion.Major">
-            <summary>
-            Major version
-            </summary>
-        </member>
-        <member name="F:MeerkatUpdater.Core.Runner.Model.PackageInfo.SemanticVersion.Minor">
-            <summary>
-            Minor version
-            </summary>
-        </member>
-        <member name="F:MeerkatUpdater.Core.Runner.Model.PackageInfo.SemanticVersion.Path">
-            <summary>
-            Path version
-            </summary>
-        </member>
-        <member name="F:MeerkatUpdater.Core.Runner.Model.PackageInfo.SemanticVersion.NoUpdate">
-            <summary>
-            Should not update
-            </summary>
-        </member>
         <member name="T:MeerkatUpdater.Core.Runner.Model.PackageInfo.VersionInfo">
             <summary>
             Information about the instaled package
@@ -742,7 +765,6 @@
             Creates a new versionInfo by using the text version
             </summary>
             <param name="versionText"></param>
-            <returns></returns>
         </member>
         <member name="M:MeerkatUpdater.Core.Runner.Model.PackageInfo.VersionInfo.IsEstable">
             <summary>
