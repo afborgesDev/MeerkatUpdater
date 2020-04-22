@@ -23,17 +23,7 @@ steps:
     version: '3.1.x'
     packageType: runtime 
 
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet test
   continueOnError: false
-  displayName: 'dotnet build $(buildConfiguration)'
-  workingDirectory: $(sourcePath)
-
-- script: ls
-  continueOnError: false
-  displayName: 'dotnet test'
-  workingDirectory: $(sourcePath)
-
-- script: pwd
-  continueOnError: false
-  displayName: 'dotnet test'
+  displayName: 'dotnet test $(buildConfiguration)'
   workingDirectory: $(sourcePath)
