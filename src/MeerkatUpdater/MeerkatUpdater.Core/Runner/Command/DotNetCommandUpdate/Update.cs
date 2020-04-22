@@ -1,4 +1,5 @@
 ﻿using MeerkatUpdater.Core.Config.Manager;
+using MeerkatUpdater.Core.Runner.Command.Common;
 using MeerkatUpdater.Core.Runner.Command.DotNet;
 using MeerkatUpdater.Core.Runner.Model.PackageInfo;
 using System;
@@ -14,6 +15,7 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate
     /// </summary>
     public class Update : IUpdate
     {
+        private const string AddCommand = "add";
         private const int MaxDegreeParallelForPackagesToUpdate = 10;
         private static readonly ParallelOptions parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = MaxDegreeParallelForPackagesToUpdate };
         private readonly IConfigManager configManager;
@@ -31,7 +33,7 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate
         /// Execute the update by using add package to sulution command
         /// </summary>
         /// <param name="toUpdateProjectInfo"></param>
-        public void Execute(List<ProjectInfo> toUpdateProjectInfo)
+        public void Execute(ref List<ProjectInfo> toUpdateProjectInfo)
         {
             var toUpdateVersion = this.configManager.GetConfigurations().UpdateConfigurations?.AllowedVersionsToUpdate;
 
@@ -60,7 +62,11 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate
                     {
                         var hasUpdated = DoUpdatePackage(projectInfo.Path, packageToUpdate.Name);
                         if (hasUpdated)
+                        {
                             packageToUpdate.UpdatedAt = DateTime.UtcNow;
+                            packageToUpdate.OldVersion = packageToUpdate.Current;
+                            packageToUpdate.Current = packageToUpdate.Latest;
+                        }
                     }
                     catch
                     {
@@ -79,7 +85,7 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate
                 throw new ArgumentNullException(nameof(libName));
 
             //runModel.Options.NugetSourceToStringParam(),
-            var runResult = this.dotNetCommand.RunCommand("add", projectPath, "package", libName);
+            var runResult = this.dotNetCommand.RunCommand(AddCommand, projectPath, DotnetCommandConst.PackageCommand, libName);
             return runResult.IsSucceed();
         }
     }

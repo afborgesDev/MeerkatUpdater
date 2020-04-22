@@ -417,7 +417,7 @@
             Update a solution based on semantic allowed version to update
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.IUpdate.Execute(System.Collections.Generic.List{MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo})">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.IUpdate.Execute(System.Collections.Generic.List{MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo}@)">
             <summary>
             Execute the update by using add package to sulution command
             </summary>
@@ -435,7 +435,7 @@
             <param name="configManager"></param>
             <param name="dotNetCommand"></param>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.Update.Execute(System.Collections.Generic.List{MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo})">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.Update.Execute(System.Collections.Generic.List{MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo}@)">
             <summary>
             Execute the update by using add package to sulution command
             </summary>
@@ -683,6 +683,11 @@
         <member name="P:MeerkatUpdater.Core.Runner.Model.PackageInfo.InstalledPackage.Latest">
             <summary>
             The latest version of the package
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.Runner.Model.PackageInfo.InstalledPackage.OldVersion">
+            <summary>
+            Indicate the old version after the update
             </summary>
         </member>
         <member name="P:MeerkatUpdater.Core.Runner.Model.PackageInfo.InstalledPackage.SemanticVersionChange">

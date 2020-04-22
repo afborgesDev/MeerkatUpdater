@@ -72,7 +72,7 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
         private void UpdateProjects(List<ProjectInfo> projectInfo)
         {
             this.projectPathUpdater.Execute(ref projectInfo);
-            this.update.Execute(projectInfo);
+            this.update.Execute(ref projectInfo);
         }
 
         private void BeforeExecution()

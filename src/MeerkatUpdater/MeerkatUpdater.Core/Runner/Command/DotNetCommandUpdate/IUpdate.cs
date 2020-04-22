@@ -12,6 +12,6 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate
         /// Execute the update by using add package to sulution command
         /// </summary>
         /// <param name="toUpdateProjectInfo"></param>
-        void Execute(List<ProjectInfo> toUpdateProjectInfo);
+        void Execute(ref List<ProjectInfo> toUpdateProjectInfo);
     }
 }

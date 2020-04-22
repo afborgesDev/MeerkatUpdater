@@ -24,6 +24,11 @@ namespace MeerkatUpdater.Core.Runner.Model.PackageInfo
         public VersionInfo? Latest { get; set; }
 
         /// <summary>
+        /// Indicate the old version after the update
+        /// </summary>
+        public VersionInfo? OldVersion { get; set; }
+
+        /// <summary>
         /// The semantic version used to target the update
         /// </summary>
         public SemanticVersion? SemanticVersionChange { get; set; }
