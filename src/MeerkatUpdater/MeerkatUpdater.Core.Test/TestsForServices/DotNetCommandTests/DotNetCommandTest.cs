@@ -5,7 +5,6 @@ using MeerkatUpdater.Core.Runner.Model.DotNet;
 using MeerkatUpdater.Core.Test.GeneralUsage;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Text.RegularExpressions;
 using Xunit;
 
@@ -65,7 +64,7 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandTests
         [Fact]
         public void ShortTimeOutShouldKillTaskAndResltIntoNotSucceedExecution()
         {
-            const string TestKey = "ShortTimeOutShouldKillTaskAndResltIntoNotSucceedExecution";
+            const string TestKey = nameof(ShortTimeOutShouldKillTaskAndResltIntoNotSucceedExecution);
             const int OneSecond = 1;
 
             var outPutPath = string.Empty;
@@ -83,7 +82,7 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandTests
             }
             finally
             {
-                Directory.Delete(outPutPath, true);
+                CreatedFoldersManager.TierDownTest(TestKey);
             }
         }
 
