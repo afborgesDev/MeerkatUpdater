@@ -1,5 +1,6 @@
 ﻿using MeerkatUpdater.Core.Config.DefaultServices;
 using MeerkatUpdater.Core.Config.Model;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Globalization;
 using System.IO;
@@ -15,6 +16,13 @@ namespace MeerkatUpdater.Core.Config.Manager
         private const string ExecutionConfigurationsFile = "MeerkatUpdater";
         private readonly TimeSpan DefaultMaximumWait = TimeSpan.FromSeconds(10);
         private readonly string[] SupportedExtensions = new string[2] { ".yaml", ".yml" };
+        private readonly ILogger<ConfigManager> logger;
+
+        /// <summary>
+        /// Default DI constructor
+        /// </summary>
+        /// <param name="logger"></param>
+        public ConfigManager(ILogger<ConfigManager> logger) => this.logger = logger;
 
         private ExecutionConfigurations? ExecutionConfigurations { get; set; }
 
