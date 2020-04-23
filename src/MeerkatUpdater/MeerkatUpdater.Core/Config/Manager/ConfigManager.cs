@@ -1,6 +1,5 @@
 ﻿using MeerkatUpdater.Core.Config.DefaultServices;
 using MeerkatUpdater.Core.Config.Model;
-using MeerkatUpdater.Core.Config.Model.CustomExceptions;
 using System;
 using System.Globalization;
 using System.IO;
@@ -28,10 +27,7 @@ namespace MeerkatUpdater.Core.Config.Manager
             if (ExecutionConfigurations is null)
                 LoadConfigurationsFromFile();
 
-            if (ExecutionConfigurations is null)
-                throw new DeserealizationException();
-
-            return ExecutionConfigurations;
+            return ExecutionConfigurations ?? throw new FileNotFoundException(DefaultMessages.ErrorOnLoadConfigurationsFromFile);
         }
 
         /// <summary>

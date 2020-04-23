@@ -123,6 +123,9 @@
   <data name="ErrorOnConvertOutDateOutPutIntoPayload" xml:space="preserve">
     <value>Could not convert the outdated output into the payload to continue the analisys</value>
   </data>
+  <data name="ErrorOnLoadConfigurationsFromFile" xml:space="preserve">
+    <value>Could not load the Yaml configurations into a valid config class</value>
+  </data>
   <data name="MaximumWaitNotEnougthDotNetCommand" xml:space="preserve">
     <value>The Maximum Wait time should be gratan then Zero</value>
   </data>

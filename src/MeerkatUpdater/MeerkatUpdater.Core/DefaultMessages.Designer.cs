@@ -79,6 +79,15 @@ namespace MeerkatUpdater.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not load the Yaml configurations into a valid config class.
+        /// </summary>
+        internal static string ErrorOnLoadConfigurationsFromFile {
+            get {
+                return ResourceManager.GetString("ErrorOnLoadConfigurationsFromFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Maximum Wait time should be gratan then Zero.
         /// </summary>
         internal static string MaximumWaitNotEnougthDotNetCommand {

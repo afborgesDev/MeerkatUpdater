@@ -49,7 +49,7 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandTests
                 var (watcher, result) = ExecuteDotNetCommand(dotNetCommand, "--version");
                 BasicValidationsDotNetCommand(result, true, false, true);
 
-                var defaultLongMaximumWait = Convert.ToInt64(configManager.GetDefaultMaximumWait().TotalSeconds);
+                var defaultLongMaximumWait = Math.Pow(Convert.ToInt64(configManager.GetDefaultMaximumWait().TotalSeconds), 2);
                 var timeSpanSpended = TimeSpan.FromMilliseconds(watcher.ElapsedMilliseconds);
                 var secondsSpended = timeSpanSpended.TotalSeconds;
 
