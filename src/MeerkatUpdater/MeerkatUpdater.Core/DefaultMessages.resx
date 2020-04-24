@@ -126,6 +126,27 @@
   <data name="ErrorOnLoadConfigurationsFromFile" xml:space="preserve">
     <value>Could not load the Yaml configurations into a valid config class</value>
   </data>
+  <data name="LOG_BuildProject" xml:space="preserve">
+    <value>Building the solution</value>
+  </data>
+  <data name="LOG_CleaningProject" xml:space="preserve">
+    <value>Cleaning the solution</value>
+  </data>
+  <data name="LOG_NoneAllowedVersionToUpdate" xml:space="preserve">
+    <value>None allowed versions to update was configurated</value>
+  </data>
+  <data name="LOG_NoneOutDatedPackages" xml:space="preserve">
+    <value>None project with outdated package was detected</value>
+  </data>
+  <data name="LOG_OutDateProject" xml:space="preserve">
+    <value>Seeking for outdated packages into the solution</value>
+  </data>
+  <data name="LOG_StartingExecutionUpdate" xml:space="preserve">
+    <value>Starting Execution to check and update packages</value>
+  </data>
+  <data name="LOG_StartingUpdatePackages" xml:space="preserve">
+    <value>Starting to Update the packages inside projects</value>
+  </data>
   <data name="MaximumWaitNotEnougthDotNetCommand" xml:space="preserve">
     <value>The Maximum Wait time should be gratan then Zero</value>
   </data>

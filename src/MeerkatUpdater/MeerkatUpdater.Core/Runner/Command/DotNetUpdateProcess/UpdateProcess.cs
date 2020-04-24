@@ -6,6 +6,7 @@ using MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate;
 using MeerkatUpdater.Core.Runner.Command.DotNetContProject;
 using MeerkatUpdater.Core.Runner.Command.DotNetOutDated;
 using MeerkatUpdater.Core.Runner.Model.PackageInfo;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -27,6 +28,7 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
         private readonly IConfigManager configManager;
         private readonly IProjectPathUpdater projectPathUpdater;
         private readonly IUpdate update;
+        private readonly ILogger<UpdateProcess> logger;
 
         /// <summary>
         /// Default DI constructor
@@ -38,13 +40,15 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
         /// <param name="configManager"></param>
         /// <param name="projectPathUpdater"></param>
         /// <param name="update"></param>
+        /// <param name="logger"></param>
         public UpdateProcess(IOutDated outDated,
             IClean clean,
             IBuild build,
             ICountProject countProject,
             IConfigManager configManager,
             IProjectPathUpdater projectPathUpdater,
-            IUpdate update)
+            IUpdate update,
+            ILogger<UpdateProcess> logger)
         {
             this.clean = clean;
             this.build = build;
@@ -53,6 +57,7 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
             this.configManager = configManager;
             this.projectPathUpdater = projectPathUpdater;
             this.update = update;
+            this.logger = logger;
         }
 
         /// <summary>
@@ -61,8 +66,10 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
         /// <returns></returns>
         public void Execute()
         {
+            this.logger.LogInformation(DefaultMessages.LOG_StartingExecutionUpdate);
             BeforeExecution();
             var projectInfo = this.outDated.Execute();
+            this.logger.LogInformation($"That is the number of packages to be updated on the solution {projectInfo?.Count}");
             if (projectInfo is null || projectInfo.Count == 0)
                 return;
 
@@ -71,6 +78,7 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
 
         private void UpdateProjects(List<ProjectInfo> projectInfo)
         {
+            this.logger.LogInformation(DefaultMessages.LOG_StartingUpdatePackages);
             this.projectPathUpdater.Execute(ref projectInfo);
             this.update.Execute(ref projectInfo);
         }
@@ -92,6 +100,7 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess
 
             var newWaitTime = Convert.ToInt32(numberOfProjectsOnSolution * BaseSeconds, CultureInfo.InvariantCulture);
             this.configManager.GetConfigurations().NugetConfigurations?.SetNewMaxTimeSecondsTimeOut(newWaitTime);
+            this.logger.LogInformation($"Based on the number of projects inside the solutino. The TimeOut was changed to {TimeSpan.FromSeconds(newWaitTime)} seconds");
         }
     }
 }
