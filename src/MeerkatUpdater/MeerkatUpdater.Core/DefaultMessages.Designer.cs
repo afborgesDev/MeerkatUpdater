@@ -88,6 +88,69 @@ namespace MeerkatUpdater.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Building the solution.
+        /// </summary>
+        internal static string LOG_BuildProject {
+            get {
+                return ResourceManager.GetString("LOG_BuildProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cleaning the solution.
+        /// </summary>
+        internal static string LOG_CleaningProject {
+            get {
+                return ResourceManager.GetString("LOG_CleaningProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None allowed versions to update was configurated.
+        /// </summary>
+        internal static string LOG_NoneAllowedVersionToUpdate {
+            get {
+                return ResourceManager.GetString("LOG_NoneAllowedVersionToUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None project with outdated package was detected.
+        /// </summary>
+        internal static string LOG_NoneOutDatedPackages {
+            get {
+                return ResourceManager.GetString("LOG_NoneOutDatedPackages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seeking for outdated packages into the solution.
+        /// </summary>
+        internal static string LOG_OutDateProject {
+            get {
+                return ResourceManager.GetString("LOG_OutDateProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting Execution to check and update packages.
+        /// </summary>
+        internal static string LOG_StartingExecutionUpdate {
+            get {
+                return ResourceManager.GetString("LOG_StartingExecutionUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting to Update the packages inside projects.
+        /// </summary>
+        internal static string LOG_StartingUpdatePackages {
+            get {
+                return ResourceManager.GetString("LOG_StartingUpdatePackages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Maximum Wait time should be gratan then Zero.
         /// </summary>
         internal static string MaximumWaitNotEnougthDotNetCommand {

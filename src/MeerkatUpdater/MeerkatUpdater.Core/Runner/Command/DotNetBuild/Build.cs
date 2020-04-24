@@ -2,6 +2,7 @@
 using MeerkatUpdater.Core.Runner.Command.Common;
 using MeerkatUpdater.Core.Runner.Command.DotNet;
 using MeerkatUpdater.Core.Runner.Scraper;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace MeerkatUpdater.Core.Runner.Command.DotNetBuild
@@ -13,14 +14,16 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetBuild
     {
         private readonly IDotNetCommand dotNetCommand;
         private readonly IConfigManager configManager;
+        private readonly ILogger<Build> logger;
 
         /// <summary>
         /// Default constructor for DI
         /// </summary>
         /// <param name="dotNetCommand"></param>
         /// <param name="configManager"></param>
-        public Build(IDotNetCommand dotNetCommand, IConfigManager configManager) =>
-            (this.dotNetCommand, this.configManager) = (dotNetCommand, configManager);
+        /// <param name="logger"></param>
+        public Build(IDotNetCommand dotNetCommand, IConfigManager configManager, ILogger<Build> logger) =>
+            (this.dotNetCommand, this.configManager, this.logger) = (dotNetCommand, configManager, logger);
 
         /// <summary>
         /// Exceute the dotnet build command <br/>
@@ -33,7 +36,7 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetBuild
         {
             var solutionPath = this.configManager.GetConfigurations().SolutionPath ?? string.Empty;
             var outputPath = this.configManager.GetConfigurations().GetTargetOutPutPath();
-
+            this.logger.LogInformation(DefaultMessages.LOG_BuildProject);
             var result = this.dotNetCommand.RunCommand(DotnetCommandConst.BuildCommand,
                                                        solutionPath,
                                                        DotnetCommandConst.TargetOutPutParam,

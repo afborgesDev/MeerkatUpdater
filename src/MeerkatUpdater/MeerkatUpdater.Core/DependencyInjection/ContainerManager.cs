@@ -8,6 +8,7 @@ using MeerkatUpdater.Core.Runner.Command.DotNetContProject;
 using MeerkatUpdater.Core.Runner.Command.DotNetOutDated;
 using MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace MeerkatUpdater.Core.DependencyInjection
 {
@@ -28,6 +29,7 @@ namespace MeerkatUpdater.Core.DependencyInjection
         {
             serviceContainer.AddScoped<IConfigManager>();
             RegisterCommands(serviceContainer);
+            ConfigureLog(serviceContainer);
             return serviceContainer;
         }
 
@@ -42,5 +44,9 @@ namespace MeerkatUpdater.Core.DependencyInjection
             serviceContainer.AddScoped<IUpdate>();
             serviceContainer.AddScoped<IUpdateProcess>();
         }
+
+        private static void ConfigureLog(IServiceCollection serviceContainer) =>
+           serviceContainer.AddLogging(configure => configure.AddConsole())
+                           .Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Information);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MeerkatUpdater.Core.Config.Manager;
 using MeerkatUpdater.Core.Runner.Command.Common;
 using MeerkatUpdater.Core.Runner.Command.DotNet;
+using Microsoft.Extensions.Logging;
 
 namespace MeerkatUpdater.Core.Runner.Command.DotNetClean
 {
@@ -11,14 +12,16 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetClean
     {
         private readonly IDotNetCommand dotNetCommand;
         private readonly IConfigManager configManager;
+        private readonly ILogger<Clean> logger;
 
         /// <summary>
         /// The default DI constructor
         /// </summary>
         /// <param name="dotNetCommand"></param>
         /// <param name="configManager"></param>
-        public Clean(IDotNetCommand dotNetCommand, IConfigManager configManager) =>
-            (this.dotNetCommand, this.configManager) = (dotNetCommand, configManager);
+        /// <param name="logger"></param>
+        public Clean(IDotNetCommand dotNetCommand, IConfigManager configManager, ILogger<Clean> logger) =>
+            (this.dotNetCommand, this.configManager, this.logger) = (dotNetCommand, configManager, logger);
 
         /// <summary>
         /// Executes the dotnet clean command <br/>
@@ -28,7 +31,7 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetClean
         {
             var solutionPath = this.configManager.GetConfigurations().SolutionPath ?? string.Empty;
             var outputPath = this.configManager.GetConfigurations().GetTargetOutPutPath();
-
+            this.logger.LogInformation(DefaultMessages.LOG_CleaningProject);
             _ = this.dotNetCommand.RunCommand(DotnetCommandConst.CleanCommand,
                                               solutionPath,
                                               DotnetCommandConst.TargetOutPutParam,
