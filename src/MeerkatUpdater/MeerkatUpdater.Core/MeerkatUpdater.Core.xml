@@ -286,6 +286,46 @@
               Looks up a localized string similar to Could not convert the outdated output into the payload to continue the analisys.
             </summary>
         </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.ErrorOnLoadConfigurationsFromFile">
+            <summary>
+              Looks up a localized string similar to Could not load the Yaml configurations into a valid config class.
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_BuildProject">
+            <summary>
+              Looks up a localized string similar to Building the solution.
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_CleaningProject">
+            <summary>
+              Looks up a localized string similar to Cleaning the solution.
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_NoneAllowedVersionToUpdate">
+            <summary>
+              Looks up a localized string similar to None allowed versions to update was configurated.
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_NoneOutDatedPackages">
+            <summary>
+              Looks up a localized string similar to None project with outdated package was detected.
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_OutDateProject">
+            <summary>
+              Looks up a localized string similar to Seeking for outdated packages into the solution.
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_StartingExecutionUpdate">
+            <summary>
+              Looks up a localized string similar to Starting Execution to check and update packages.
+            </summary>
+        </member>
+        <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_StartingUpdatePackages">
+            <summary>
+              Looks up a localized string similar to Starting to Update the packages inside projects.
+            </summary>
+        </member>
         <member name="P:MeerkatUpdater.Core.DefaultMessages.MaximumWaitNotEnougthDotNetCommand">
             <summary>
               Looks up a localized string similar to The Maximum Wait time should be gratan then Zero.
@@ -326,12 +366,13 @@
             Wrap the dotnet build command
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetBuild.Build.#ctor(MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand,MeerkatUpdater.Core.Config.Manager.IConfigManager)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetBuild.Build.#ctor(MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand,MeerkatUpdater.Core.Config.Manager.IConfigManager,Microsoft.Extensions.Logging.ILogger{MeerkatUpdater.Core.Runner.Command.DotNetBuild.Build})">
             <summary>
             Default constructor for DI
             </summary>
             <param name="dotNetCommand"></param>
             <param name="configManager"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetBuild.Build.Execute">
             <summary>
@@ -361,12 +402,13 @@
             Run the Clean Command
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetClean.Clean.#ctor(MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand,MeerkatUpdater.Core.Config.Manager.IConfigManager)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetClean.Clean.#ctor(MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand,MeerkatUpdater.Core.Config.Manager.IConfigManager,Microsoft.Extensions.Logging.ILogger{MeerkatUpdater.Core.Runner.Command.DotNetClean.Clean})">
             <summary>
             The default DI constructor
             </summary>
             <param name="dotNetCommand"></param>
             <param name="configManager"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetClean.Clean.Execute">
             <summary>
@@ -428,12 +470,13 @@
             Update a solution based on semantic allowed version to update
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.Update.#ctor(MeerkatUpdater.Core.Config.Manager.IConfigManager,MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.Update.#ctor(MeerkatUpdater.Core.Config.Manager.IConfigManager,MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand,Microsoft.Extensions.Logging.ILogger{MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.Update})">
             <summary>
             Default DI constructor
             </summary>
             <param name="configManager"></param>
             <param name="dotNetCommand"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.Update.Execute(System.Collections.Generic.List{MeerkatUpdater.Core.Runner.Model.PackageInfo.ProjectInfo}@)">
             <summary>
@@ -488,13 +531,14 @@
             Warp the dotnet package --outdated
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetOutDated.OutDated.#ctor(MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand,MeerkatUpdater.Core.Runner.Command.DotNetBuild.IBuild,MeerkatUpdater.Core.Config.Manager.IConfigManager)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetOutDated.OutDated.#ctor(MeerkatUpdater.Core.Runner.Command.DotNet.IDotNetCommand,MeerkatUpdater.Core.Runner.Command.DotNetBuild.IBuild,MeerkatUpdater.Core.Config.Manager.IConfigManager,Microsoft.Extensions.Logging.ILogger{MeerkatUpdater.Core.Runner.Command.DotNetOutDated.OutDated})">
             <summary>
             Default constructor for DI
             </summary>
             <param name="dotNetCommand"></param>
             <param name="build"></param>
             <param name="configManager"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetOutDated.OutDated.Execute">
             <summary>
@@ -525,7 +569,7 @@
             - Update <br/>
             </summary>
         </member>
-        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.UpdateProcess.#ctor(MeerkatUpdater.Core.Runner.Command.DotNetOutDated.IOutDated,MeerkatUpdater.Core.Runner.Command.DotNetClean.IClean,MeerkatUpdater.Core.Runner.Command.DotNetBuild.IBuild,MeerkatUpdater.Core.Runner.Command.DotNetContProject.ICountProject,MeerkatUpdater.Core.Config.Manager.IConfigManager,MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater.IProjectPathUpdater,MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.IUpdate)">
+        <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.UpdateProcess.#ctor(MeerkatUpdater.Core.Runner.Command.DotNetOutDated.IOutDated,MeerkatUpdater.Core.Runner.Command.DotNetClean.IClean,MeerkatUpdater.Core.Runner.Command.DotNetBuild.IBuild,MeerkatUpdater.Core.Runner.Command.DotNetContProject.ICountProject,MeerkatUpdater.Core.Config.Manager.IConfigManager,MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater.IProjectPathUpdater,MeerkatUpdater.Core.Runner.Command.DotNetCommandUpdate.IUpdate,Microsoft.Extensions.Logging.ILogger{MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.UpdateProcess})">
             <summary>
             Default DI constructor
             </summary>
@@ -536,6 +580,7 @@
             <param name="configManager"></param>
             <param name="projectPathUpdater"></param>
             <param name="update"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess.UpdateProcess.Execute">
             <summary>

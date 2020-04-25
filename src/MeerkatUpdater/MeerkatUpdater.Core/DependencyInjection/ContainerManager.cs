@@ -9,6 +9,7 @@ using MeerkatUpdater.Core.Runner.Command.DotNetOutDated;
 using MeerkatUpdater.Core.Runner.Command.DotNetUpdateProcess;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MeerkatUpdater.Core.DependencyInjection
 {
@@ -27,7 +28,7 @@ namespace MeerkatUpdater.Core.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddMeerkatUpdater(this IServiceCollection serviceContainer)
         {
-            serviceContainer.AddScoped<IConfigManager>();
+            serviceContainer.AddScoped<IConfigManager, ConfigManager>();
             RegisterCommands(serviceContainer);
             ConfigureLog(serviceContainer);
             return serviceContainer;
@@ -35,16 +36,17 @@ namespace MeerkatUpdater.Core.DependencyInjection
 
         private static void RegisterCommands(IServiceCollection serviceContainer)
         {
-            serviceContainer.AddScoped<IDotNetCommand>();
-            serviceContainer.AddScoped<IBuild>();
-            serviceContainer.AddScoped<IClean>();
-            serviceContainer.AddScoped<ICountProject>();
-            serviceContainer.AddScoped<IOutDated>();
-            serviceContainer.AddScoped<IProjectPathUpdater>();
-            serviceContainer.AddScoped<IUpdate>();
-            serviceContainer.AddScoped<IUpdateProcess>();
+            serviceContainer.AddScoped<IDotNetCommand, DotNetCommand>();
+            serviceContainer.AddScoped<IBuild, Build>();
+            serviceContainer.AddScoped<IClean, Clean>();
+            serviceContainer.AddScoped<ICountProject, CountProject>();
+            serviceContainer.AddScoped<IOutDated, OutDated>();
+            serviceContainer.AddScoped<IProjectPathUpdater, ProjectPathUpdater>();
+            serviceContainer.AddScoped<IUpdate, Update>();
+            serviceContainer.AddScoped<IUpdateProcess, UpdateProcess>();
         }
 
+        [ExcludeFromCodeCoverage]
         private static void ConfigureLog(IServiceCollection serviceContainer) =>
            serviceContainer.AddLogging(configure => configure.AddConsole())
                            .Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Information);

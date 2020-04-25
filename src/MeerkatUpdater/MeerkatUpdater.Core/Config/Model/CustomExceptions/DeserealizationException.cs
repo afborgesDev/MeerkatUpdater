@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace MeerkatUpdater.Core.Config.Model.CustomExceptions
@@ -7,6 +8,7 @@ namespace MeerkatUpdater.Core.Config.Model.CustomExceptions
     /// Exception when fails to deserialize the configuration
     /// </summary>
     [Serializable]
+    [ExcludeFromCodeCoverage]
     public class DeserealizationException : Exception
     {
         private const string BaseMassage = "Could not deserealize the configurations file";

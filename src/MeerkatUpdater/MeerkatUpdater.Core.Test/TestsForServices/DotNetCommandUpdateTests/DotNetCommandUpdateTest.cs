@@ -21,7 +21,7 @@ namespace MeerkatUpdater.Core.Test.TestsForServices.DotNetCommandUpdateTests
                 var build = CreateCommandObjects.CreateBuildCommand(configManager, dotNetCommand);
                 var outDated = CreateCommandObjects.CreateOutDatedCommand(configManager, build, dotNetCommand);
                 var projectPathUpdater = new ProjectPathUpdater(dotNetCommand);
-                var update = new Update(configManager, dotNetCommand);
+                var update = new Update(configManager, dotNetCommand, CreateCommandObjects.GetMockedLoggerOf<Update>());
 
                 var projectInfoList = outDated.Execute();
                 projectPathUpdater.Execute(ref projectInfoList);

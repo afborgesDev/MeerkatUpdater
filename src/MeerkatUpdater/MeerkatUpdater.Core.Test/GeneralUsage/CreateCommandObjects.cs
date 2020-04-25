@@ -6,6 +6,8 @@ using MeerkatUpdater.Core.Runner.Command.DotNetBuild;
 using MeerkatUpdater.Core.Runner.Command.DotNetClean;
 using MeerkatUpdater.Core.Runner.Command.DotNetContProject;
 using MeerkatUpdater.Core.Runner.Command.DotNetOutDated;
+using Microsoft.Extensions.Logging;
+using Moq;
 using System.IO;
 
 namespace MeerkatUpdater.Core.Test.GeneralUsage
@@ -30,19 +32,23 @@ namespace MeerkatUpdater.Core.Test.GeneralUsage
 
         public static IDotNetCommand CreateDotNetCommand(IConfigManager configManager) => new DotNetCommand(configManager);
 
-        public static IBuild CreateBuildCommand(IConfigManager configManager, IDotNetCommand dotNetCommand) => new Build(dotNetCommand, configManager);
+        public static IBuild CreateBuildCommand(IConfigManager configManager, IDotNetCommand dotNetCommand) =>
+            new Build(dotNetCommand, configManager, GetMockedLoggerOf<Build>());
 
-        public static IClean CreateCleanCommand(IConfigManager configManager, IDotNetCommand dotNetCommand) => new Clean(dotNetCommand, configManager);
+        public static IClean CreateCleanCommand(IConfigManager configManager, IDotNetCommand dotNetCommand) => new Clean(dotNetCommand, configManager, GetMockedLoggerOf<Clean>());
 
         public static ICountProject CreateCountProject(IDotNetCommand dotNetCommand) => new CountProject(dotNetCommand);
 
-        public static IOutDated CreateOutDatedCommand(IConfigManager configManager, IBuild build, IDotNetCommand dotNetCommand) => new OutDated(dotNetCommand, build, configManager);
+        public static IOutDated CreateOutDatedCommand(IConfigManager configManager, IBuild build, IDotNetCommand dotNetCommand) =>
+            new OutDated(dotNetCommand, build, configManager, GetMockedLoggerOf<OutDated>());
 
         public static ExecutionConfigurations GetObjectConfigurationFromDefault()
         {
             var payload = DefaultConfigYmlGenerator.GenerateDefaultConfigurations();
             return DefaultYmlDeserializer.Deserialize<ExecutionConfigurations>(payload);
         }
+
+        public static ILogger<T> GetMockedLoggerOf<T>() => new Mock<ILogger<T>>().Object;
 
         private static string PrepareSolutionForCustomOutPutPath(string folderName)
         {
