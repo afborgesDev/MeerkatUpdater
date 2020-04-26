@@ -63,6 +63,12 @@
             Responsable to Load and provide access to the configurations
             </summary>
         </member>
+        <member name="M:MeerkatUpdater.Core.Config.Manager.ConfigManager.#ctor(System.String)">
+            <summary>
+            Default DI constructor
+            </summary>
+            <param name="basePathForConfigurations"></param>
+        </member>
         <member name="M:MeerkatUpdater.Core.Config.Manager.ConfigManager.GetConfigurations">
             <summary>
             If the ExecutionConfiguration is not loaded try to load from file.
@@ -276,74 +282,9 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
-        <member name="P:MeerkatUpdater.Core.DefaultMessages.ArgumentExeptionForValidationDotNetCommand">
-            <summary>
-              Looks up a localized string similar to can&apos;t use arguments with a white spaces.
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.DefaultMessages.ErrorOnConvertOutDateOutPutIntoPayload">
-            <summary>
-              Looks up a localized string similar to Could not convert the outdated output into the payload to continue the analisys.
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.DefaultMessages.ErrorOnLoadConfigurationsFromFile">
-            <summary>
-              Looks up a localized string similar to Could not load the Yaml configurations into a valid config class.
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_BuildProject">
-            <summary>
-              Looks up a localized string similar to Building the solution.
-            </summary>
-        </member>
         <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_CleaningProject">
             <summary>
               Looks up a localized string similar to Cleaning the solution.
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_NoneAllowedVersionToUpdate">
-            <summary>
-              Looks up a localized string similar to None allowed versions to update was configurated.
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_NoneOutDatedPackages">
-            <summary>
-              Looks up a localized string similar to None project with outdated package was detected.
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_OutDateProject">
-            <summary>
-              Looks up a localized string similar to Seeking for outdated packages into the solution.
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_StartingExecutionUpdate">
-            <summary>
-              Looks up a localized string similar to Starting Execution to check and update packages.
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.DefaultMessages.LOG_StartingUpdatePackages">
-            <summary>
-              Looks up a localized string similar to Starting to Update the packages inside projects.
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.DefaultMessages.MaximumWaitNotEnougthDotNetCommand">
-            <summary>
-              Looks up a localized string similar to The Maximum Wait time should be gratan then Zero.
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.DefaultMessages.RequiredWorkDirectoryForBuildCommand">
-            <summary>
-              Looks up a localized string similar to The work directory is required for build command.
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.DefaultMessages.ValidateArgumentToWorkDotNetCommand">
-            <summary>
-              Looks up a localized string similar to should informe a directory to work.
-            </summary>
-        </member>
-        <member name="P:MeerkatUpdater.Core.DefaultMessages.ValidationOnStandardOutputsDotNetCommand">
-            <summary>
-              Looks up a localized string similar to Could not create readers for the standard Output or standard Error.
             </summary>
         </member>
         <member name="T:MeerkatUpdater.Core.DependencyInjection.ContainerManager">

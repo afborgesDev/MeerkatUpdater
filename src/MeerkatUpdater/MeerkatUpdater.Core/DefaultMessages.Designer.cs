@@ -30,6 +30,7 @@ namespace MeerkatUpdater.Core {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         internal DefaultMessages() {
         }
         
@@ -52,6 +53,7 @@ namespace MeerkatUpdater.Core {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
@@ -60,7 +62,8 @@ namespace MeerkatUpdater.Core {
                 resourceCulture = value;
             }
         }
-        
+
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         /// <summary>
         ///   Looks up a localized string similar to can&apos;t use arguments with a white spaces.
         /// </summary>
@@ -69,7 +72,8 @@ namespace MeerkatUpdater.Core {
                 return ResourceManager.GetString("ArgumentExeptionForValidationDotNetCommand", resourceCulture);
             }
         }
-        
+
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         /// <summary>
         ///   Looks up a localized string similar to Could not convert the outdated output into the payload to continue the analisys.
         /// </summary>
@@ -78,7 +82,8 @@ namespace MeerkatUpdater.Core {
                 return ResourceManager.GetString("ErrorOnConvertOutDateOutPutIntoPayload", resourceCulture);
             }
         }
-        
+
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         /// <summary>
         ///   Looks up a localized string similar to Could not load the Yaml configurations into a valid config class.
         /// </summary>
@@ -87,7 +92,8 @@ namespace MeerkatUpdater.Core {
                 return ResourceManager.GetString("ErrorOnLoadConfigurationsFromFile", resourceCulture);
             }
         }
-        
+
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         /// <summary>
         ///   Looks up a localized string similar to Building the solution.
         /// </summary>
@@ -105,7 +111,8 @@ namespace MeerkatUpdater.Core {
                 return ResourceManager.GetString("LOG_CleaningProject", resourceCulture);
             }
         }
-        
+
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         /// <summary>
         ///   Looks up a localized string similar to None allowed versions to update was configurated.
         /// </summary>
@@ -114,7 +121,8 @@ namespace MeerkatUpdater.Core {
                 return ResourceManager.GetString("LOG_NoneAllowedVersionToUpdate", resourceCulture);
             }
         }
-        
+
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         /// <summary>
         ///   Looks up a localized string similar to None project with outdated package was detected.
         /// </summary>
@@ -123,7 +131,8 @@ namespace MeerkatUpdater.Core {
                 return ResourceManager.GetString("LOG_NoneOutDatedPackages", resourceCulture);
             }
         }
-        
+
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         /// <summary>
         ///   Looks up a localized string similar to Seeking for outdated packages into the solution.
         /// </summary>
@@ -132,7 +141,8 @@ namespace MeerkatUpdater.Core {
                 return ResourceManager.GetString("LOG_OutDateProject", resourceCulture);
             }
         }
-        
+
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         /// <summary>
         ///   Looks up a localized string similar to Starting Execution to check and update packages.
         /// </summary>
@@ -141,7 +151,8 @@ namespace MeerkatUpdater.Core {
                 return ResourceManager.GetString("LOG_StartingExecutionUpdate", resourceCulture);
             }
         }
-        
+
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         /// <summary>
         ///   Looks up a localized string similar to Starting to Update the packages inside projects.
         /// </summary>
@@ -150,7 +161,8 @@ namespace MeerkatUpdater.Core {
                 return ResourceManager.GetString("LOG_StartingUpdatePackages", resourceCulture);
             }
         }
-        
+
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         /// <summary>
         ///   Looks up a localized string similar to The Maximum Wait time should be gratan then Zero.
         /// </summary>
@@ -159,7 +171,8 @@ namespace MeerkatUpdater.Core {
                 return ResourceManager.GetString("MaximumWaitNotEnougthDotNetCommand", resourceCulture);
             }
         }
-        
+
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         /// <summary>
         ///   Looks up a localized string similar to The work directory is required for build command.
         /// </summary>
@@ -168,7 +181,8 @@ namespace MeerkatUpdater.Core {
                 return ResourceManager.GetString("RequiredWorkDirectoryForBuildCommand", resourceCulture);
             }
         }
-        
+
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         /// <summary>
         ///   Looks up a localized string similar to should informe a directory to work.
         /// </summary>
@@ -177,7 +191,8 @@ namespace MeerkatUpdater.Core {
                 return ResourceManager.GetString("ValidateArgumentToWorkDotNetCommand", resourceCulture);
             }
         }
-        
+
+        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         /// <summary>
         ///   Looks up a localized string similar to Could not create readers for the standard Output or standard Error.
         /// </summary>

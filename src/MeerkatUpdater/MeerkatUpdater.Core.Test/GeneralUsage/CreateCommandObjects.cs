@@ -50,7 +50,7 @@ namespace MeerkatUpdater.Core.Test.GeneralUsage
 
         public static ILogger<T> GetMockedLoggerOf<T>() => new Mock<ILogger<T>>().Object;
 
-        private static string PrepareSolutionForCustomOutPutPath(string folderName)
+        public static string PrepareSolutionForCustomOutPutPath(string folderName)
         {
             SolutionForRunTests.ExtractPayloadForSolutionTest(folderName);
             return Path.Combine(folderName, SolutionForRunTests.EmbededPayloadFolderKey, SolutionForRunTests.PayloadSolutionFileName);

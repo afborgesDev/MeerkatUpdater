@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
 using MeerkatUpdater.Core.Config.DefaultServices;
+using MeerkatUpdater.Core.Config.Manager;
 using MeerkatUpdater.Core.Config.Model;
+using MeerkatUpdater.Core.Test.GeneralUsage;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
@@ -64,6 +66,47 @@ namespace MeerkatUpdater.Core.Test.TestsForConfig
             finally
             {
                 triggeredException.Should().NotBeNull();
+            }
+        }
+
+        [Fact]
+        public void ShoudlLoadConfigurationFromFileIfNull()
+        {
+            const string TestKey = nameof(ShoudlLoadConfigurationFromFileIfNull);
+            try
+            {
+                var folderName = CreatedFoldersManager.GenerateNewFolder(TestKey);
+                var outPut = CreateCommandObjects.PrepareSolutionForCustomOutPutPath(folderName);
+                var defaultConfig = DefaultYmlDeserializer.Deserialize<ExecutionConfigurations>(DefaultConfigYmlGenerator.GenerateDefaultConfigurations());
+                var configPath = Path.Combine(folderName, DefaultConfigYmlGenerator.DefaultConfigurationFileName);
+                DefaultConfigYmlGenerator.GenerateYmlFileForDefaultConfigurations(configPath);
+
+                var configManager = new ConfigManager(folderName + Path.DirectorySeparatorChar);
+                var configurations = configManager.GetConfigurations();
+                configurations.Should().NotBeNull();
+                configurations.Should().BeEquivalentTo(defaultConfig);
+            }
+            finally
+            {
+                CreatedFoldersManager.TierDownTest(TestKey);
+            }
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenTryToLoadFromNotFoundFile()
+        {
+            const string TestKey = nameof(ShouldThrowExceptionWhenTryToLoadFromNotFoundFile);
+            try
+            {
+                var folderName = CreatedFoldersManager.GenerateNewFolder(TestKey);
+                var outPut = CreateCommandObjects.PrepareSolutionForCustomOutPutPath(folderName);
+                var configManager = new ConfigManager(folderName);
+                Action getConfiguration = () => configManager.GetConfigurations();
+                getConfiguration.Should().Throw<FileNotFoundException>();
+            }
+            finally
+            {
+                CreatedFoldersManager.TierDownTest(TestKey);
             }
         }
 

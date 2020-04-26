@@ -15,6 +15,13 @@ namespace MeerkatUpdater.Core.Config.Manager
         private const string ExecutionConfigurationsFile = "MeerkatUpdater";
         private readonly TimeSpan DefaultMaximumWait = TimeSpan.FromSeconds(10);
         private readonly string[] SupportedExtensions = new string[2] { ".yaml", ".yml" };
+        private readonly string basePathForConfigurations;
+
+        /// <summary>
+        /// Default DI constructor
+        /// </summary>
+        /// <param name="basePathForConfigurations"></param>
+        public ConfigManager(string basePathForConfigurations = "") => this.basePathForConfigurations = basePathForConfigurations;
 
         private ExecutionConfigurations? ExecutionConfigurations { get; set; }
 
@@ -68,7 +75,7 @@ namespace MeerkatUpdater.Core.Config.Manager
         {
             foreach (var extension in SupportedExtensions)
             {
-                var fileName = $"{ExecutionConfigurationsFile}{extension}";
+                var fileName = $"{this.basePathForConfigurations}{ExecutionConfigurationsFile}{extension}";
                 if (File.Exists(fileName))
                     return File.ReadAllText(fileName);
             }

@@ -71,13 +71,13 @@ namespace MeerkatUpdater.Core.Config.DefaultServices
             if (!Directory.Exists(path))
                 return false;
 
-            if (!HasSlnFileOnFilePath(filePath))
+            if (!HasTheCorrenctExtension(filePath))
                 return false;
 
             return true;
         }
 
-        private static bool HasSlnFileOnFilePath(string filePath)
+        private static bool HasTheCorrenctExtension(string filePath)
         {
             var fileExtension = Path.GetExtension(filePath);
             return SupportedYamlExtensions.Any(x => x == fileExtension);
