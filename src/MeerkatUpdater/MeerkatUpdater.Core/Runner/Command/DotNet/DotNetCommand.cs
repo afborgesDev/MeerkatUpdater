@@ -2,7 +2,6 @@
 using MeerkatUpdater.Core.Runner.Command.Common;
 using MeerkatUpdater.Core.Runner.Helpers;
 using MeerkatUpdater.Core.Runner.Model.DotNet;
-using System;
 using System.Threading.Tasks;
 
 namespace MeerkatUpdater.Core.Runner.Command.DotNet
@@ -47,10 +46,9 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNet
                 return CreateAResultFromOutPutAndExitCode(outputExecution, errorExecution, Result.DefaultErrorExitCode);
             }
 
-            if (outputExecution.OutPutTask is null || errorExecution.OutPutTask is null)
-                throw new NullReferenceException(DefaultMessages.ValidationOnStandardOutputsDotNetCommand);
-
+#pragma warning disable CS8604 // Possible null reference argument.
             Task.WaitAll(outputExecution.OutPutTask, errorExecution.OutPutTask);
+#pragma warning restore CS8604 // Possible null reference argument.
             return CreateAResultFromOutPutAndExitCode(outputExecution, errorExecution, Result.DefaultSuccessExitCode);
         }
 

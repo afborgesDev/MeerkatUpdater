@@ -302,6 +302,18 @@
             <param name="serviceContainer"></param>
             <returns></returns>
         </member>
+        <member name="T:MeerkatUpdater.Core.Runner.Command.Common.ArgumentsValidation">
+            <summary>
+            Internal validation for arguments to be used when trigger a command
+            </summary>
+        </member>
+        <member name="M:MeerkatUpdater.Core.Runner.Command.Common.ArgumentsValidation.Validate(System.String[])">
+            <summary>
+            Validate if ther's any argument to be used on commands
+            </summary>
+            <param name="arguments"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
         <member name="T:MeerkatUpdater.Core.Runner.Command.DotNetBuild.Build">
             <summary>
             Wrap the dotnet build command

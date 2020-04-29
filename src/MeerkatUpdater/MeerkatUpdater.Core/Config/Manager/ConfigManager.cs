@@ -34,7 +34,9 @@ namespace MeerkatUpdater.Core.Config.Manager
             if (ExecutionConfigurations is null)
                 LoadConfigurationsFromFile();
 
-            return ExecutionConfigurations ?? throw new FileNotFoundException(DefaultMessages.ErrorOnLoadConfigurationsFromFile);
+#pragma warning disable CS8603 // Possible null reference return.
+            return ExecutionConfigurations;
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         /// <summary>
@@ -75,7 +77,7 @@ namespace MeerkatUpdater.Core.Config.Manager
         {
             foreach (var extension in SupportedExtensions)
             {
-                var fileName = $"{this.basePathForConfigurations}{ExecutionConfigurationsFile}{extension}";
+                var fileName = Path.Combine(this.basePathForConfigurations, $"{ExecutionConfigurationsFile}{extension}");
                 if (File.Exists(fileName))
                     return File.ReadAllText(fileName);
             }
