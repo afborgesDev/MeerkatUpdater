@@ -29,13 +29,22 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetClean
         /// </summary>
         public void Execute()
         {
-            var solutionPath = this.configManager.GetConfigurations().SolutionPath ?? string.Empty;
-            var outputPath = this.configManager.GetConfigurations().GetTargetOutPutPath();
-            this.logger.LogInformation(DefaultMessages.LOG_CleaningProject);
-            _ = this.dotNetCommand.RunCommand(DotnetCommandConst.CleanCommand,
-                                              solutionPath,
-                                              DotnetCommandConst.TargetOutPutParam,
-                                              outputPath);
+            var stopWatch = ValueStopwatch.StartNew();
+            CleanLogs.CleanStarted(this.logger);
+            try
+            {
+                var solutionPath = this.configManager.GetConfigurations().SolutionPath ?? string.Empty;
+                var outputPath = this.configManager.GetConfigurations().GetTargetOutPutPath();
+                this.logger.LogInformation(DefaultMessages.LOG_CleaningProject);
+                _ = this.dotNetCommand.RunCommand(DotnetCommandConst.CleanCommand,
+                                                  solutionPath,
+                                                  DotnetCommandConst.TargetOutPutParam,
+                                                  outputPath);
+            }
+            finally
+            {
+                CleanLogs.CleanEnded(this.logger, stopWatch);
+            }
         }
     }
 }

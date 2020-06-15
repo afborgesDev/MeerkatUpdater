@@ -42,5 +42,11 @@ namespace MeerkatUpdater.Core.Config.Model
         /// </summary>
         /// <returns></returns>
         public string GetTargetOutPutPath() => OutPutPath ?? string.Empty;
+
+        /// <summary>
+        /// Safe get solution path
+        /// </summary>
+        /// <returns></returns>
+        public string GetSolutionPath() => SolutionPath ?? string.Empty;
     }
 }
