@@ -29,5 +29,13 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater
                 CommandEventId.ProjectPathUpdaterDiscoverProjectPathEnded,
                 "Ended discover the project path: {formatted}"
             );
+
+        internal static void ProjectPathUpdaterStarted(ILogger logger) => _projectPathUpdaterStarted(logger, default);
+
+        internal static void ProjectPathUpdaterListStarted(ILogger logger) => _projectPathUpdaterListStarted(logger, default);
+
+        internal static void ProjectPathUpdaterListEnded(ILogger logger) => _projectPathUpdaterListEnded(logger, default);
+
+        internal static void ProjectPathUpdaterEnded(ILogger logger, ValueStopwatch valueStopwatch) => _projectPathUpdaterEnded(logger, valueStopwatch.GetStringFullTimeFormated(), default);
     }
 }

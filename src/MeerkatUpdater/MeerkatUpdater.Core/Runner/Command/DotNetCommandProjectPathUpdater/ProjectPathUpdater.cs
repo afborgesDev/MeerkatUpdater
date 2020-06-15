@@ -1,6 +1,7 @@
 ﻿using MeerkatUpdater.Core.Runner.Command.Common;
 using MeerkatUpdater.Core.Runner.Command.DotNet;
 using MeerkatUpdater.Core.Runner.Model.PackageInfo;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,12 +13,15 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater
     public class ProjectPathUpdater : IProjectPathUpdater
     {
         private readonly IDotNetCommand dotNetCommand;
+        private readonly ILogger logger;
 
         /// <summary>
         /// Default DI constructor
         /// </summary>
         /// <param name="dotNetCommand"></param>
-        public ProjectPathUpdater(IDotNetCommand dotNetCommand) => this.dotNetCommand = dotNetCommand;
+        /// <param name="logger"></param>
+        public ProjectPathUpdater(IDotNetCommand dotNetCommand, ILogger logger) =>
+            (this.dotNetCommand, this.logger) = (dotNetCommand, logger);
 
         /// <summary>
         /// Based on the solution update the path for each project
@@ -28,16 +32,27 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetCommandProjectPathUpdater
             if (projects is null || projects.Count == 0)
                 return;
 
-            var result = this.dotNetCommand.RunCommand(DotnetCommandConst.SolutionCommand, DotnetCommandConst.ListCommand);
-            if (!result.IsSucceed()) return;
+            ProjectPathUpdaterLogs.ProjectPathUpdaterStarted(this.logger);
+            var stopWatch = ValueStopwatch.StartNew();
+            try
+            {
+                ProjectPathUpdaterLogs.ProjectPathUpdaterListStarted(this.logger);
+                var result = this.dotNetCommand.RunCommand(DotnetCommandConst.SolutionCommand, DotnetCommandConst.ListCommand);
+                if (!result.IsSucceed()) return;
 
-            var projectPaths = Scraper.ProjectPathUpdater.DiscoverProjectPath(result.Output);
+                var projectPaths = Scraper.ProjectPathUpdater.DiscoverProjectPath(result.Output);
 
-            if (projectPaths is null || projectPaths.Count == 0)
-                return;
+                ProjectPathUpdaterLogs.ProjectPathUpdaterListEnded(this.logger);
+                if (projectPaths is null || projectPaths.Count == 0)
+                    return;
 
-            foreach (var project in projects)
-                project.Path = projectPaths.First(p => p.Key == project.Name).Value;
+                foreach (var project in projects)
+                    project.Path = projectPaths.First(p => p.Key == project.Name).Value;
+            }
+            finally
+            {
+                ProjectPathUpdaterLogs.ProjectPathUpdaterEnded(this.logger, stopWatch);
+            }
         }
     }
 }
