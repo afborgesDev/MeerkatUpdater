@@ -1,5 +1,5 @@
-﻿using McMaster.Extensions.CommandLineUtils;
-using MeerkatUpdater.Core.Runner.Command.Common;
+﻿using MeerkatUpdater.Core.Runner.Command.Common;
+using MeerkatUpdater.Core.Util;
 using System;
 using System.Diagnostics;
 using System.IO;
