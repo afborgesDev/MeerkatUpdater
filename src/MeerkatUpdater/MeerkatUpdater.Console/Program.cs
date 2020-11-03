@@ -1,5 +1,8 @@
-﻿using MeerkatUpdater.Console.Options;
+﻿using MeerkatUpdater.Console.CliConfiguration;
+using MeerkatUpdater.Console.Execution;
+using MeerkatUpdater.Console.Options;
 using MeerkatUpdater.Console.Options.InputOptions;
+using MeerkatUpdater.Core.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -20,7 +23,8 @@ namespace MeerkatUpdater.Console
                 {
                     host.ConfigureServices(services =>
                     {
-                        //Place holder for service injection
+                        services.AddMeerkatUpdater();
+                        services.AddScoped<IUpdateExecution, UpdateExecution>();
                     });
                 })
                 .UseDefaults()
@@ -29,13 +33,10 @@ namespace MeerkatUpdater.Console
 
         private static CommandLineBuilder BuildCommandLine()
         {
-            var root = new RootCommand()
-            {
-                YmlConfigInputOption.YmlConfigOption,
-                SolutionPathInputOption.SolutionPathConfigOption
-            };
+            var root = RootCommandBuilder.Build();
 
-            root.Handler = CommandHandler.Create((YmlConfigInputOption ymlConfigInputOption, SolutionPathInputOption solutionPathInputOption, IHost host) =>
+            root.Handler = CommandHandler.Create((YmlConfigInputOption ymlConfigInputOption, SolutionPathInputOption solutionPathInputOption,
+                NugetSourcesOption nugetSourcesOption, AllowedVersionToUpdateOption allowedVersionToUpdateOption, IHost host) =>
             {
                 var serviceProvider = host.Services;
                 var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
@@ -43,6 +44,8 @@ namespace MeerkatUpdater.Console
                 var config = ExecutionOptionsBuilder.StartBuild(loggerFactory.CreateLogger<ExecutionOptionsBuilder>())
                                                     .WithYmlConfig(ymlConfigInputOption)
                                                     .WithSolutionPathConfig(solutionPathInputOption)
+                                                    .WithNugetSourcesConfig(nugetSourcesOption)
+                                                    .WithAllowedVersionToUpdateConfig(allowedVersionToUpdateOption)
                                                     .Build();
 
                 Run(config, serviceProvider);
@@ -53,6 +56,8 @@ namespace MeerkatUpdater.Console
 
         private static void Run(ExecutionOptions? executionOptions, IServiceProvider serviceProvider)
         {
+            var updateExecution = serviceProvider.GetRequiredService<IUpdateExecution>();
+            updateExecution.Execute(executionOptions);
         }
     }
 }
