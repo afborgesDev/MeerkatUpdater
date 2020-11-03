@@ -126,6 +126,9 @@
   <data name="ErrorOnLoadConfigurationsFromFile" xml:space="preserve">
     <value>Could not load the Yaml configurations into a valid config class</value>
   </data>
+  <data name="InvalidOperationForValueStopwatch" xml:space="preserve">
+    <value>An uninitialized, or 'default', ValueStopwatch cannot be used to get elapsed time.</value>
+  </data>
   <data name="LOG_BuildProject" xml:space="preserve">
     <value>Building the solution</value>
   </data>

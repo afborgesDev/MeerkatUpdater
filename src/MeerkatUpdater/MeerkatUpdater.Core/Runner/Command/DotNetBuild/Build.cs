@@ -34,15 +34,24 @@ namespace MeerkatUpdater.Core.Runner.Command.DotNetBuild
         /// <exception cref="NullReferenceException"></exception>
         public bool Execute()
         {
-            var solutionPath = this.configManager.GetConfigurations().SolutionPath ?? string.Empty;
-            var outputPath = this.configManager.GetConfigurations().GetTargetOutPutPath();
-            this.logger.LogInformation(DefaultMessages.LOG_BuildProject);
-            var result = this.dotNetCommand.RunCommand(DotnetCommandConst.BuildCommand,
-                                                       solutionPath,
-                                                       DotnetCommandConst.TargetOutPutParam,
-                                                       outputPath);
+            var stopWatch = ValueStopwatch.StartNew();
+            BuildLogs.BuildStarted(this.logger);
+            try
+            {
+                var solutionPath = this.configManager.GetConfigurations().GetSolutionPath();
+                var outputPath = this.configManager.GetConfigurations().GetTargetOutPutPath();
+                this.logger.LogInformation(DefaultMessages.LOG_BuildProject);
+                var result = this.dotNetCommand.RunCommand(DotnetCommandConst.BuildCommand,
+                                                           solutionPath,
+                                                           DotnetCommandConst.TargetOutPutParam,
+                                                           outputPath);
 
-            return CleanOrBuildSuccess.IsSucceed(result.Output);
+                return CleanOrBuildSuccess.IsSucceed(result.Output);
+            }
+            finally
+            {
+                BuildLogs.BuildEnded(this.logger, stopWatch);
+            }
         }
     }
 }

@@ -43,6 +43,7 @@ namespace MeerkatUpdater.Core.DependencyInjection
             serviceContainer.AddScoped<IOutDated, OutDated>();
             serviceContainer.AddScoped<IProjectPathUpdater, ProjectPathUpdater>();
             serviceContainer.AddScoped<IUpdate, Update>();
+            serviceContainer.AddScoped<IUpdateProcessPreparation, UpdateProcessPreparation>();
             serviceContainer.AddScoped<IUpdateProcess, UpdateProcess>();
         }
 
